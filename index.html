@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Md Dilshadur Rahman — Visualization &amp; HCI Researcher</title>
+  <meta name="description"
+    content="PhD Candidate in Computer Science at the University of Utah. Research in Data Visualization, HCI, and Computing Education." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F8F7F3;
+      --bg-alt: #F0EDE6;
+      --bg-card: #FFFFFF;
+      --text: #1C1C20;
+      --text-muted: #5A5A67;
+      --text-light: #909099;
+      --accent: #2B5D8F;
+      --accent-deep: #1E4470;
+      --accent-soft: #E8F1FB;
+      --accent-warm: #B85C20;
+      --border: #DDD9CF;
+      --border-light: #E9E6DE;
+      --radius: 5px;
+      --nav-h: 60px;
+      --max-w: 880px;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --ease: 0.22s ease;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+
+    a:hover {
+      color: var(--accent-deep);
+    }
+
+    /* SKIP NAV */
+    .skip-nav {
+      position: absolute;
+      left: -9999px;
+      top: 0.75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      z-index: 9999;
+    }
+
+    .skip-nav:focus {
+      left: 1rem;
+      outline: 3px solid var(--accent-deep);
+      outline-offset: 2px;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* NAV */
+    #nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(248, 247, 243, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-name:hover {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.1rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.79rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.58rem;
+      border-radius: var(--radius);
+      transition: background var(--ease), color var(--ease);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* LAYOUT */
+    .section {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* HERO */
+    #hero {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4.5rem 2rem 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 210px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: 2.75rem;
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-affil {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      margin-bottom: 1.6rem;
+      line-height: 1.5;
+    }
+
+    .hero-affil a {
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(90, 90, 103, 0.3);
+    }
+
+    .hero-affil a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .hero-bio {
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: var(--text);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-bio strong {
+      font-weight: 600;
+    }
+
+    .hero-bio a {
+      color: var(--accent);
+      border-bottom: 1px solid rgba(43, 93, 143, 0.22);
+    }
+
+    .hero-bio a:hover {
+      color: var(--accent-deep);
+      border-bottom-color: var(--accent-deep);
+    }
+
+    .hero-links {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.44rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.84rem;
+      font-weight: 500;
+      transition: all var(--ease);
+      white-space: nowrap;
+      line-height: 1.4;
+      min-height: 2.75rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1.5px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-deep);
+      border-color: var(--accent-deep);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .hero-photo {
+      width: 188px;
+      height: 188px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--border);
+      background: var(--bg-alt);
+      flex-shrink: 0;
+    }
+
+    .hero-photo-init {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #C4D7EC 0%, #A4BBDA 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--accent-deep);
+      letter-spacing: -0.02em;
+    }
+
+    /* HERO SIDEBAR */
+    .hero-sidebar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-sidebar-links {
+      margin-top: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.38rem;
+      width: 100%;
+    }
+
+    .hero-sidebar-links .btn {
+      justify-content: center;
+    }
+
+    .btn-email {
+      white-space: normal;
+      text-align: center;
+      overflow-wrap: anywhere;
+      line-height: 1.35;
+      font-size: 0.76rem;
+    }
+
+    /* JOB NOTICE */
+    .job-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem 2.5rem;
+    }
+
+    .job-inner {
+      background: var(--accent-soft);
+      border: 1px solid rgba(43, 93, 143, 0.18);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 0.78rem 1.1rem;
+      font-size: 0.875rem;
+      color: var(--accent-deep);
+      line-height: 1.5;
+    }
+
+    .job-inner strong {
+      font-weight: 600;
+    }
+
+    /* EDUCATION */
+    .edu-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .edu-item {
+      display: grid;
+      grid-template-columns: 138px 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-light);
+      align-items: start;
+    }
+
+    .edu-item:last-child {
+      border-bottom: none;
+    }
+
+    .edu-period {
+      font-size: 0.79rem;
+      color: var(--text-light);
+      font-weight: 500;
+      padding-top: 2px;
+      line-height: 1.4;
+    }
+
+    .edu-degree {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.12rem;
+    }
+
+    .edu-school {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .edu-meta {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.1rem;
+    }
+
+    /* UPDATES */
+    #updates-bg {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .updates-list {
+      list-style: none;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .updates-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .updates-list::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .update-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.78rem 1.1rem;
+      border-bottom: 1px solid var(--border-light);
+      align-items: flex-start;
+      transition: background var(--ease);
+    }
+
+    .update-item:last-child {
+      border-bottom: none;
+    }
+
+    .update-item:hover {
+      background: var(--bg);
+    }
+
+    .update-date {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      min-width: 58px;
+      padding-top: 2px;
+    }
+
+    .update-text {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .update-text a {
+      color: var(--accent);
+      border-bottom: 1px solid rgba(43, 93, 143, 0.18);
+    }
+
+    .update-text a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    /* PUBLICATIONS */
+    .pub-filter-row {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+
+    .filter-btn {
+      padding: 0.28rem 0.78rem;
+      border-radius: 20px;
+      font-size: 0.77rem;
+      font-weight: 500;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--ease);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .filter-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .pub-note {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      background: var(--bg-alt);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 0.65rem 1rem;
+      margin-bottom: 1.75rem;
+      line-height: 1.55;
+    }
+
+    .pub-group {
+      margin-bottom: 2.25rem;
+    }
+
+    .pub-group-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 0;
+    }
+
+    .pub-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-light);
+      align-items: flex-start;
+    }
+
+    .pub-item:last-child {
+      border-bottom: none;
+    }
+
+    .pub-year {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-light);
+      min-width: 34px;
+      text-align: right;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .pub-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pub-title {
+      font-family: var(--serif);
+      font-size: 1.04rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text);
+      margin-bottom: 0.28rem;
+    }
+
+    .pub-authors {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-bottom: 0.28rem;
+      line-height: 1.5;
+    }
+
+    .pub-authors strong {
+      color: var(--accent-deep);
+      font-weight: 600;
+    }
+
+    .pub-venue {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      line-height: 1.45;
+      font-style: italic;
+    }
+
+    .pub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.32rem;
+      align-items: center;
+    }
+
+    /* Venue badge — identical style for all venues */
+    .bv {
+      font-size: 0.69rem;
+      font-weight: 600;
+      padding: 0.17rem 0.48rem;
+      border-radius: 3px;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      border: 1px solid rgba(43, 93, 143, 0.18);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* Status badge */
+    .bs {
+      font-size: 0.69rem;
+      font-weight: 600;
+      padding: 0.17rem 0.48rem;
+      border-radius: 3px;
+      background: #FDF5EE;
+      color: var(--accent-warm);
+      border: 1px solid rgba(184, 92, 32, 0.2);
+      white-space: nowrap;
+    }
+
+    /* Accepted badge */
+    .ba {
+      font-size: 0.69rem;
+      font-weight: 600;
+      padding: 0.17rem 0.48rem;
+      border-radius: 3px;
+      background: #EDF5EC;
+      color: #3A6B38;
+      border: 1px solid rgba(58, 107, 56, 0.2);
+      white-space: nowrap;
+    }
+
+    /* Link pill */
+    .pl {
+      font-size: 0.74rem;
+      font-weight: 500;
+      padding: 0.17rem 0.52rem;
+      border-radius: 3px;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28rem;
+      white-space: nowrap;
+      transition: all var(--ease);
+    }
+
+    .pl:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(43, 93, 143, 0.25);
+    }
+
+    .pl svg {
+      flex-shrink: 0;
+    }
+
+    /* TEACHING */
+    .teach-sub {
+      font-size: 0.69rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 1.25rem;
+      margin-top: 2.25rem;
+    }
+
+    .teach-sub:first-child {
+      margin-top: 0;
+    }
+
+    .teach-block {
+      margin-bottom: 1.6rem;
+    }
+
+    .teach-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .teach-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .teach-role {
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .teach-period {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    .teach-inst {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 0.38rem;
+    }
+
+    .teach-courses {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.12rem;
+    }
+
+    .teach-courses li {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      padding-left: 0.9rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .teach-courses li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-light);
+      font-size: 0.78rem;
+    }
+
+    /* TALKS */
+    .talks-list {
+      list-style: none;
+    }
+
+    .talk-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border-light);
+      align-items: flex-start;
+    }
+
+    .talk-item:last-child {
+      border-bottom: none;
+    }
+
+    .talk-year {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-light);
+      min-width: 34px;
+      text-align: right;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .talk-body {
+      flex: 1;
+    }
+
+    .talk-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 0.2rem;
+    }
+
+    .talk-venue {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .talk-type {
+      font-size: 0.69rem;
+      font-weight: 600;
+      padding: 0.15rem 0.44rem;
+      border-radius: 3px;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      border: 1px solid rgba(43, 93, 143, 0.15);
+      letter-spacing: 0.02em;
+      display: inline-block;
+      margin-right: 0.4rem;
+      white-space: nowrap;
+    }
+
+    /* SERVICE */
+    .service-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .service-group-title {
+      font-size: 0.69rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 0.7rem;
+    }
+
+    .svc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .svc-list li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.42rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .svc-list li:last-child {
+      border-bottom: none;
+    }
+
+    .svc-year {
+      font-size: 0.73rem;
+      color: var(--text-light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* AWARDS */
+    .award-list {
+      list-style: none;
+    }
+
+    .award-item {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+      padding: 0.58rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .award-item:last-child {
+      border-bottom: none;
+    }
+
+    .award-year {
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text-light);
+      min-width: 34px;
+      flex-shrink: 0;
+    }
+
+    .award-text {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* CONTACT */
+    #contact-bg {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .contact-intro {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .contact-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--accent-soft);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .contact-label {
+      font-size: 0.71rem;
+      font-weight: 600;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .contact-value {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text-light);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--text-light);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* RESPONSIVE — tablet */
+    @media (max-width: 760px) {
+      #hero {
+        gap: 2rem;
+        padding: 3.5rem 1.5rem 3rem;
+      }
+
+      .section {
+        padding: 3rem 1.5rem;
+      }
+
+      .job-wrap {
+        padding: 0 1.5rem 2rem;
+      }
+    }
+
+    /* RESPONSIVE — mobile */
+    @media (max-width: 620px) {
+      #hero {
+        grid-template-columns: 1fr;
+        padding: 2.5rem 1.25rem 2.5rem;
+        gap: 1.75rem;
+      }
+
+      .hero-sidebar {
+        order: -1;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 1.25rem;
+      }
+
+      .hero-photo {
+        width: 110px;
+        height: 110px;
+        flex-shrink: 0;
+      }
+
+      .hero-sidebar-links {
+        margin-top: 0;
+        flex: 1;
+      }
+
+      .hero-name {
+        font-size: 2.1rem;
+      }
+
+      .section {
+        padding: 2.5rem 1.25rem;
+      }
+
+      .job-wrap {
+        padding: 0 1.25rem 1.75rem;
+      }
+
+      .service-cols {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .edu-item {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        gap: 0.1rem;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-inner {
+        position: relative;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* RESPONSIVE — very small */
+    @media (max-width: 400px) {
+      .hero-sidebar {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-sidebar-links {
+        margin-top: 0.75rem;
+      }
+
+      .hero-photo {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-nav" href="#hero">Skip to main content</a>
+
+  <!-- NAV -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-name" href="#hero">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true" style="flex-shrink:0;">
+          <!-- face -->
+          <circle cx="14" cy="14" r="13" fill="#FFD8B1" stroke="var(--border)" stroke-width="1" />
+          <!-- hair -->
+          <path d="M3.5 11 C4 5, 24 5, 24.5 11" fill="#3B2A1A" stroke="none" />
+          <ellipse cx="14" cy="5.5" rx="7" ry="4" fill="#3B2A1A" />
+          <!-- eyes -->
+          <circle cx="10.5" cy="13" r="1.4" fill="#2B2B2B" />
+          <circle cx="17.5" cy="13" r="1.4" fill="#2B2B2B" />
+          <!-- eye shine -->
+          <circle cx="11.1" cy="12.4" r="0.45" fill="#fff" />
+          <circle cx="18.1" cy="12.4" r="0.45" fill="#fff" />
+          <!-- smile -->
+          <path d="M10.5 17.5 Q14 20.5 17.5 17.5" stroke="#2B2B2B" stroke-width="1.3" stroke-linecap="round"
+            fill="none" />
+          <!-- glasses -->
+          <rect x="8.5" y="11.2" width="4.2" height="3.2" rx="1.4" stroke="var(--accent)" stroke-width="1.1"
+            fill="none" />
+          <rect x="15.3" y="11.2" width="4.2" height="3.2" rx="1.4" stroke="var(--accent)" stroke-width="1.1"
+            fill="none" />
+          <line x1="12.7" y1="12.8" x2="15.3" y2="12.8" stroke="var(--accent)" stroke-width="1.1" />
+        </svg>
+        Md Dilshadur Rahman
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#updates">Updates</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#talks">Talks</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Introduction">
+    <div class="reveal">
+      <h1 class="hero-name">Md Dilshadur Rahman</h1>
+      <p class="hero-affil">
+        Graduate Research Assistant &middot;
+        <a href="https://www.sci.utah.edu/" target="_blank" rel="noopener">Scientific Computing and Imaging Institute
+          (SCI)</a>,
+        <a href="https://www.cs.utah.edu/" target="_blank" rel="noopener">University of Utah</a>
+      </p>
+      <p class="hero-bio">
+        My research spans <strong>Data Visualization (VIS)</strong>, <strong>Human–Computer Interaction (HCI)</strong>,
+        and <strong>Computing Education</strong>. I study how people create and use visualizations in practice, and I
+        translate these insights into frameworks and tools that are grounded in empirical study and informed by
+        user-centered design. Embedded within authoring workflows, these frameworks and tools aim to reduce effort,
+        improve consistency, expand expressive power, and directly support how people analyze, communicate, and make
+        data-driven decisions. I have also developed educational tools currently used by hundreds of students at major
+        U.S. universities.
+      </p>
+      <p class="hero-bio">
+        My broader research goal is to understand how people use visualization and interactive intelligent interfaces
+        for data analysis, comprehension, and communication in interdisciplinary settings, and to build user-centered
+        tools that make these tasks more efficient and reliable.
+      </p>
+      <p class="hero-bio">
+        I have also taught Computer Science in a variety of roles at multiple institutions in Bangladesh and the
+        United States, and I thoroughly enjoy teaching.
+      </p>
+    </div>
+    <div class="hero-sidebar reveal" style="transition-delay:.12s">
+      <div class="hero-photo">
+        <img src="headshot.jpg" alt="Md Dilshadur Rahman" width="210" height="210"
+          style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <div class="hero-sidebar-links">
+        <a href="https://dilshadur-cv.netlify.app" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+          Curriculum Vitae
+        </a>
+        <a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&hl=en" target="_blank" rel="noopener"
+          class="btn btn-outline">Google Scholar</a>
+        <a href="https://github.com/dilshadurrahman58" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+        <a href="https://www.linkedin.com/in/dilshadur/" target="_blank" rel="noopener"
+          class="btn btn-outline">LinkedIn</a>
+        <a href="mailto:dilshadur@sci.utah.edu" class="btn btn-outline btn-email">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true" style="flex-shrink:0;">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,12 2,6" />
+          </svg>
+          dilshadur@sci.utah.edu
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="job-wrap">
+    <div class="job-inner reveal"><strong>Currently on the job market</strong> — seeking postdoctoral, faculty, and
+      research positions in academia and industry.</div>
+  </div>
+
+  <hr class="hr" />
+
+  <!-- UPDATES -->
+  <div id="updates-bg">
+    <section id="updates" class="section" aria-label="News and updates">
+      <div class="reveal">
+        <h2 class="section-title">Updates</h2>
+        <ul class="updates-list">
+          <li class="update-item"><span class="update-date">Feb 2026</span><span class="update-text">Paper accepted in
+              <a href="https://dl.acm.org/journal/toce" target="_blank" rel="noopener">ACM Transactions on Computing
+                Education</a> (ACM TOCE).</span></li>
+          <li class="update-item"><span class="update-date">Feb 2026</span><span class="update-text">Invited talk at Oak
+              Ridge National Laboratory, Tennessee — <em>"Design Space and Tooling for Annotations in
+                Visualizations."</em></span></li>
+          <li class="update-item"><span class="update-date">2025</span><span class="update-text">Paper accepted in <a
+                href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945" target="_blank" rel="noopener">IEEE
+                Transactions on Visualization and Computer Graphics</a> (IEEE TVCG).</span></li>
+          <li class="update-item"><span class="update-date">2025</span><span class="update-text">Passed PhD Oral
+              Qualifying Exam at the University of Utah — officially a PhD candidate!</span></li>
+          <li class="update-item"><span class="update-date">2025</span><span class="update-text">Paper accepted at <a
+                href="https://ieeevis.org/year/2025/welcome" target="_blank" rel="noopener">IEEE VIS 2025</a>.</span>
+          </li>
+          <li class="update-item"><span class="update-date">2025</span><span class="update-text">Serving as co-organizer
+              for the <a href="https://www.viscomm.io/" target="_blank" rel="noopener">VisComm Workshop at IEEE VIS
+                2025</a>.</span></li>
+          <li class="update-item"><span class="update-date">2025</span><span class="update-text">Serving on the <a
+                href="https://ieeevis.org/year/2025/info/committees/program-committees" target="_blank"
+                rel="noopener">IEEE VIS 2025 Short Papers Program Committee</a>.</span></li>
+          <li class="update-item"><span class="update-date">2025</span><span class="update-text">Passed PhD Written
+              Qualifying Exam at the University of Utah.</span></li>
+          <li class="update-item"><span class="update-date">2025</span><span class="update-text">Reviewer for talk
+              submissions at <a href="https://www.outlierconf.com/" target="_blank" rel="noopener">Outlier Conference
+                2025</a>.</span></li>
+          <li class="update-item"><span class="update-date">2025</span><span class="update-text">Judge for the <a
+                href="https://visstory.github.io/" target="_blank" rel="noopener">Visual Data Storytelling Contest</a>
+              at IEEE PacificVis 2025.</span></li>
+          <li class="update-item"><span class="update-date">2024</span><span class="update-text">Paper accepted at <a
+                href="https://ieeevis.org/" target="_blank" rel="noopener">IEEE VIS 2024</a>; published in <a
+                href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945" target="_blank" rel="noopener">IEEE
+                TVCG</a>. [22% acceptance rate]</span></li>
+          <li class="update-item"><span class="update-date">2024</span><span class="update-text">Posters accepted at
+              IEEE VIS 2024, Tampa Bay, Florida.</span></li>
+          <li class="update-item"><span class="update-date">2024</span><span class="update-text">Paper accepted at <a
+                href="https://beliv-workshop.github.io/" target="_blank" rel="noopener">BELIV 2024</a>, co-located with
+              IEEE VIS, Tampa Bay, FL.</span></li>
+          <li class="update-item"><span class="update-date">2024</span><span class="update-text">Paper accepted at ISVC
+              2024, Lake Tahoe, Nevada.</span></li>
+          <li class="update-item"><span class="update-date">2024</span><span class="update-text">Paper accepted in <a
+                href="https://journals.sagepub.com/home/ivi" target="_blank" rel="noopener">Information Visualization
+                Journal</a>.</span></li>
+          <li class="update-item"><span class="update-date">2024</span><span class="update-text">Co-organized the <a
+                href="https://ieee-eduvis.github.io/2024.html" target="_blank" rel="noopener">EduVis Workshop at IEEE
+                VIS 2024</a>, Tampa Bay, FL.</span></li>
+          <li class="update-item"><span class="update-date">2024</span><span class="update-text">Paper accepted at IEEE
+              EDUCON 2024, Kos Island, Greece.</span></li>
+          <li class="update-item"><span class="update-date">2023</span><span class="update-text">Doctoral Colloquium
+              Fellowship + NSF Travel Award (~$4,000), IEEE VIS 2023, Melbourne, Australia.</span></li>
+          <li class="update-item"><span class="update-date">2023</span><span class="update-text">Paper accepted at
+              VisComm Workshop, IEEE VIS 2023, Melbourne, Australia.</span></li>
+          <li class="update-item"><span class="update-date">2022</span><span class="update-text">Travel award (~$500),
+              Associated Students of the University of Utah, for IEEE VIS 2022.</span></li>
+          <li class="update-item"><span class="update-date">2022</span><span class="update-text">Paper and poster
+              accepted at IEEE VIS 2022, Oklahoma City, USA.</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <hr class="hr" />
+
+  <!-- PUBLICATIONS -->
+  <section id="publications" class="section" aria-label="Publications">
+    <div class="reveal">
+      <h2 class="section-title">Publications</h2>
+      <p class="pub-note"><strong>IEEE TVCG</strong> is the top journal for visualization research. <strong>IEEE
+          VIS</strong> is the top conference for visualization research (~25% acceptance rate).</p>
+
+      <div class="pub-filter-row" role="group" aria-label="Filter by publication type">
+        <button class="filter-btn active" onclick="filterPubs('all',this)">All</button>
+        <button class="filter-btn" onclick="filterPubs('journal',this)">Journals</button>
+        <button class="filter-btn" onclick="filterPubs('conference',this)">Conferences &amp; Workshops</button>
+        <button class="filter-btn" onclick="filterPubs('poster',this)">Posters</button>
+        <button class="filter-btn" onclick="filterPubs('review',this)">Under Review</button>
+      </div>
+
+      <!-- JOURNALS -->
+      <div class="pub-group" data-type="journal">
+        <div class="pub-group-title">Journal Articles</div>
+
+        <div class="pub-item">
+          <div class="pub-year">2026</div>
+          <div class="pub-body">
+            <div class="pub-title">Designing for Engagement: A Comparison of Canvas and a Visual Peer Review Dashboard
+            </div>
+            <div class="pub-authors">Alon Friedman, <strong>Md Dilshadur Rahman</strong>, Ly Dinh, Paul Rosen</div>
+            <div class="pub-venue">ACM Transactions on Computing Education (ACM TOCE)</div>
+            <div class="pub-links"><span class="bv">ACM TOCE</span><span class="ba">Accepted; to appear</span></div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2025</div>
+          <div class="pub-body">
+            <div class="pub-title">A Qualitative Analysis of Common Practices in Annotations: A Taxonomy and Design
+              Space</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri, Bhavana Doppalapudi,
+              Danielle Szafir, Paul Rosen</div>
+            <div class="pub-venue">IEEE Transactions on Visualization and Computer Graphics (IEEE TVCG), 2025. Proc. of
+              IEEE VIS 2024. [22% acceptance rate]</div>
+            <div class="pub-links">
+              <span class="bv">IEEE TVCG</span>
+              <span class="bv">IEEE VIS 2024</span>
+              <a class="pl" href="https://doi.org/10.1109/TVCG.2024.3456359" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+              <a class="pl" href="https://annotation-design-space.netlify.app/" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>Interactive Website</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2025</div>
+          <div class="pub-body">
+            <div class="pub-title">A Survey on Annotations in Information Visualization: Empirical Studies,
+              Applications, and Challenges</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Bhavana Doppalapudi, Ghulam Jilani Quadri,
+              Paul Rosen</div>
+            <div class="pub-venue">IEEE Transactions on Visualization and Computer Graphics (IEEE TVCG), 2025.</div>
+            <div class="pub-links">
+              <span class="bv">IEEE TVCG</span>
+              <a class="pl" href="https://doi.org/10.1109/TVCG.2025.3600957" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+              <a class="pl" href="https://annotation-survey.netlify.app/" target="_blank" rel="noopener"><svg width="11"
+                  height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>Interactive Website</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div class="pub-body">
+            <div class="pub-title">Exploring Annotation Taxonomy in Grouped Bar Charts: A Qualitative Classroom Study
+            </div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri, Danielle Szafir, Paul
+              Rosen</div>
+            <div class="pub-venue">Information Visualization, 2024.</div>
+            <div class="pub-links">
+              <span class="bv">Information Visualization</span>
+              <a class="pl" href="https://doi.org/10.1177/14738716241270247" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONFERENCES -->
+      <div class="pub-group" data-type="conference">
+        <div class="pub-group-title">Conferences &amp; Workshops</div>
+
+        <div class="pub-item">
+          <div class="pub-year">2025</div>
+          <div class="pub-body">
+            <div class="pub-title">AnnoGram: An Annotative Extension of the Grammar of Graphics</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Md Rahat-uz-Zaman, Andrew McNutt, Paul Rosen
+            </div>
+            <div class="pub-venue">IEEE Visualization and Visual Analytics Conference (IEEE VIS), 2025. To appear.</div>
+            <div class="pub-links">
+              <span class="bv">IEEE VIS 2025</span>
+              <a class="pl" href="https://doi.org/10.48550/arXiv.2507.04236" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>arXiv</a>
+              <a class="pl" href="https://annotation-grammar.netlify.app/" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>Interactive Website</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div class="pub-body">
+            <div class="pub-title">Seeing is Believing: The Role of Scatterplots in Recommender System Trust and
+              Decision-Making</div>
+            <div class="pub-authors">Bhavana Doppalapudi, <strong>Md Dilshadur Rahman</strong>, Paul Rosen</div>
+            <div class="pub-venue">International Symposium on Visual Computing (ISVC), 2024.</div>
+            <div class="pub-links">
+              <span class="bv">ISVC 2024</span>
+              <a class="pl" href="https://doi.org/10.1007/978-3-031-77392-1_32" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div class="pub-body">
+            <div class="pub-title">Striking the Right Balance: Systematic Assessment of Evaluation Method Distribution
+              Across Contribution Types</div>
+            <div class="pub-authors">Feng Lin, Arran Zeyu Wang, <strong>Md Dilshadur Rahman</strong>, Danielle Szafir,
+              Ghulam Jilani Quadri</div>
+            <div class="pub-venue">IEEE Evaluation and BEyond — Methodological Approaches for Visualization (BELIV),
+              co-located with IEEE VIS, 2024.</div>
+            <div class="pub-links">
+              <span class="bv">BELIV @ IEEE VIS 2024</span>
+              <a class="pl" href="https://doi.org/10.1109/BELIV64461.2024.00020" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div class="pub-body">
+            <div class="pub-title">EduVis: 2nd IEEE VIS Workshop on Visualization Education, Literacy, and Activities
+            </div>
+            <div class="pub-authors">Fateme Rajabiyazdi, Mandy Keck, Christina Stoiber, Jonathan Roberts, Hari
+              Subramonyam, Lily Ge, Magdalena Boucher, Benjamin Bach, Lonni Besancon, Mathis Brossier, Anders Ynnerman,
+              Konrad Schonborn, Alon Friedman, Bo Pei, Ly Dinh, Kevin Hawley, Julia Woodward, Paul Rosen, <strong>Md
+                Dilshadur Rahman</strong>, Yan Chen</div>
+            <div class="pub-venue">IEEE Visualization and Visual Analytics Conference (IEEE VIS), 2024.</div>
+            <div class="pub-links">
+              <span class="bv">EduVis @ IEEE VIS 2024</span>
+              <a class="pl" href="https://ieee-eduvis.github.io/2024.html" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>Workshop Page</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div class="pub-body">
+            <div class="pub-title">Enhancing Student Feedback Using Predictive Models in Visual Literacy Courses</div>
+            <div class="pub-authors">Alon Friedman, Kevin Hawley, Paul Rosen, <strong>Md Dilshadur Rahman</strong></div>
+            <div class="pub-venue">IEEE Global Engineering Education Conference (IEEE EDUCON), Kos Island, Greece, 2024.
+            </div>
+            <div class="pub-links">
+              <span class="bv">IEEE EDUCON 2024</span>
+              <a class="pl" href="https://doi.org/10.1109/EDUCON60312.2024.10578647" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2023</div>
+          <div class="pub-body">
+            <div class="pub-title">Exploring Annotation Strategies in Professional Visualizations: Insights from
+              Prominent US News Portals</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri, Paul Rosen</div>
+            <div class="pub-venue">IEEE VIS Workshop on Visualization for Communication (VisComm), Melbourne, Australia,
+              2023.</div>
+            <div class="pub-links">
+              <span class="bv">VisComm @ IEEE VIS 2023</span>
+              <a class="pl" href="https://doi.org/10.31219/osf.io/fd8zj" target="_blank" rel="noopener"><svg width="11"
+                  height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+              <a class="pl" href="https://tinyurl.com/viscomm2023" target="_blank" rel="noopener"><svg width="11"
+                  height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>Workshop Page</a>
+              <a class="pl" href="https://dilshadurrahman58.github.io/annotation-strategies/" target="_blank"
+                rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>Interactive Website</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2022</div>
+          <div class="pub-body">
+            <div class="pub-title">A Qualitative Evaluation and Taxonomy of Student Annotations on Bar Charts</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri, Paul Rosen</div>
+            <div class="pub-venue">IEEE VIS Workshop on Visualization for Communication (VisComm), Oklahoma City, USA,
+              2022.</div>
+            <div class="pub-links">
+              <span class="bv">VisComm @ IEEE VIS 2022</span>
+              <a class="pl" href="https://doi.org/10.31219/osf.io/e5vfy" target="_blank" rel="noopener"><svg width="11"
+                  height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+              <a class="pl" href="https://tinyurl.com/viscomm2022" target="_blank" rel="noopener"><svg width="11"
+                  height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>Workshop Page</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2019</div>
+          <div class="pub-body">
+            <div class="pub-title">A Framework for Implementing Join Operation Between Multiple MOLAPs</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, MAA Hossain, KMA Hasan</div>
+            <div class="pub-venue">IEEE International Conference on Electrical, Computer and Communication Engineering
+              (IEEE ECCE), 2019.</div>
+            <div class="pub-links">
+              <span class="bv">IEEE ECCE 2019</span>
+              <a class="pl" href="https://doi.org/10.1109/ECACE.2019.8679373" target="_blank" rel="noopener"><svg
+                  width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>DOI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POSTERS -->
+      <div class="pub-group" data-type="poster">
+        <div class="pub-group-title">Poster Presentations</div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div class="pub-body">
+            <div class="pub-title">How Do Professionals Use Annotations in Visualizations?</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri, Paul Rosen</div>
+            <div class="pub-venue">IEEE VIS Poster Proceedings, Tampa Bay, Florida, 2024.</div>
+            <div class="pub-links">
+              <span class="bv">IEEE VIS 2024</span>
+              <a class="pl" href="https://content-staging.ieeevis.org/year/2024/poster_v-vis-posters-1067.html"
+                target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>Poster Page</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div class="pub-body">
+            <div class="pub-title">Seeing is Believing: The Role Recommender System Accuracy Plays on Trust in
+              Scatterplots</div>
+            <div class="pub-authors">Bhavana Doppalapudi, <strong>Md Dilshadur Rahman</strong>, Paul Rosen</div>
+            <div class="pub-venue">IEEE VIS Poster Proceedings, Tampa Bay, Florida, 2024.</div>
+            <div class="pub-links">
+              <span class="bv">IEEE VIS 2024</span>
+              <a class="pl" href="https://content-staging.ieeevis.org/year/2024/poster_v-vis-posters-1089.html"
+                target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>Poster Page</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2022</div>
+          <div class="pub-body">
+            <div class="pub-title">A Qualitative Evaluation and Taxonomy of Bar Chart Annotations</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri, Paul Rosen</div>
+            <div class="pub-venue">IEEE VIS Poster Proceedings, Oklahoma City, USA, 2022.</div>
+            <div class="pub-links">
+              <span class="bv">IEEE VIS 2022</span>
+              <a class="pl" href="https://virtual.ieeevis.org/year/2022/poster_v-vis-posters-1047.html" target="_blank"
+                rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>Poster Page</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UNDER REVIEW -->
+      <div class="pub-group" data-type="review">
+        <div class="pub-group-title">Under Review &amp; In Preparation</div>
+
+        <div class="pub-item">
+          <div class="pub-year">2026</div>
+          <div class="pub-body">
+            <div class="pub-title">Designing Annotations in Visualization: Considerations from Visualization
+              Practitioners and Educators</div>
+            <div class="pub-authors"><strong>Md Dilshadur Rahman</strong>, Devin Lange, Ghulam Jilani Quadri, Paul Rosen
+            </div>
+            <div class="pub-venue">Under Review — Eurographics/IEEE VGTC Conference on Visualization (EuroVis), 2026.
+            </div>
+            <div class="pub-links">
+              <span class="bs">Under Review</span>
+              <a class="pl" href="https://vis-annotations.github.io/annotation-design/" target="_blank"
+                rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>Interactive Website</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2026</div>
+          <div class="pub-body">
+            <div class="pub-title">Interfaces for Judgment: Scaffolding Evaluative Reasoning in Interaction</div>
+            <div class="pub-authors">Alon Friedman, <strong>Md Dilshadur Rahman</strong>, Ly Dinh, Julia Woodward, Bo
+              Pei, Paul Rosen</div>
+            <div class="pub-venue">Under Review — ACM Transactions on Computer-Human Interaction (ACM TOCHI), 2026.
+            </div>
+            <div class="pub-links"><span class="bs">Under Review</span></div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2026</div>
+          <div class="pub-body">
+            <div class="pub-title">Shaping Evaluative Analysis Through Data Visualization Design: A Study of Visual
+              Nudges</div>
+            <div class="pub-authors">Alon Friedman, <strong>Md Dilshadur Rahman</strong>, Paul Rosen</div>
+            <div class="pub-venue">In preparation, 2026.</div>
+            <div class="pub-links"><span class="bs">In Preparation</span></div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2026</div>
+          <div class="pub-body">
+            <div class="pub-title">Influence of Visualizing Class Balance Information on Recommendations' Trust and
+              Decision-Making</div>
+            <div class="pub-authors">Bhavana Doppalapudi, <strong>Md Dilshadur Rahman</strong>, Paul Rosen</div>
+            <div class="pub-venue">In preparation, 2026.</div>
+            <div class="pub-links"><span class="bs">In Preparation</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- TEACHING -->
+  <section id="teaching" class="section" aria-label="Teaching experience">
+    <div class="reveal">
+      <h2 class="section-title">Teaching</h2>
+
+      <div class="teach-sub">Direct Classroom Teaching</div>
+
+      <div class="teach-block">
+        <div class="teach-header"><span class="teach-role">Lecturer</span><span class="teach-period">Sept 2017 – Aug
+            2019</span></div>
+        <div class="teach-inst">Daffodil International University, Computer Science &amp; Engineering, Bangladesh</div>
+        <ul class="teach-courses">
+          <li>Discrete Mathematics (Spring 2019, Fall 2018, Spring 2018)</li>
+          <li>Data Structures (Spring 2019, Summer 2019, Fall 2018, Summer 2018)</li>
+          <li>Programming and Problem Solving (Fall 2018, Fall 2017)</li>
+          <li>Systems Analysis and Design (Fall 2018, Fall 2017)</li>
+          <li>Operating Systems (Spring 2018)</li>
+          <li>Data Communications (Summer 2018, Spring 2018, Fall 2017)</li>
+        </ul>
+      </div>
+
+      <div class="teach-block">
+        <div class="teach-header"><span class="teach-role">Lecturer</span><span class="teach-period">May 2017 – Sept
+            2017</span></div>
+        <div class="teach-inst">University of Information Technology and Sciences, Computer Science &amp; Engineering,
+          Bangladesh</div>
+        <ul class="teach-courses">
+          <li>Microprocessors (Summer 2017)</li>
+          <li>Computer Architecture (Summer 2017)</li>
+          <li>Database System Management (Summer 2017)</li>
+        </ul>
+      </div>
+
+      <div class="teach-block">
+        <div class="teach-header"><span class="teach-role">Instructor of Record</span><span class="teach-period">May
+            2020 – Aug 2020</span></div>
+        <div class="teach-inst">University of Arizona, Computer Science</div>
+        <ul class="teach-courses">
+          <li>Introduction to Computer Programming II (Summer 2020)</li>
+        </ul>
+      </div>
+
+      <div class="teach-block">
+        <div class="teach-header"><span class="teach-role">Graduate Instructor</span><span class="teach-period">Aug 2021
+            – May 2022</span></div>
+        <div class="teach-inst">University of South Florida, Computer Science &amp; Engineering</div>
+        <ul class="teach-courses">
+          <li>IT Computer Networking Lab (Fall 2021)</li>
+          <li>Computer Architecture Lab (Spring 2022)</li>
+        </ul>
+      </div>
+
+      <div class="teach-sub">Teaching Support Roles</div>
+
+      <div class="teach-block">
+        <div class="teach-header"><span class="teach-role">Graduate Teaching Assistant</span><span
+            class="teach-period">Jan 2021 – Aug 2021</span></div>
+        <div class="teach-inst">University of Arizona, Computer Science</div>
+        <ul class="teach-courses">
+          <li>Data Visualization (Spring 2021)</li>
+          <li>Introduction to Computer Programming II (Summer 2021)</li>
+        </ul>
+      </div>
+
+      <div class="teach-block">
+        <div class="teach-header"><span class="teach-role">Graduate Teaching Assistant</span><span
+            class="teach-period">Aug 2021 – May 2022</span></div>
+        <div class="teach-inst">University of South Florida, Computer Science &amp; Engineering</div>
+        <ul class="teach-courses">
+          <li>Interactive Data Visualization (Spring 2022)</li>
+          <li>IT Security Systems (Fall 2021)</li>
+        </ul>
+      </div>
+
+      <div class="teach-block">
+        <div class="teach-header"><span class="teach-role">Teaching Mentee</span><span class="teach-period">Jan 2023 –
+            May 2023</span></div>
+        <div class="teach-inst">University of Utah, Kahlert School of Computing</div>
+        <ul class="teach-courses">
+          <li>Computational Geometry (Spring 2023)</li>
+        </ul>
+      </div>
+
+      <div class="teach-block">
+        <div class="teach-header"><span class="teach-role">Graduate Teaching Assistant</span><span
+            class="teach-period">Aug 2024 – Dec 2024</span></div>
+        <div class="teach-inst">University of Utah, Kahlert School of Computing</div>
+        <ul class="teach-courses">
+          <li>Visualization for Data Science (Fall 2024)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- TALKS -->
+  <section id="talks" class="section" aria-label="Talks and presentations">
+    <div class="reveal">
+      <h2 class="section-title">Talks</h2>
+      <ul class="talks-list">
+        <li class="talk-item">
+          <div class="talk-year">2026</div>
+          <div class="talk-body">
+            <div class="talk-title">Design Space and Tooling for Annotations in Visualizations</div>
+            <div class="talk-venue"><span class="talk-type">Invited Talk</span>Oak Ridge National Laboratory, Tennessee,
+              USA</div>
+          </div>
+        </li>
+        <li class="talk-item">
+          <div class="talk-year">2024</div>
+          <div class="talk-body">
+            <div class="talk-title">A Qualitative Analysis of Common Practices in Annotations: A Taxonomy and Design
+              Space</div>
+            <div class="talk-venue"><span class="talk-type">Conference Talk</span>IEEE VIS, Virtual</div>
+          </div>
+        </li>
+        <li class="talk-item">
+          <div class="talk-year">2024</div>
+          <div class="talk-body">
+            <div class="talk-title">A Qualitative Analysis of Common Practices in Annotations: A Taxonomy and Design
+              Space</div>
+            <div class="talk-venue"><span class="talk-type">Seminar Talk</span>Visualization Seminar, SCI Institute,
+              University of Utah, USA</div>
+          </div>
+        </li>
+        <li class="talk-item">
+          <div class="talk-year">2023</div>
+          <div class="talk-body">
+            <div class="talk-title">Understanding the Design Space of Annotations in Visualizations</div>
+            <div class="talk-venue"><span class="talk-type">Invited Talk</span>Doctoral Colloquium, IEEE VIS, Melbourne,
+              Australia</div>
+          </div>
+        </li>
+        <li class="talk-item">
+          <div class="talk-year">2023</div>
+          <div class="talk-body">
+            <div class="talk-title">How Do People Comprehend Annotations in Visualizations?</div>
+            <div class="talk-venue"><span class="talk-type">Conference Talk</span>Vis X Vision Workshop, IEEE VIS,
+              Melbourne, Australia</div>
+          </div>
+        </li>
+        <li class="talk-item">
+          <div class="talk-year">2023</div>
+          <div class="talk-body">
+            <div class="talk-title">Exploring Annotation Strategies in Professional Visualizations: Insights from
+              Prominent US News Portals</div>
+            <div class="talk-venue"><span class="talk-type">Conference Talk</span>VisComm Workshop, IEEE VIS, Melbourne,
+              Australia</div>
+          </div>
+        </li>
+        <li class="talk-item">
+          <div class="talk-year">2022</div>
+          <div class="talk-body">
+            <div class="talk-title">A Qualitative Evaluation and Taxonomy of Student Annotations on Bar Charts</div>
+            <div class="talk-venue"><span class="talk-type">Conference Talk</span>VisComm Workshop, IEEE VIS, Oklahoma
+              City, USA</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- SERVICE -->
+  <section id="service" class="section" aria-label="Service and awards">
+    <div class="reveal">
+      <h2 class="section-title">Service &amp; Awards</h2>
+
+      <div class="service-cols">
+        <div>
+          <div class="service-group-title">Conference &amp; Workshop Organization</div>
+          <ul class="svc-list">
+            <li><span>Technical Program Committee Member, IEEE EDUCON</span><span class="svc-year">2025, 2026</span>
+            </li>
+            <li><span>Program Committee Member (Short Papers), IEEE VIS</span><span class="svc-year">2025</span></li>
+            <li><span>Co-Organizer, VisComm Workshop, IEEE VIS</span><span class="svc-year">2025</span></li>
+            <li><span>Committee Member, Talk Submissions, Outlier Conference</span><span class="svc-year">2025</span>
+            </li>
+            <li><span>Committee Member (Judge), Visual Data Storytelling Contest, IEEE PacificVis</span><span
+                class="svc-year">2025</span></li>
+            <li><span>Co-Organizer, EduVis Workshop, IEEE VIS</span><span class="svc-year">2024</span></li>
+            <li><span>Student Volunteer, IEEE VIS</span><span class="svc-year">2024</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="service-group-title">Peer Reviewing</div>
+          <ul class="svc-list">
+            <li><span>ACM SIGCHI Conference on Human Factors in Computing Systems (ACM CHI)</span><span
+                class="svc-year">2025, 2026</span></li>
+            <li><span>ACM Intelligent User Interfaces (ACM IUI) — Posters</span><span class="svc-year">2026</span></li>
+            <li><span>IEEE Visualization and Visual Analytics (IEEE VIS)</span><span class="svc-year">2025</span></li>
+            <li><span>ACM Designing Interactive Systems (ACM DIS)</span><span class="svc-year">2025</span></li>
+            <li><span>Eurographics Conference on Visualization (EuroVis)</span><span class="svc-year">2025</span></li>
+            <li><span>International Journal of Human-Computer Interaction (IJHCI)</span><span
+                class="svc-year">2025</span></li>
+            <li><span>IEEE Pacific Visualization Symposium (IEEE PacificVis)</span><span class="svc-year">2025</span>
+            </li>
+            <li><span>ACM Conversational User Interfaces (ACM CUI)</span><span class="svc-year">2025</span></li>
+            <li><span>IEEE EDUCON</span><span class="svc-year">2025, 2026</span></li>
+            <li><span>Australian Conference on Human–Computer Interaction (OzCHI)</span><span class="svc-year">2024,
+                2025</span></li>
+            <li><span>IEEE Transactions on Visualization and Computer Graphics (IEEE TVCG)</span><span
+                class="svc-year">2024</span></li>
+            <li><span>ACM Conference on CSCW and Social Computing (ACM CSCW)</span><span class="svc-year">2024</span>
+            </li>
+            <li><span>IEEE VIS Workshop on Visualization Education, Literacy, and Activities (EduVis)</span><span
+                class="svc-year">2024</span></li>
+            <li><span>IEEE International Conference on Electrical, Computer and Communication Engineering (IEEE
+                ECCE)</span><span class="svc-year">2024</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-group-title" style="margin-bottom:.7rem">Honors &amp; Awards</div>
+      <ul class="award-list">
+        <li class="award-item"><span class="award-year">2026</span><span class="award-text">Special recognition for
+            outstanding reviews (Posters), ACM CHI</span></li>
+        <li class="award-item"><span class="award-year">2025</span><span class="award-text">Special recognition for
+            outstanding reviews (Late Breaking Works), ACM CHI</span></li>
+        <li class="award-item"><span class="award-year">2023</span><span class="award-text">Doctoral Colloquium
+            Fellowship, IEEE VIS</span></li>
+        <li class="award-item"><span class="award-year">2023</span><span class="award-text">~$4,000 NSF travel funding
+            for Doctoral Colloquium, IEEE VIS</span></li>
+        <li class="award-item"><span class="award-year">2022</span><span class="award-text">~$500 travel award from
+            Associated Students of the University of Utah for IEEE VIS</span></li>
+        <li class="award-item"><span class="award-year">2021</span><span class="award-text">~$1,500 NSF travel funding
+            for Topological Data Visualization workshop, University of Iowa</span></li>
+        <li class="award-item"><span class="award-year">2017</span><span class="award-text">University Dean's Award,
+            Khulna University of Engineering and Technology (2016–17)</span></li>
+        <li class="award-item"><span class="award-year">2016</span><span class="award-text">University Dean's Award,
+            Khulna University of Engineering and Technology (2015–16)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- CONTACT -->
+  <div id="contact-bg">
+    <section id="contact" class="section" aria-label="Contact">
+      <div class="reveal">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-grid">
+          <p class="contact-intro">I am actively looking for postdoctoral, faculty, and research positions. I'm also
+            happy to discuss research collaborations, speaking engagements, or reviewing opportunities. Feel free to
+            reach out.</p>
+          <div class="contact-rows">
+            <div class="contact-row">
+              <div class="contact-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,12 2,6" />
+                </svg></div>
+              <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value"><a href="mailto:dilshadur@sci.utah.edu">dilshadur@sci.utah.edu</a></div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg></div>
+              <div>
+                <div class="contact-label">Office</div>
+                <div class="contact-value">WEB 3760, 72 Central Campus Dr<br>Salt Lake City, UT 84112</div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg></div>
+              <div>
+                <div class="contact-label">Web</div>
+                <div class="contact-value"><a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&hl=en"
+                    target="_blank" rel="noopener">Google Scholar</a>&ensp;·&ensp;<a
+                    href="https://www.linkedin.com/in/dilshadur/" target="_blank"
+                    rel="noopener">LinkedIn</a>&ensp;·&ensp;<a href="https://github.com/dilshadurrahman58"
+                    target="_blank" rel="noopener">GitHub</a></div>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.37a16 16 0 0 0 6.29 6.29l1.48-1.48a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg></div>
+              <div>
+                <div class="contact-label">Phone</div>
+                <div class="contact-value"><a href="tel:+15204488557">+1 (520) 448-8557</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 Md Dilshadur Rahman &nbsp;&middot;&nbsp; PhD Candidate, University of Utah</p>
+      <ul class="footer-links">
+        <li><a href="https://dilshadur-cv.netlify.app" target="_blank" rel="noopener">CV</a></li>
+        <li><a href="mailto:dilshadur@sci.utah.edu">Email</a></li>
+        <li><a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&hl=en" target="_blank"
+            rel="noopener">Scholar</a></li>
+        <li><a href="https://github.com/dilshadurrahman58" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/dilshadur/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+      });
+    }, 40);
+
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const secObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('section[id]').forEach(s => secObs.observe(s));
+
+    function toggleNav(btn) {
+      const links = document.getElementById('nav-links');
+      btn.setAttribute('aria-expanded', String(links.classList.toggle('open')));
+    }
+
+    function filterPubs(type, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.pub-group').forEach(g => g.classList.toggle('hidden', type !== 'all' && g.dataset.type !== type));
+    }
+  </script>
+</body>
+
+</html>
