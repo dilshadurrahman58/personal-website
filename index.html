@@ -28,7 +28,7 @@
       --border-light: #E9E6DE;
       --radius: 5px;
       --nav-h: 60px;
-      --max-w: 880px;
+      --max-w: 1280px;
       --serif: 'Crimson Pro', Georgia, serif;
       --sans: 'DM Sans', system-ui, sans-serif;
       --ease: 0.22s ease;
@@ -210,7 +210,7 @@
     #hero {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 4.5rem 2rem 3.5rem;
+      padding: 2.75rem 2rem 3rem;
       display: grid;
       grid-template-columns: 1fr 210px;
       gap: 3rem;
@@ -244,10 +244,10 @@
     }
 
     .hero-bio {
-      font-size: 0.97rem;
-      line-height: 1.78;
+      font-size: 0.95rem;
+      line-height: 1.65;
       color: var(--text);
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.6rem;
     }
 
     .hero-bio strong {
@@ -360,25 +360,50 @@
       font-size: 0.76rem;
     }
 
-    /* JOB NOTICE */
-    .job-wrap {
+    /* JOB BAR */
+    .job-bar {
+      background: var(--accent-soft);
+      border-bottom: 1px solid rgba(43, 93, 143, 0.18);
+    }
+
+    .job-bar-inner {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 2rem 2.5rem;
-    }
-
-    .job-inner {
-      background: var(--accent-soft);
-      border: 1px solid rgba(43, 93, 143, 0.18);
-      border-left: 3px solid var(--accent);
-      border-radius: var(--radius);
-      padding: 0.78rem 1.1rem;
-      font-size: 0.875rem;
+      padding: 0.55rem 2rem;
+      font-size: 0.85rem;
       color: var(--accent-deep);
       line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
-    .job-inner strong {
+    .job-bar-inner::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.75);
+      }
+    }
+
+    .job-bar-inner strong {
       font-weight: 600;
     }
 
@@ -494,6 +519,62 @@
 
     .update-text a:hover {
       border-bottom-color: var(--accent);
+    }
+
+    /* HERO BODY — bio + updates side by side */
+    .hero-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    /* HERO INLINE UPDATES */
+    .hero-updates-wrap {
+      margin-top: 0;
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .hero-updates-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-updates-list {
+      list-style: none;
+      max-height: 380px;
+      overflow-y: auto;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+    }
+
+    .hero-updates-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .hero-updates-list::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .hero-updates-list .update-item {
+      padding: 0.5rem 0.85rem;
+    }
+
+    .hero-updates-list .update-date {
+      min-width: 50px;
+      font-size: 0.66rem;
+    }
+
+    .hero-updates-list .update-text {
+      font-size: 0.82rem;
+      line-height: 1.45;
     }
 
     /* PUBLICATIONS */
@@ -987,18 +1068,22 @@
     }
 
     /* RESPONSIVE — tablet */
-    @media (max-width: 760px) {
+    @media (max-width: 860px) {
       #hero {
         gap: 2rem;
-        padding: 3.5rem 1.5rem 3rem;
+        padding: 2rem 1.5rem 2.5rem;
+      }
+
+      .hero-body {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-updates-list {
+        max-height: 280px;
       }
 
       .section {
         padding: 3rem 1.5rem;
-      }
-
-      .job-wrap {
-        padding: 0 1.5rem 2rem;
       }
     }
 
@@ -1034,10 +1119,6 @@
 
       .section {
         padding: 2.5rem 1.25rem;
-      }
-
-      .job-wrap {
-        padding: 0 1.25rem 1.75rem;
       }
 
       .service-cols {
@@ -1147,7 +1228,6 @@
       </button>
       <ul class="nav-links" id="nav-links">
         <li><a href="#about">About</a></li>
-        <li><a href="#updates">Updates</a></li>
         <li><a href="#publications">Publications</a></li>
         <li><a href="#teaching">Teaching</a></li>
         <li><a href="#talks">Talks</a></li>
@@ -1156,6 +1236,13 @@
       </ul>
     </div>
   </nav>
+
+  <!-- JOB BAR -->
+  <div class="job-bar">
+    <div class="job-bar-inner"><strong>I am currently on the job market</strong> &mdash; seeking postdoctoral, faculty,
+      and
+      research positions in academia and industry.</div>
+  </div>
 
   <!-- HERO -->
   <section id="hero" aria-label="Introduction">
@@ -1167,24 +1254,88 @@
           (SCI)</a>,
         <a href="https://www.cs.utah.edu/" target="_blank" rel="noopener">University of Utah</a>
       </p>
-      <p class="hero-bio">
-        My research spans <strong>Data Visualization (VIS)</strong>, <strong>Human–Computer Interaction (HCI)</strong>,
-        and <strong>Computing Education</strong>. I study how people create and use visualizations in practice, and I
-        translate these insights into frameworks and tools that are grounded in empirical study and informed by
-        user-centered design. Embedded within authoring workflows, these frameworks and tools aim to reduce effort,
-        improve consistency, expand expressive power, and directly support how people analyze, communicate, and make
-        data-driven decisions. I have also developed educational tools currently used by hundreds of students at major
-        U.S. universities.
-      </p>
-      <p class="hero-bio">
-        My broader research goal is to understand how people use visualization and interactive intelligent interfaces
-        for data analysis, comprehension, and communication in interdisciplinary settings, and to build user-centered
-        tools that make these tasks more efficient and reliable.
-      </p>
-      <p class="hero-bio">
-        I have also taught Computer Science in a variety of roles at multiple institutions in Bangladesh and the
-        United States, and I thoroughly enjoy teaching.
-      </p>
+      <div class="hero-body">
+        <div class="hero-bio-col">
+          <p class="hero-bio">
+            My research spans <strong>Data Visualization (VIS)</strong>, <strong>Human–Computer Interaction
+              (HCI)</strong>,
+            and <strong>Computing Education</strong>. I study how people create and use visualizations in practice, and
+            I
+            translate these insights into frameworks and tools that are grounded in empirical study and informed by
+            user-centered design. Embedded within authoring workflows, these frameworks and tools aim to reduce effort,
+            improve consistency, expand expressive power, and directly support how people analyze, communicate, and make
+            data-driven decisions. I have also developed educational tools currently used by hundreds of students at
+            major
+            U.S. universities.
+          </p>
+          <p class="hero-bio">
+            My broader research goal is to understand how people use visualization and interactive intelligent
+            interfaces
+            for data analysis, comprehension, and communication in interdisciplinary settings, and to build
+            user-centered
+            tools that make these tasks more efficient and reliable.
+          </p>
+          <p class="hero-bio">
+            I have also taught Computer Science in a variety of roles at multiple institutions in Bangladesh and the
+            United States, and I thoroughly enjoy teaching.
+          </p>
+        </div>
+
+        <div class="hero-updates-wrap" id="updates">
+          <div class="hero-updates-label">Recent Updates</div>
+          <ul class="hero-updates-list">
+            <li class="update-item"><span class="update-date">Feb 2026</span><span class="update-text">Paper accepted in
+                <a href="https://dl.acm.org/journal/toce" target="_blank" rel="noopener">ACM Transactions on Computing
+                  Education</a> (ACM TOCE).</span></li>
+            <li class="update-item"><span class="update-date">Feb 2026</span><span class="update-text">Invited talk at
+                Oak
+                Ridge National Laboratory, Tennessee — <em>"Design Space and Tooling for Annotations in
+                  Visualizations."</em></span></li>
+            <li class="update-item"><span class="update-date">2025</span><span class="update-text">Paper accepted in <a
+                  href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945" target="_blank"
+                  rel="noopener">IEEE
+                  Transactions on Visualization and Computer Graphics</a> (IEEE TVCG).</span></li>
+            <li class="update-item"><span class="update-date">2025</span><span class="update-text">Passed PhD Oral
+                Qualifying Exam at the University of Utah — officially a PhD candidate!</span></li>
+            <li class="update-item"><span class="update-date">2025</span><span class="update-text">Paper accepted at <a
+                  href="https://ieeevis.org/year/2025/welcome" target="_blank" rel="noopener">IEEE VIS 2025</a>.</span>
+            </li>
+            <li class="update-item"><span class="update-date">2025</span><span class="update-text">Serving as
+                co-organizer
+                for the <a href="https://www.viscomm.io/" target="_blank" rel="noopener">VisComm Workshop at IEEE VIS
+                  2025</a>.</span></li>
+            <li class="update-item"><span class="update-date">2025</span><span class="update-text">Serving on the <a
+                  href="https://ieeevis.org/year/2025/info/committees/program-committees" target="_blank"
+                  rel="noopener">IEEE VIS 2025 Short Papers Program Committee</a>.</span></li>
+            <li class="update-item"><span class="update-date">2025</span><span class="update-text">Passed PhD Written
+                Qualifying Exam at the University of Utah.</span></li>
+            <li class="update-item"><span class="update-date">2025</span><span class="update-text">Reviewer for talk
+                submissions at <a href="https://www.outlierconf.com/" target="_blank" rel="noopener">Outlier Conference
+                  2025</a>.</span></li>
+            <li class="update-item"><span class="update-date">2025</span><span class="update-text">Judge for the <a
+                  href="https://visstory.github.io/" target="_blank" rel="noopener">Visual Data Storytelling Contest</a>
+                at IEEE PacificVis 2025.</span></li>
+            <li class="update-item"><span class="update-date">2024</span><span class="update-text">Paper accepted at <a
+                  href="https://ieeevis.org/" target="_blank" rel="noopener">IEEE VIS 2024</a>; published in <a
+                  href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945" target="_blank"
+                  rel="noopener">IEEE
+                  TVCG</a>. [22% acceptance rate]</span></li>
+            <li class="update-item"><span class="update-date">2024</span><span class="update-text">Posters accepted at
+                IEEE VIS 2024, Tampa Bay, Florida.</span></li>
+            <li class="update-item"><span class="update-date">2024</span><span class="update-text">Paper accepted at <a
+                  href="https://beliv-workshop.github.io/" target="_blank" rel="noopener">BELIV 2024</a>, co-located
+                with
+                IEEE VIS, Tampa Bay, FL.</span></li>
+            <li class="update-item"><span class="update-date">2024</span><span class="update-text">Co-organized the <a
+                  href="https://ieee-eduvis.github.io/2024.html" target="_blank" rel="noopener">EduVis Workshop at IEEE
+                  VIS 2024</a>, Tampa Bay, FL.</span></li>
+            <li class="update-item"><span class="update-date">2023</span><span class="update-text">Doctoral Colloquium
+                Fellowship + NSF Travel Award (~$4,000), IEEE VIS 2023, Melbourne, Australia.</span></li>
+            <li class="update-item"><span class="update-date">2022</span><span class="update-text">Paper and poster
+                accepted at IEEE VIS 2022, Oklahoma City, USA.</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="hero-sidebar reveal" style="transition-delay:.12s">
       <div class="hero-photo">
@@ -1202,7 +1353,6 @@
         </a>
         <a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&hl=en" target="_blank" rel="noopener"
           class="btn btn-outline">Google Scholar</a>
-        <a href="https://github.com/dilshadurrahman58" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
         <a href="https://www.linkedin.com/in/dilshadur/" target="_blank" rel="noopener"
           class="btn btn-outline">LinkedIn</a>
         <a href="mailto:dilshadur@sci.utah.edu" class="btn btn-outline btn-email">
@@ -1217,16 +1367,11 @@
     </div>
   </section>
 
-  <div class="job-wrap">
-    <div class="job-inner reveal"><strong>Currently on the job market</strong> — seeking postdoctoral, faculty, and
-      research positions in academia and industry.</div>
-  </div>
-
   <hr class="hr" />
 
-  <!-- UPDATES -->
-  <div id="updates-bg">
-    <section id="updates" class="section" aria-label="News and updates">
+  <!-- UPDATES MOVED TO HERO -->
+  <div id="updates-bg" style="display:none">
+    <section class="section" aria-label="News and updates">
       <div class="reveal">
         <h2 class="section-title">Updates</h2>
         <ul class="updates-list">
@@ -1289,8 +1434,6 @@
       </div>
     </section>
   </div>
-
-  <hr class="hr" />
 
   <!-- PUBLICATIONS -->
   <section id="publications" class="section" aria-label="Publications">
