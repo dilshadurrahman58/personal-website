@@ -3007,20 +3007,53 @@
     if ('ResizeObserver' in window) {
       new ResizeObserver(syncNavHeight).observe(navEl);
     }
-    function updateActiveNav() {
-      navEl.classList.toggle('scrolled', window.scrollY > 10);
-      const sections = Array.from(document.querySelectorAll('section[id]'));
-      const threshold = window.scrollY + Math.round(window.innerHeight * 0.3);
-      let current = sections[0]?.id || '';
-      for (const s of sections) {
-        if (s.offsetTop <= threshold) current = s.id;
-      }
+    function getNavOffset() {
+      const navOffset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-offset'));
+      return Number.isFinite(navOffset) ? navOffset : navEl.getBoundingClientRect().height;
+    }
+    function getDocumentTop(el) {
+      return window.scrollY + el.getBoundingClientRect().top;
+    }
+    function revealSection(section) {
+      section.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('visible');
+        revObs.unobserve(el);
+      });
+    }
+    function setActiveNav(currentId) {
       navLinks.forEach(a => {
-        const isActive = a.getAttribute('href') === '#' + current;
+        const isActive = a.getAttribute('href') === '#' + currentId;
         a.classList.toggle('active', isActive);
         if (isActive) a.setAttribute('aria-current', 'page');
         else a.removeAttribute('aria-current');
       });
+    }
+    function scrollToSection(section, behavior = 'smooth') {
+      revealSection(section);
+      const targetTop = Math.max(getDocumentTop(section) - getNavOffset() - 14, 0);
+      window.scrollTo({ top: targetTop, behavior });
+      setActiveNav(section.id);
+    }
+    function navigateToHash(hash, behavior = 'smooth') {
+      if (!hash || !hash.startsWith('#')) return false;
+      const target = document.querySelector(hash);
+      if (!target || !target.matches('section[id]')) return false;
+      scrollToSection(target, behavior);
+      return true;
+    }
+    function updateActiveNav() {
+      navEl.classList.toggle('scrolled', window.scrollY > 10);
+      const sections = Array.from(document.querySelectorAll('section[id]'));
+      const threshold = window.scrollY + getNavOffset() + 24;
+      let current = sections[0]?.id || '';
+      for (const s of sections) {
+        if (getDocumentTop(s) <= threshold) current = s.id;
+        else break;
+      }
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        current = sections[sections.length - 1]?.id || current;
+      }
+      setActiveNav(current);
     }
     window.addEventListener('scroll', updateActiveNav, { passive: true });
     updateActiveNav();
@@ -3035,8 +3068,19 @@
       const links = document.getElementById('nav-links');
       btn.setAttribute('aria-expanded', String(links.classList.toggle('open')));
     }
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.addEventListener('click', closeNav);
+    document.querySelectorAll('.nav-links a, .nav-name').forEach(a => {
+      a.addEventListener('click', e => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const hash = a.getAttribute('href');
+        if (!hash || !hash.startsWith('#')) return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+        e.preventDefault();
+        if (window.location.hash === hash) history.replaceState(null, '', hash);
+        else history.pushState(null, '', hash);
+        scrollToSection(target);
+        closeNav();
+      });
     });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && document.getElementById('nav-links').classList.contains('open')) {
@@ -3044,6 +3088,15 @@
         navToggleBtn.focus();
       }
     });
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash) navigateToHash(window.location.hash, 'auto');
+    });
+    if (window.location.hash) {
+      requestAnimationFrame(() => {
+        navigateToHash(window.location.hash, 'auto');
+        updateActiveNav();
+      });
+    }
 
     function filterPubs(type, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => {
