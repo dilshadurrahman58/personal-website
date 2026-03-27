@@ -3535,9 +3535,11 @@
       <div class="reveal">
         <h2 class="section-title">Publications</h2>
         <p class="pub-note"><strong>IEEE TVCG</strong> is the top journal for visualization research. <strong>IEEE
-            VIS</strong> and <strong>EuroVis</strong> are the premier conferences in visualization research.</p>
+          VIS</strong> and <strong>EuroVis</strong> are premier conferences in visualization research.</p>
 
         <div class="pub-filter-row" role="group" aria-label="Filter by publication type">
+          <button class="filter-btn" type="button" aria-pressed="false"
+            onclick="filterPubs('chef',this)">Chef's Choice</button>
           <button class="filter-btn active" type="button" aria-pressed="true"
             onclick="filterPubs('all',this)">All</button>
           <button class="filter-btn" type="button" aria-pressed="false"
@@ -3547,9 +3549,13 @@
             Workshops</button>
           <button class="filter-btn" type="button" aria-pressed="false"
             onclick="filterPubs('poster',this)">Posters</button>
-          <button class="filter-btn" type="button" aria-pressed="false" onclick="filterPubs('review',this)">Under
-            Review</button>
           <span class="sr-only" aria-live="polite" id="filter-announce"></span>
+        </div>
+
+        <!-- CHEF'S CHOICE -->
+        <div class="pub-group" data-type="chef">
+          <div class="pub-group-title">Chef's Choice</div>
+          <div class="chef-choice-list"></div>
         </div>
 
         <!-- JOURNALS -->
@@ -3593,7 +3599,7 @@
               </div>
               <div class="pub-authors" itemprop="author">Alon Friedman, <strong>Md Dilshadur Rahman</strong>, Ly Dinh,
                 Paul Rosen</div>
-              <div class="pub-venue" itemprop="isPartOf">To apper in ACM Transactions on Computing Education (ACM TOCE), 2026.</div>
+              <div class="pub-venue" itemprop="isPartOf">ACM Transactions on Computing Education (ACM TOCE)</div>
               <div class="pub-links"><span class="bv">ACM TOCE</span><span class="ba">Accepted; to appear</span></div>
             </div>
           </div>
@@ -3918,7 +3924,7 @@
 
         <!-- POSTERS -->
         <div class="pub-group" data-type="poster">
-          <div class="pub-group-title">Poster Presentations</div>
+          <div class="pub-group-title">Posters</div>
 
           <div class="pub-item" itemscope itemtype="https://schema.org/ScholarlyArticle">
             <div class="pub-year" itemprop="datePublished">2024</div>
@@ -4002,7 +4008,7 @@
 
         <!-- UNDER REVIEW -->
         <div class="pub-group" data-type="review">
-          <div class="pub-group-title">Under Review &amp; In Preparation</div>
+          <div class="pub-group-title">Under Review</div>
 
           <div class="pub-item" itemscope itemtype="https://schema.org/ScholarlyArticle">
             <div class="pub-year" itemprop="datePublished">2026</div>
@@ -4018,6 +4024,11 @@
               <div class="pub-links"><span class="bs">Under Review</span></div>
             </div>
           </div>
+        </div>
+
+        <!-- PREPARATION -->
+        <div class="pub-group" data-type="preparation">
+          <div class="pub-group-title">Preparation</div>
 
           <div class="pub-item" itemscope itemtype="https://schema.org/ScholarlyArticle">
             <div class="pub-year" itemprop="datePublished">2026</div>
@@ -4606,6 +4617,42 @@
       });
     }
 
+    const CHEFS_CHOICE_TITLES = [
+      'AnnoGram: An Annotative Extension of the Grammar of Graphics',
+      'A Qualitative Analysis of Common Practices in Annotations: A Taxonomy and Design Space',
+      'Designing Annotations in Visualization: Considerations from Visualization Practitioners and Educators',
+      'A Survey on Annotations in Information Visualization: Empirical Studies, Applications, and Challenges',
+    ];
+
+    const CHEFS_CHOICE_TITLES_SET = new Set(CHEFS_CHOICE_TITLES);
+
+    function isChefsChoicePaper(item) {
+      const title = item.querySelector('.pub-title')?.textContent.replace(/\s+/g, ' ').trim() || '';
+      return CHEFS_CHOICE_TITLES_SET.has(title);
+    }
+
+    function buildChefsChoiceList() {
+      const chefGroup = document.querySelector('.pub-group[data-type="chef"]');
+      const chefList = chefGroup?.querySelector('.chef-choice-list');
+      if (!chefGroup || !chefList) return;
+
+      chefList.innerHTML = '';
+      const sourceItems = document.querySelectorAll('.pub-group:not([data-type="chef"]) .pub-item');
+      const itemByTitle = new Map();
+
+      sourceItems.forEach((item) => {
+        const title = item.querySelector('.pub-title')?.textContent.replace(/\s+/g, ' ').trim() || '';
+        if (isChefsChoicePaper(item) && !itemByTitle.has(title)) itemByTitle.set(title, item);
+      });
+
+      CHEFS_CHOICE_TITLES.forEach((title) => {
+        const match = itemByTitle.get(title);
+        if (match) chefList.appendChild(match.cloneNode(true));
+      });
+
+      chefGroup.classList.toggle('hidden', chefList.children.length === 0);
+    }
+
     function filterPubs(type, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => {
         b.classList.remove('active');
@@ -4613,11 +4660,19 @@
       });
       btn.classList.add('active');
       btn.setAttribute('aria-pressed', 'true');
-      document.querySelectorAll('.pub-group').forEach(g => g.classList.toggle('hidden', type !== 'all' && g.dataset.type !== type));
+
+      document.querySelectorAll('.pub-group').forEach(group => {
+        group.classList.toggle('hidden', type !== 'all' && group.dataset.type !== type);
+      });
+
       const visible = document.querySelectorAll('.pub-group:not(.hidden) .pub-item').length;
       const announce = document.getElementById('filter-announce');
       if (announce) announce.textContent = `Showing ${visible} publication${visible !== 1 ? 's' : ''}: ${btn.textContent.trim()}`;
     }
+
+    buildChefsChoiceList();
+    const defaultPubFilterBtn = document.querySelector(".pub-filter-row .filter-btn[onclick*='all']");
+    if (defaultPubFilterBtn) filterPubs('all', defaultPubFilterBtn);
 
     const btt = document.getElementById('back-to-top');
     btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
