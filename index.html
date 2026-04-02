@@ -3560,7 +3560,7 @@
         </div>
 
         <!-- CHEF'S CHOICE -->
-        <div class="pub-group" data-type="chef">
+        <div class="pub-group hidden" data-type="chef">
           <div class="pub-group-title">Chef's Choice</div>
           <div class="chef-choice-list"></div>
         </div>
@@ -4658,7 +4658,12 @@
       btn.setAttribute('aria-pressed', 'true');
 
       document.querySelectorAll('.pub-group').forEach(group => {
-        group.classList.toggle('hidden', type !== 'all' && group.dataset.type !== type);
+        const isChefGroup = group.dataset.type === 'chef';
+        const chefHasItems = !isChefGroup || (group.querySelector('.chef-choice-list')?.children.length ?? 0) > 0;
+        const shouldShow = type === 'all'
+          ? !isChefGroup
+          : group.dataset.type === type && chefHasItems;
+        group.classList.toggle('hidden', !shouldShow);
       });
 
       const visible = document.querySelectorAll('.pub-group:not(.hidden) .pub-item').length;
