@@ -624,9 +624,9 @@
 
     /* REVEAL */
     .reveal {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.62s var(--ease-fluid), transform 0.62s var(--ease-fluid);
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
 
     .reveal.visible {
@@ -3329,6 +3329,10 @@
           <div class="hero-updates-wrap" id="updates" role="region" aria-labelledby="updates-heading">
             <h2 id="updates-heading" class="hero-updates-label">Recent Updates</h2>
             <ul class="hero-updates-list" role="list" tabindex="0" aria-label="Recent updates, scrollable">
+              <li class="update-item"><span class="update-date">Mar 2026</span><span class="update-text">Received the
+                <strong>Kahlert Impact Prize 2026</strong> from the <a href="https://www.cs.utah.edu/" target="_blank"
+                  rel="noopener noreferrer">Kahlert School of
+                  Computing</a></span></li>
               <li class="update-item"><span class="update-date">Mar 2026</span><span class="update-text">Paper
                   accepted
                   at <a href="https://eurovis.org.uk/" target="_blank" rel="noopener noreferrer">EuroVis 2026</a>; will
@@ -3443,6 +3447,9 @@
         <div class="reveal">
           <h2 class="section-title">Updates</h2>
           <ul class="updates-list">
+            <li class="update-item"><span class="update-date">MAR 2026</span><span class="update-text">Awarded
+                <strong>Kahlert Impact Prize 2026</strong> by the Kahlert School of Computing for Research &amp; Service
+                Excellence.</span></li>
             <li class="update-item"><span class="update-date">Mar 2026</span><span class="update-text">Paper accepted
                 at <a href="https://eurovis.org.uk/" target="_blank" rel="noopener noreferrer">EuroVis 2026</a>; will
                 later be published in <a href="https://onlinelibrary.wiley.com/journal/14678659" target="_blank"
@@ -3600,7 +3607,15 @@
               <div class="pub-authors" itemprop="author">Alon Friedman, <strong>Md Dilshadur Rahman</strong>, Ly Dinh,
                 Paul Rosen</div>
               <div class="pub-venue" itemprop="isPartOf">ACM Transactions on Computing Education (ACM TOCE)</div>
-              <div class="pub-links"><span class="bv">ACM TOCE</span><span class="ba">Accepted; to appear</span></div>
+              <div class="pub-links">
+                <span class="bv">ACM TOCE</span>
+                <a class="pl" href="https://doi.org/10.1145/3800962" target="_blank" rel="noopener noreferrer"><svg
+                    width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                  </svg>DOI</a>
+              </div>
             </div>
           </div>
 
@@ -4288,6 +4303,8 @@
 
         <div class="service-group-title" style="margin-bottom:.7rem">Honors &amp; Awards</div>
         <ul class="award-list" role="list">
+          <li class="award-item"><span class="award-year">2026</span><span class="award-text"><strong>Kahlert Impact
+                Prize 2026</strong> for Research &amp; Academic Service Excellence</span></li>
           <li class="award-item"><span class="award-year">2026</span><span class="award-text">Special recognition for
               outstanding reviews (Posters), ACM CHI</span></li>
           <li class="award-item"><span class="award-year">2025</span><span class="award-text">Special recognition for
@@ -4317,8 +4334,7 @@
         <div class="reveal">
           <h2 class="section-title">Contact</h2>
           <div class="contact-grid">
-            <p class="contact-intro">I am actively looking for postdoctoral, faculty, and research positions. I'm also
-              happy to discuss research collaborations, speaking engagements, or reviewing opportunities. Feel free to
+            <p class="contact-intro">I enjoy a good conversation about research, life, and everything in between. I’m always excited to collaborate on interesting projects in visualization, visual analytics, human-computer interaction, and computing education. Feel free to
               reach out.</p>
             <div class="contact-rows">
               <div class="contact-row">
@@ -4406,19 +4422,6 @@
   </button>
 
   <script>
-    const revObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
-    }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
-    document.querySelectorAll('.reveal').forEach((el, i) => {
-      el.style.transitionDelay = `${Math.min(i * 0.07, 0.35)}s`;
-      revObs.observe(el);
-    });
-    setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
-      });
-    }, 40);
-
     const rootEl = document.documentElement;
     const themeToggle = document.getElementById('theme-toggle');
     const themeToggleLabel = themeToggle ? themeToggle.querySelector('.theme-toggle-label') : null;
@@ -4505,12 +4508,6 @@
       const progress = scrollableHeight > 0 ? Math.min(window.scrollY / scrollableHeight, 1) : 0;
       document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(4));
     }
-    function revealSection(section) {
-      section.querySelectorAll('.reveal').forEach(el => {
-        el.classList.add('visible');
-        revObs.unobserve(el);
-      });
-    }
     function setActiveNav(currentId) {
       navLinks.forEach(a => {
         const isActive = a.getAttribute('href') === '#' + currentId;
@@ -4542,7 +4539,6 @@
       return true;
     }
     function scrollToSection(section, behavior = 'smooth') {
-      revealSection(section);
       const targetTop = Math.max(getDocumentTop(section) - getNavOffset() - 14, 0);
       if (behavior === 'smooth') lockActiveNav(section.id, targetTop);
       else clearNavIntentLock();
