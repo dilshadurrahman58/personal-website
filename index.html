@@ -2288,27 +2288,6 @@
         font-size: 0.61rem;
       }
 
-      .job-bar-inner {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 0.7rem 1.25rem;
-        gap: 0.15rem;
-      }
-
-      .job-bar-inner::before {
-        display: none;
-      }
-
-      .jb-sep {
-        display: none;
-      }
-
-      .jb-desc {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-      }
-
       #hero {
         grid-template-columns: 1fr;
         padding: 2.5rem 1.25rem 2.5rem;
@@ -2385,6 +2364,27 @@
       .btn-email {
         grid-column: auto;
         padding-inline: 0.85rem;
+      }
+
+      .job-bar-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0.7rem 1.25rem;
+        gap: 0.15rem;
+      }
+
+      .job-bar-inner::before {
+        display: none;
+      }
+
+      .jb-sep {
+        display: none;
+      }
+
+      .jb-desc {
+        font-size: 0.8rem;
+        color: var(--text-muted);
       }
 
       .hero-updates-wrap {
@@ -2867,20 +2867,6 @@
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(138, 170, 208, 0.13);
     }
 
-    html[data-theme="dark"] .job-bar {
-      background: linear-gradient(90deg, rgba(22, 33, 45, 0.92) 0%, rgba(18, 27, 37, 0.9) 100%);
-      border-bottom-color: rgba(145, 178, 216, 0.1);
-    }
-
-    html[data-theme="dark"] .job-bar-inner {
-      color: #d7e5fb;
-    }
-
-    html[data-theme="dark"] .job-bar-inner::before {
-      background: #9bc2f4;
-      box-shadow: 0 0 0 0 rgba(145, 181, 229, 0.34);
-    }
-
     html[data-theme="dark"] .hero-updates-label::after,
     html[data-theme="dark"] .pub-group-title::after,
     html[data-theme="dark"] .teach-sub::after,
@@ -2956,6 +2942,20 @@
 
     html[data-theme="dark"] .pub-links .pl:hover::after {
       color: rgba(219, 232, 255, 0.86);
+    }
+
+    html[data-theme="dark"] .job-bar {
+      background: linear-gradient(90deg, rgba(22, 33, 45, 0.92) 0%, rgba(18, 27, 37, 0.9) 100%);
+      border-bottom-color: rgba(145, 178, 216, 0.1);
+    }
+
+    html[data-theme="dark"] .job-bar-inner {
+      color: #d7e5fb;
+    }
+
+    html[data-theme="dark"] .job-bar-inner::before {
+      background: #9bc2f4;
+      box-shadow: 0 0 0 0 rgba(145, 181, 229, 0.34);
     }
 
     html[data-theme="dark"] .filter-btn.active {
@@ -3276,7 +3276,7 @@
   </nav>
 
   <main id="main-content">
-    <!-- JOB BAR -->
+    <!-- JOB BAR
     <div class="job-bar" role="status">
       <div class="job-bar-inner">
         <strong>I am currently on the job market</strong>
@@ -3284,6 +3284,7 @@
         <span class="jb-desc">seeking postdoctoral, faculty, and research positions in academia and industry.</span>
       </div>
     </div>
+    -->
 
     <!-- HERO -->
     <section id="hero" aria-label="About">
@@ -3586,7 +3587,7 @@
                 <span class="bv">Computer Graphics Forum</span>
                 <span class="bv">EuroVis 2026</span>
                 <span class="ba">Accepted; to appear</span>
-                <a class="pl" href="https://dilshadurrahman58.github.io/annotation-design/" target="_blank"
+                <a class="pl" href="https://vis-annotations.github.io/annotation-design/" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
