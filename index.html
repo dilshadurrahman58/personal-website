@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="UTF-8" />
@@ -14,7 +14,7 @@
   <link rel="canonical" href="https://dilshadur.com/" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#FAFAF8" id="theme-color-meta" />
+  <meta name="theme-color" content="#080d12" id="theme-color-meta" />
   <meta property="og:title" content="Md Dilshadur Rahman — Postdoctoral Researcher at Harvard University" />
   <meta property="og:description"
     content="Md Dilshadur Rahman is a postdoctoral researcher at Harvard University's HIDIVE Lab at Harvard Medical School, working with Nils Gehlenborg. He earned his PhD in Computer Science at the University of Utah with Paul Rosen." />
@@ -46,16 +46,14 @@
     (() => {
       try {
         const storedTheme = localStorage.getItem('theme');
-        const theme = storedTheme === 'light' || storedTheme === 'dark'
-          ? storedTheme
-          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const theme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : 'dark';
         document.documentElement.dataset.theme = theme;
         document.documentElement.style.colorScheme = theme;
         const themeColorMeta = document.getElementById('theme-color-meta');
-        if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#0b1117' : '#FAFAF8');
+        if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#080d12' : '#FAFAF8');
       } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-        document.documentElement.style.colorScheme = 'light';
+        document.documentElement.dataset.theme = 'dark';
+        document.documentElement.style.colorScheme = 'dark';
       }
     })();
   </script>
@@ -141,10 +139,10 @@
       --bg: #FBFAF7;
       --bg-alt: #F4F1EA;
       --bg-card: #FFFFFF;
-      --text: #17181D;
-      --text-muted: #4D4E59;
-      --text-light: #696A78;
-      --accent: #36577F;
+      --text: #101115;
+      --text-muted: #383944;
+      --text-light: #52535F;
+      --accent: #2C4B72;
       /* softer, less saturated blue */
       --accent-deep: #243E60;
       /* deeper but less harsh */
@@ -1559,7 +1557,7 @@
       display: inline-block;
       font-size: 0.62rem;
       line-height: 1;
-      color: rgba(58, 93, 140, 0.72);
+      color: rgba(44, 75, 114, 0.9);
       margin-left: 0.04rem;
       transform: translateY(-0.04rem);
       transition: color var(--dur-base) var(--ease-fluid), transform var(--dur-base) var(--ease-fluid);
@@ -2602,13 +2600,13 @@
     /* DARK THEME */
     html[data-theme="dark"] {
       color-scheme: dark;
-      --bg: #0b1117;
+      --bg: #080d12;
       --bg-alt: #0f171f;
       --bg-card: #121b24;
-      --text: #eef4fb;
-      --text-muted: #ccd7e2;
-      --text-light: #9dafc2;
-      --accent: #99c0f3;
+      --text: #f5f8fc;
+      --text-muted: #dae3ec;
+      --text-light: #b6c5d5;
+      --accent: #a9cbf7;
       --accent-deep: #dbe8ff;
       --accent-mid: #6f94cb;
       --accent-soft: rgba(124, 157, 201, 0.18);
@@ -2721,7 +2719,7 @@
     }
 
     html[data-theme="dark"] .nav-links a {
-      color: rgba(216, 226, 238, 0.86);
+      color: rgba(226, 234, 243, 0.95);
       background: transparent;
       border-color: transparent;
       box-shadow: none;
@@ -2931,7 +2929,7 @@
     }
 
     html[data-theme="dark"] .pub-links .pl::after {
-      color: rgba(177, 206, 241, 0.74);
+      color: rgba(190, 215, 245, 0.9);
     }
 
     html[data-theme="dark"] .pub-links .pl:hover::after {
@@ -3400,6 +3398,11 @@
           <div class="hero-updates-wrap" id="updates" role="region" aria-labelledby="updates-heading">
             <h2 id="updates-heading" class="hero-updates-label">Recent Updates</h2>
             <ul class="hero-updates-list" role="list" tabindex="0" aria-label="Recent updates, scrollable">
+              <li class="update-item"><span class="update-date">Oct 2026</span><span class="update-text">I'll give a talk on annotation design at <a
+                href="https://cluster-practitioners-summit.github.io/" target="_blank" rel="noopener noreferrer"><strong>Cluster: The Practitioner's Summit</strong></a>
+                at IEEE VIS 2026.</span></li>
+              <li class="update-item"><span class="update-date">Oct 2026</span><span class="update-text">Gave an invited lecture on <em>"Annotations in Visualizations"</em> at <a
+                href="https://www.furman.edu/academics/computer-science/" target="_blank" rel="noopener noreferrer">Furman University Computer Science</a>.</span></li>
               <li class="update-item"><span class="update-date">Sep 2026</span><span class="update-text">Successfully defended my PhD dissertation, <em>"Design Space and Tooling for Annotations in Visualizations,"</em> at the <a
                 href="https://www.cs.utah.edu/" target="_blank" rel="noopener noreferrer">Kahlert School of Computing</a>, <a
                 href="https://www.utah.edu/" target="_blank" rel="noopener noreferrer">University of Utah</a>, on September 9, 2026.</span></li>
@@ -4357,6 +4360,14 @@
           <li class="talk-item">
             <div class="talk-year">2026</div>
             <div class="talk-body">
+              <div class="talk-title">Annotations in Visualizations</div>
+              <div class="talk-venue"><span class="talk-type">Invited Lecture</span>Furman University Computer Science,
+                Greenville, South Carolina, USA</div>
+            </div>
+          </li>
+          <li class="talk-item">
+            <div class="talk-year">2026</div>
+            <div class="talk-body">
               <div class="talk-title">Towards AI-enabled Visualization Authoring and Communication</div>
               <div class="talk-venue"><span class="talk-type">Summit Talk</span>ACM AI Leadership Summit, Atlanta,
                 Georgia, USA</div>
@@ -4629,7 +4640,6 @@
     const themeToggle = document.getElementById('theme-toggle');
     const themeToggleLabel = themeToggle ? themeToggle.querySelector('.theme-toggle-label') : null;
     const themeColorMeta = document.getElementById('theme-color-meta');
-    const themePreferenceQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
     function getStoredTheme() {
       try {
         const storedTheme = localStorage.getItem('theme');
@@ -4637,9 +4647,6 @@
       } catch (error) {
         return null;
       }
-    }
-    function getSystemTheme() {
-      return themePreferenceQuery && themePreferenceQuery.matches ? 'dark' : 'light';
     }
     function getThemeToggleLabel(theme) {
       return theme === 'dark' ? 'Light mode' : 'Dark mode';
@@ -4655,10 +4662,10 @@
     function applyTheme(theme) {
       rootEl.dataset.theme = theme;
       rootEl.style.colorScheme = theme;
-      if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#0b1117' : '#FAFAF8');
+      if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#080d12' : '#FAFAF8');
       updateThemeToggle(theme);
     }
-    applyTheme(getStoredTheme() || rootEl.dataset.theme || getSystemTheme());
+    applyTheme(getStoredTheme() || 'dark');
     if (themeToggle) {
       themeToggle.addEventListener('click', () => {
         const nextTheme = rootEl.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -4670,17 +4677,6 @@
         applyTheme(nextTheme);
       });
     }
-    if (themePreferenceQuery) {
-      const handleSystemThemeChange = event => {
-        if (!getStoredTheme()) applyTheme(event.matches ? 'dark' : 'light');
-      };
-      if (typeof themePreferenceQuery.addEventListener === 'function') {
-        themePreferenceQuery.addEventListener('change', handleSystemThemeChange);
-      } else if (typeof themePreferenceQuery.addListener === 'function') {
-        themePreferenceQuery.addListener(handleSystemThemeChange);
-      }
-    }
-
     const navEl = document.getElementById('nav');
     const navLinks = document.querySelectorAll('.nav-links a');
     const pageSections = Array.from(document.querySelectorAll('section[id]'));
