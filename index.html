@@ -2597,6 +2597,87 @@
       outline-offset: 3px;
     }
 
+    /* VIS 2026 pointers */
+    .hero-event {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin: -0.6rem 0 1.9rem;
+      padding: 0.55rem 1rem 0.55rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: border-color var(--dur-base) ease, background-color var(--dur-base) ease;
+    }
+
+    .hero-event-papers {
+      position: relative;
+      width: 68px;
+      height: 44px;
+      flex: none;
+    }
+
+    .hero-event-papers img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 54px;
+      height: 36px;
+      object-fit: cover;
+      object-position: center;
+      padding: 2px;
+      background: #fff;
+      border-radius: 3px;
+      box-shadow: 0 0 0 1px rgba(20, 28, 38, 0.12), 0 3px 8px -2px rgba(20, 28, 38, 0.25);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-event-papers img:nth-child(1) { transform: translate(-50%, -50%) translate(-7px, -1px) rotate(-8deg); }
+    .hero-event-papers img:nth-child(2) { transform: translate(-50%, -50%) translate(6px, 1px) rotate(6deg); }
+    .hero-event-papers img:nth-child(3) { transform: translate(-50%, -50%) rotate(-1deg); }
+
+    .hero-event:hover .hero-event-papers img:nth-child(1) { transform: translate(-50%, -50%) translate(-13px, -3px) rotate(-13deg); }
+    .hero-event:hover .hero-event-papers img:nth-child(2) { transform: translate(-50%, -50%) translate(12px, 0) rotate(11deg); }
+    .hero-event:hover .hero-event-papers img:nth-child(3) { transform: translate(-50%, -50%) translateY(-3px) rotate(0deg); }
+
+    .hero-event-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.35;
+    }
+
+    .hero-event-when {
+      font-size: 0.74rem;
+      letter-spacing: 0.02em;
+      color: var(--text-light);
+    }
+
+    .hero-event-what {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .hero-event-arrow {
+      display: inline-block;
+      margin-left: 0.15rem;
+      transition: transform var(--dur-base) var(--ease-fluid);
+    }
+
+    .hero-event:hover {
+      border-color: var(--accent-mid);
+      background-color: var(--accent-soft);
+    }
+
+    .hero-event:hover .hero-event-arrow {
+      transform: translateX(3px);
+    }
+
+    .pub-links .pl.pl-vis::after {
+      content: none;
+    }
+
     /* DARK THEME */
     html[data-theme="dark"] {
       color-scheme: dark;
@@ -3353,6 +3434,17 @@
           Postdoctoral Researcher @ <a class="harvard-brand-link" href="https://www.harvard.edu/" target="_blank"
             rel="noopener noreferrer">Harvard University</a>
         </p>
+        <a class="hero-event" href="vis2026.html">
+          <span class="hero-event-papers" aria-hidden="true">
+            <img src="vis2026/annotation-design.jpg" alt="" width="1564" height="782" />
+            <img src="vis2026/guidelines.jpg" alt="" width="1347" height="637" />
+            <img src="vis2026/annotation-survey.jpg" alt="" width="1252" height="320" />
+          </span>
+          <span class="hero-event-text">
+            <span class="hero-event-when">IEEE VIS 2026 · Boston · Nov 9–11</span>
+            <span class="hero-event-what">Attend our talks <span class="hero-event-arrow">&rarr;</span></span>
+          </span>
+        </a>
         <div class="hero-body">
           <div class="hero-bio-col">
             <p class="hero-bio">
@@ -3398,6 +3490,8 @@
           <div class="hero-updates-wrap" id="updates" role="region" aria-labelledby="updates-heading">
             <h2 id="updates-heading" class="hero-updates-label">Recent Updates</h2>
             <ul class="hero-updates-list" role="list" tabindex="0" aria-label="Recent updates, scrollable">
+              <li class="update-item"><span class="update-date">Oct 2026</span><span class="update-text">Five papers and talks at IEEE VIS 2026 in Boston.
+                <a href="vis2026.html"><strong>Attend our talks</strong></a>: sessions, times, and rooms.</span></li>
               <li class="update-item"><span class="update-date">Oct 2026</span><span class="update-text">I'll give a talk on annotation design at <a
                 href="https://cluster-practitioners-summit.github.io/" target="_blank" rel="noopener noreferrer"><strong>Cluster: The Practitioner's Summit</strong></a>
                 at IEEE VIS 2026.</span></li>
@@ -3696,6 +3790,13 @@
                     <path
                       d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                   </svg>Interactive Website</a>
+                <a class="pl pl-vis" href="vis2026.html#annotation-design"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>At VIS 2026 · Wed, Nov 11</a>
               </div>
             </div>
           </div>
@@ -3782,6 +3883,13 @@
                     <path
                       d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                   </svg>Interactive Website</a>
+                <a class="pl pl-vis" href="vis2026.html#annotation-survey"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>At VIS 2026 · Tue, Nov 10</a>
               </div>
             </div>
           </div>
@@ -3860,6 +3968,13 @@
                     <line x1="2" y1="12" x2="22" y2="12" />
                     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                   </svg>Website</a>
+                <a class="pl pl-vis" href="vis2026.html#guidelines"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>At VIS 2026 · Mon, Nov 9</a>
               </div>
             </div>
           </div>
@@ -3878,6 +3993,13 @@
                     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                   </svg>DOI</a>
+                <a class="pl pl-vis" href="vis2026.html#mllm-claims"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>At VIS 2026 · Mon, Nov 9</a>
               </div>
             </div>
           </div>
@@ -3890,6 +4012,13 @@
               <div class="pub-venue" itemprop="isPartOf">Accessible Data Visualization Workshop at IEEE VIS 2026.</div>
               <div class="pub-links">
                 <span class="bv">Accessible Data Visualization Workshop @ IEEE VIS 2026</span>
+                <a class="pl pl-vis" href="vis2026.html#wastewater"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>At VIS 2026 · Mon, Nov 9</a>
               </div>
             </div>
           </div>
