@@ -189,9 +189,71 @@
       height: 64px;
     }
 
+    /* Home link: same avatar and name as the homepage nav */
     .home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: -6px;
+      padding: 5px 12px 5px 4px;
+      border-radius: 999px;
       font-family: var(--serif);
-      font-size: 1.05rem;
+      font-weight: 500;
+      font-size: 1.02rem;
+      letter-spacing: 0.005em;
+      white-space: nowrap;
+      text-decoration: none;
+      color: var(--ink);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .home-arrow {
+      width: 15px;
+      height: 15px;
+      color: var(--ink-3);
+      transition: transform 0.45s var(--ease-out), color 0.3s ease;
+    }
+
+    .home-logo {
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(243, 246, 251, 0.96);
+      border: 1px solid rgba(58, 93, 140, 0.62);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.74), 0 8px 18px rgba(63, 86, 116, 0.08);
+      transition: transform 0.45s var(--ease-out);
+    }
+
+    html[data-theme="dark"] .home-logo {
+      background: linear-gradient(180deg, rgba(22, 32, 43, 0.94) 0%, rgba(16, 24, 33, 0.92) 100%);
+      border-color: rgba(154, 181, 213, 0.46);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 10px 22px rgba(0, 0, 0, 0.24);
+    }
+
+    .home-name {
+      background-image: linear-gradient(currentColor, currentColor);
+      background-size: 0% 1px;
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      padding-bottom: 1px;
+      transition: background-size 0.45s var(--ease-out);
+    }
+
+    .home:hover {
+      background-color: var(--flash);
+      color: var(--accent);
+    }
+
+    .home:hover .home-arrow {
+      color: var(--accent);
+      transform: translateX(-3px);
+    }
+
+    .home:hover .home-logo {
+      transform: rotate(-6deg) scale(1.04);
+    }
+
+    .home:hover .home-name {
+      background-size: 100% 1px;
     }
 
     .bar-links {
@@ -317,6 +379,38 @@
       text-wrap: balance;
     }
 
+    .vis-logo {
+      display: block;
+      width: fit-content;
+      margin-top: 0.16em;
+      margin-left: -0.08em;
+      border-radius: 8px;
+    }
+
+    .vis-logo img {
+      height: 1.32em;
+      width: auto;
+      transition: transform 0.5s var(--ease-out), filter 0.4s ease;
+    }
+
+    .vis-logo:hover img {
+      transform: translateY(-3px);
+      filter: drop-shadow(0 8px 14px color-mix(in srgb, var(--ink) 14%, transparent));
+    }
+
+    .vis-logo:focus-visible {
+      outline-offset: 6px;
+    }
+
+    .vis-logo .logo-dark,
+    html[data-theme="dark"] .vis-logo .logo-light {
+      display: none;
+    }
+
+    html[data-theme="dark"] .vis-logo .logo-dark {
+      display: block;
+    }
+
     .intro-text {
       color: var(--ink-2);
       margin: 0;
@@ -353,6 +447,11 @@
       transform: rotate(var(--r));
       transition: transform 0.7s var(--ease-out), filter 0.5s ease;
       -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+    }
+
+    .card * {
+      cursor: inherit;
     }
 
     .paper {
@@ -363,8 +462,35 @@
       outline: 1px solid var(--paper-line);
       outline-offset: -1px;
       padding: 20px 22px 18px;
+      position: relative;
       transform: perspective(1100px) rotateX(var(--ty)) rotateY(var(--tx));
       transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+    }
+
+    /* a soft pool of light that follows the pointer */
+    .paper::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 30%), rgba(36, 70, 111, 0.075), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .fig {
+      display: block;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .fig img {
+      transition: transform 0.9s var(--ease-out);
+    }
+
+    .card-title {
+      transition: color 0.35s ease;
     }
 
     .card-meta {
@@ -420,12 +546,27 @@
 
     @media (hover: hover) and (pointer: fine) {
       .card:hover {
-        transform: rotate(calc(var(--r) * 0.25)) translateY(-12px);
+        transform: rotate(0deg) translateY(-14px) scale(1.025);
         z-index: 20 !important;
       }
 
       .card:hover .paper {
-        box-shadow: var(--paper-shadow-up);
+        box-shadow:
+          var(--paper-shadow-up),
+          0 0 0 1.5px var(--accent),
+          0 0 0 7px color-mix(in srgb, var(--accent) 13%, transparent);
+      }
+
+      .card:hover .paper::before {
+        opacity: 1;
+      }
+
+      .card:hover .fig img {
+        transform: scale(1.04);
+      }
+
+      .card:hover .card-title {
+        color: #24466F;
       }
 
       .card:hover .card-foot {
@@ -475,7 +616,7 @@
 
     @media (hover: hover) and (pointer: fine) {
       .js .desk.is-settled .card:hover {
-        transform: rotate(calc(var(--r) * 0.25)) translateY(-12px);
+        transform: rotate(0deg) translateY(-14px) scale(1.025);
       }
     }
 
@@ -727,6 +868,94 @@
       margin-top: 10px;
     }
 
+    /* Back to top: same as the homepage */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      min-width: 66px;
+      height: 46px;
+      padding: 0 0.92rem 0 0.8rem;
+      gap: 0.36rem;
+      background: rgba(255, 255, 255, 0.72);
+      color: #243E60;
+      border: 1px solid rgba(214, 219, 226, 0.72);
+      border-radius: 999px;
+      font: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px) scale(0.96);
+      transition: opacity 0.26s var(--ease-out), transform 0.34s var(--ease-out), box-shadow 0.26s var(--ease-out),
+        background 0.26s var(--ease-out);
+      z-index: 90;
+      box-shadow: 0 10px 24px rgba(29, 40, 62, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.58);
+      backdrop-filter: blur(16px) saturate(1.04);
+      -webkit-backdrop-filter: blur(16px) saturate(1.04);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+    }
+
+    .back-to-top:hover {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.74) 0%, rgba(247, 248, 249, 0.52) 100%);
+      transform: translateY(-0.36px) scale(1.012);
+      box-shadow: 0 11px 25px rgba(29, 40, 62, 0.085), inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .back-to-top:active {
+      transform: translateY(-0.5px) scale(0.985);
+    }
+
+    .back-to-top svg {
+      flex-shrink: 0;
+      opacity: 0.94;
+      transition: transform 0.26s var(--ease-out), opacity 0.26s var(--ease-out);
+    }
+
+    .back-to-top:hover svg {
+      transform: translate3d(0.6px, -0.6px, 0);
+      opacity: 1;
+    }
+
+    .back-to-top span {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    html[data-theme="dark"] .back-to-top {
+      background: linear-gradient(180deg, rgba(20, 30, 40, 0.8) 0%, rgba(18, 27, 37, 0.66) 100%);
+      color: #dbe8ff;
+      border-color: rgba(133, 165, 204, 0.24);
+      box-shadow: 0 10px 26px rgba(2, 6, 12, 0.22), inset 0 1px 0 rgba(191, 214, 238, 0.11);
+    }
+
+    html[data-theme="dark"] .back-to-top:hover {
+      background: linear-gradient(180deg, rgba(26, 38, 50, 0.74) 0%, rgba(19, 30, 40, 0.58) 100%);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(191, 214, 238, 0.11);
+    }
+
+    @media (max-width: 620px) {
+      .back-to-top {
+        min-width: 68px;
+        height: 48px;
+        right: calc(1rem + env(safe-area-inset-right));
+        bottom: calc(1rem + env(safe-area-inset-bottom));
+      }
+
+      .back-to-top span {
+        font-size: 0.64rem;
+      }
+    }
+
     /* Figure viewer */
     .viewer {
       position: fixed;
@@ -916,6 +1145,21 @@
       }
     }
 
+    @media (max-width: 420px) {
+      .theme-toggle {
+        padding: 0.18rem 0.42rem;
+      }
+
+      .theme-toggle-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
@@ -934,7 +1178,14 @@
 <body>
   <header class="bar">
     <div class="wrap">
-      <a class="home u quiet" href="./">Md Dilshadur Rahman</a>
+      <a class="home" href="./" title="Back to the homepage">
+        <svg class="home-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+        <img class="home-logo" src="favicon.svg" alt="" width="28" height="28" />
+        <span class="home-name">Md Dilshadur Rahman</span>
+      </a>
       <nav class="bar-links" aria-label="Page">
         <a class="hide-sm u quiet" href="#program">Schedule</a>
         <a class="hide-sm u quiet" href="./#publications">Publications</a>
@@ -959,7 +1210,12 @@
       <section class="intro" aria-labelledby="page-title">
         <div>
           <p class="kicker">Boston, November 2026</p>
-          <h1 id="page-title">Attend our talks at IEEE&nbsp;VIS&nbsp;2026</h1>
+          <h1 id="page-title">Attend our talks at
+            <a class="vis-logo" href="https://ieeevis.org/year/2026/welcome/" target="_blank" rel="noopener"
+              aria-label="IEEE VIS 2026 (opens the conference website)" title="IEEE VIS 2026 conference website">
+              <img class="logo-light" src="vis2026/vis2026-logo.svg" alt="" width="498" height="114" />
+              <img class="logo-dark" src="vis2026/vis2026-logo-dark.svg" alt="" width="498" height="114" />
+            </a></h1>
         </div>
         <p class="intro-text">My amazing collaborators and I will be presenting our research on annotation,
           visualization design guidance, and accessible visualization. Below you’ll find what each paper is
@@ -973,7 +1229,7 @@
           <span class="paper">
             <span class="card-meta">TVCG · Tuesday, Nov 10</span>
             <span class="card-title">A Survey on Annotations in Information Visualization</span>
-            <img src="vis2026/annotation-survey.jpg" width="1252" height="320" alt="" />
+            <span class="fig"><img src="vis2026/annotation-survey.jpg" width="1252" height="320" alt="" /></span>
             <span class="card-foot"><span>13:24 · Hall Essex North</span><span class="go">Details<svg
                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M12 5v14M6 13l6 6 6-6" />
@@ -984,7 +1240,7 @@
           <span class="paper">
             <span class="card-meta">Practitioners’ Summit · Wednesday, Nov 11</span>
             <span class="card-title">Designing Annotations in Visualization</span>
-            <img src="vis2026/annotation-design.jpg" width="1564" height="782" alt="" />
+            <span class="fig"><img src="vis2026/annotation-design.jpg" width="1564" height="782" alt="" /></span>
             <span class="card-foot"><span>10:30 · Hall Essex South</span><span class="go">Details<svg
                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M12 5v14M6 13l6 6 6-6" />
@@ -995,7 +1251,7 @@
           <span class="paper">
             <span class="card-meta">BELIV · Monday, Nov 9</span>
             <span class="card-title">Guidelines Are Not Rules</span>
-            <img src="vis2026/guidelines.jpg" width="1347" height="637" alt="" />
+            <span class="fig"><img src="vis2026/guidelines.jpg" width="1347" height="637" alt="" /></span>
             <span class="card-foot"><span>08:00 · Hall America North</span><span class="go">Details<svg
                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M12 5v14M6 13l6 6 6-6" />
@@ -1006,7 +1262,7 @@
           <span class="paper">
             <span class="card-meta">AccessViz · Monday, Nov 9</span>
             <span class="card-title">Chart-Supported or Model-Supplied?</span>
-            <img src="vis2026/mllm.jpg" width="1557" height="580" alt="" />
+            <span class="fig"><img src="vis2026/mllm.jpg" width="1557" height="580" alt="" /></span>
             <span class="card-foot"><span>08:00 · Hall St. George C–D</span><span class="go">Details<svg
                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M12 5v14M6 13l6 6 6-6" />
@@ -1017,7 +1273,7 @@
           <span class="paper">
             <span class="card-meta">AccessViz · Monday, Nov 9</span>
             <span class="card-title">A Case Study in Accessible Redesign of a Wastewater Dashboard</span>
-            <img src="vis2026/wastewater.jpg" width="1580" height="648" alt="" />
+            <span class="fig"><img src="vis2026/wastewater.jpg" width="1580" height="648" alt="" /></span>
             <span class="card-foot"><span>08:00 · Hall St. George C–D</span><span class="go">Details<svg
                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M12 5v14M6 13l6 6 6-6" />
@@ -1236,6 +1492,14 @@
     </div>
   </footer>
 
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+      aria-hidden="true">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+    <span>Top</span>
+  </button>
+
   <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Figure" hidden>
     <figure class="viewer-sheet">
       <img id="viewer-img" src="" alt="" />
@@ -1349,6 +1613,8 @@
             const py = (e.clientY - b.top) / b.height - 0.5;
             card.style.setProperty('--tx', (px * 5).toFixed(2) + 'deg');
             card.style.setProperty('--ty', (-py * 5).toFixed(2) + 'deg');
+            paper.style.setProperty('--mx', ((px + 0.5) * 100).toFixed(1) + '%');
+            paper.style.setProperty('--my', ((py + 0.5) * 100).toFixed(1) + '%');
           });
           card.addEventListener('pointerleave', () => {
             card.style.setProperty('--tx', '0deg');
@@ -1427,6 +1693,14 @@
         if (e.key === 'Escape' && !viewer.hidden) closeViewer();
         if (e.key === 'Tab' && !viewer.hidden) { e.preventDefault(); closeBtn.focus(); }
       });
+
+      /* Back to top ------------------------------------------------------ */
+      const btt = document.getElementById('back-to-top');
+      btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+      const updateBtt = () => btt.classList.toggle('visible', window.scrollY > (window.innerWidth <= 620 ? 260 : 400));
+      window.addEventListener('scroll', updateBtt, { passive: true });
+      window.addEventListener('resize', updateBtt);
+      updateBtt();
 
       /* Calendar files --------------------------------------------------- */
       const events = {
