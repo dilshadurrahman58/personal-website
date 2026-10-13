@@ -1334,6 +1334,75 @@
       outline-offset: 2px;
     }
 
+    /* Temporary IEEE VIS 2026 filter (removes itself after the conference) */
+    .filter-btn.filter-vis {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 0.95rem;
+      border-color: rgba(188, 74, 114, 0.32);
+    }
+
+    .filter-vis img {
+      height: 14px;
+      width: auto;
+      display: block;
+    }
+
+    .filter-vis .logo-dark,
+    html[data-theme="dark"] .filter-vis .logo-light {
+      display: none;
+    }
+
+    html[data-theme="dark"] .filter-vis .logo-dark {
+      display: block;
+    }
+
+    .filter-btn.filter-vis:hover {
+      border-color: rgba(188, 74, 114, 0.55);
+    }
+
+    .filter-btn.filter-vis.active {
+      background: #fff;
+      border-color: rgba(188, 74, 114, 0.7);
+      box-shadow: 0 0 0 3px rgba(188, 74, 114, 0.12), 0 8px 18px rgba(29, 40, 62, 0.08);
+    }
+
+    html[data-theme="dark"] .filter-btn.filter-vis {
+      border-color: rgba(224, 122, 160, 0.3);
+    }
+
+    html[data-theme="dark"] .filter-btn.filter-vis:hover {
+      border-color: rgba(224, 122, 160, 0.5);
+    }
+
+    html[data-theme="dark"] .filter-btn.filter-vis.active {
+      background: linear-gradient(180deg, rgba(31, 43, 57, 0.95) 0%, rgba(22, 32, 43, 0.95) 100%);
+      border-color: rgba(224, 122, 160, 0.66);
+      box-shadow: 0 0 0 3px rgba(224, 122, 160, 0.14), 0 14px 26px rgba(0, 0, 0, 0.2);
+    }
+
+    .vis-group-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.25rem 1rem;
+    }
+
+    .vis-group-title a {
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .vis-group-title a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
     .pub-note {
       font-size: 0.84rem;
       color: var(--text-muted);
@@ -3640,13 +3709,13 @@
         if (!e.viewTransition) return;
         const logo = visibleLogo();
         if (onScreen(logo)) logo.style.viewTransitionName = 'vis-logo';
-        e.viewTransition.finished.finally(clear);
+        e.viewTransition.finished.then(clear, clear);
       });
       window.addEventListener('pagereveal', (e) => {
         if (!e.viewTransition) return;
         const logo = visibleLogo();
         if (onScreen(logo)) logo.style.viewTransitionName = 'vis-logo';
-        e.viewTransition.finished.finally(clear);
+        e.viewTransition.finished.then(clear, clear);
       });
     })();
   </script>
@@ -4038,6 +4107,11 @@
           VIS</strong> and <strong>EuroVis</strong> are premier conferences in visualization research.</p>
 
         <div class="pub-filter-row" role="group" aria-label="Filter by publication type">
+          <button class="filter-btn filter-vis" type="button" aria-pressed="false" aria-label="IEEE VIS 2026"
+            title="Papers we present at IEEE VIS 2026" onclick="filterPubs('vis',this)">
+            <img class="logo-light" src="vis2026/vis2026-logo.svg" alt="" width="498" height="114" />
+            <img class="logo-dark" src="vis2026/vis2026-logo-dark.svg" alt="" width="498" height="114" />
+          </button>
           <button class="filter-btn" type="button" aria-pressed="false"
             onclick="filterPubs('chef',this)">Chef's Choice</button>
           <button class="filter-btn active" type="button" aria-pressed="true"
@@ -4050,6 +4124,15 @@
           <button class="filter-btn" type="button" aria-pressed="false"
             onclick="filterPubs('poster',this)">Posters</button>
           <span class="sr-only" aria-live="polite" id="filter-announce"></span>
+        </div>
+
+        <!-- IEEE VIS 2026 (temporary) -->
+        <div class="pub-group hidden" data-type="vis">
+          <div class="pub-group-title vis-group-title">
+            <span>At IEEE VIS 2026 · Boston, Nov 9–13</span>
+            <a href="vis2026.html">Sessions, times, and rooms →</a>
+          </div>
+          <div class="vis-list"></div>
         </div>
 
         <!-- CHEF'S CHOICE -->
@@ -5281,7 +5364,7 @@
       if (!chefGroup || !chefList) return;
 
       chefList.innerHTML = '';
-      const sourceItems = document.querySelectorAll('.pub-group:not([data-type="chef"]) .pub-item');
+      const sourceItems = document.querySelectorAll('.pub-group:not([data-type="chef"]):not([data-type="vis"]) .pub-item');
       const itemByTitle = new Map();
 
       sourceItems.forEach((item) => {
@@ -5297,6 +5380,26 @@
       chefGroup.classList.toggle('hidden', chefList.children.length === 0);
     }
 
+    // Temporary: papers presented at IEEE VIS 2026, in talk order.
+    const VIS_TALK_ORDER = ['guidelines', 'mllm-claims', 'wastewater', 'annotation-survey', 'annotation-design'];
+
+    function buildVisList() {
+      const visGroup = document.querySelector('.pub-group[data-type="vis"]');
+      const visBtn = document.querySelector('.filter-btn.filter-vis');
+      const visList = visGroup?.querySelector('.vis-list');
+      if (!visGroup || !visList) return;
+      if (new Date() >= new Date('2026-11-14T00:00:00-05:00')) {
+        visGroup.remove();
+        visBtn?.remove();
+        return;
+      }
+      VIS_TALK_ORDER.forEach((key) => {
+        const link = document.querySelector(`.pub-group:not([data-type="chef"]):not([data-type="vis"]) .pl-vis[href$="#${key}"]`);
+        const item = link?.closest('.pub-item');
+        if (item) visList.appendChild(item.cloneNode(true));
+      });
+    }
+
     function filterPubs(type, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => {
         b.classList.remove('active');
@@ -5306,8 +5409,8 @@
       btn.setAttribute('aria-pressed', 'true');
 
       document.querySelectorAll('.pub-group').forEach(group => {
-        const isChefGroup = group.dataset.type === 'chef';
-        const chefHasItems = !isChefGroup || (group.querySelector('.chef-choice-list')?.children.length ?? 0) > 0;
+        const isChefGroup = group.dataset.type === 'chef' || group.dataset.type === 'vis';
+        const chefHasItems = !isChefGroup || (group.querySelector('.chef-choice-list, .vis-list')?.children.length ?? 0) > 0;
         const shouldShow = type === 'all'
           ? !isChefGroup
           : group.dataset.type === type && chefHasItems;
@@ -5316,10 +5419,11 @@
 
       const visible = document.querySelectorAll('.pub-group:not(.hidden) .pub-item').length;
       const announce = document.getElementById('filter-announce');
-      if (announce) announce.textContent = `Showing ${visible} publication${visible !== 1 ? 's' : ''}: ${btn.textContent.trim()}`;
+      if (announce) announce.textContent = `Showing ${visible} publication${visible !== 1 ? 's' : ''}: ${btn.getAttribute('aria-label') || btn.textContent.trim()}`;
     }
 
     buildChefsChoiceList();
+    buildVisList();
     const defaultPubFilterBtn = document.querySelector(".pub-filter-row .filter-btn[onclick*='all']");
     if (defaultPubFilterBtn) filterPubs('all', defaultPubFilterBtn);
 

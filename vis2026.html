@@ -1272,13 +1272,13 @@
         if (!e.viewTransition) return;
         const logo = visibleLogo();
         if (onScreen(logo)) logo.style.viewTransitionName = 'vis-logo';
-        e.viewTransition.finished.finally(clear);
+        e.viewTransition.finished.then(clear, clear);
       });
       window.addEventListener('pagereveal', (e) => {
         if (!e.viewTransition) return;
         const logo = visibleLogo();
         if (onScreen(logo)) logo.style.viewTransitionName = 'vis-logo';
-        e.viewTransition.finished.finally(clear);
+        e.viewTransition.finished.then(clear, clear);
       });
     })();
   </script>
