@@ -1447,6 +1447,16 @@
         <p>In the design-space paper, we took an Economist line chart about “deaths of despair” in the United
           States, removed its annotations, and added them back one question at a time.<sup class="cite"><a
               href="#ref-3">3</a></sup></p>
+        <figure>
+          <button class="zoom" type="button" aria-label="Enlarge figure"><img src="case-study-economist.jpg"
+              width="1671" height="1056"
+              alt="Four panels of an Economist line chart of deaths of despair per 100,000 people for whites aged 45 to 64 and all people. Panel a has no annotations. Panel b adds a vertical line and text for the introduction of OxyContin. Panel c adds trend lines, text, and a shaded gap. Panel d combines all annotations." /></button>
+          <figcaption><b>Figure 6.</b> The case study, step by step: (a) the chart with its annotations removed;
+            (b) an indicator and text to identify when OxyContin was introduced; (c) indicators, color, an
+            enclosure, connectors, and text to summarize and compare the trends; (d) the complete chart. The
+            labels under (b) and (c) give the why, how, and what for each step.<sup class="cite"><a
+                href="#ref-3">3</a>,<a href="#ref-19">19</a></sup></figcaption>
+        </figure>
         <ul>
           <li><strong>Point out when OxyContin was introduced.</strong> Why: identify. How: a vertical indicator
             line, plus text explaining the event. What: external, from the article.</li>
@@ -1501,7 +1511,7 @@
         <button class="zoom" type="button" aria-label="Enlarge figure"><img src="six-considerations.jpg"
             width="1348" height="648"
             alt="Six sketches of annotation design considerations: audience, hierarchy, associate placement, associate style, cohesion, and amount." /></button>
-        <figcaption><b>Figure 6.</b> Six considerations for annotation design, drawn from the interviews.<sup
+        <figcaption><b>Figure 7.</b> Six considerations for annotation design, drawn from the interviews.<sup
             class="cite"><a href="#ref-5">5</a></sup> A gallery of published examples for each is available
           online.<sup class="cite"><a href="#ref-16">16</a></sup></figcaption>
       </figure>
@@ -1614,14 +1624,14 @@
 }</code></pre>
 
       <p>Because the annotation refers to its target instead of fixed pixel positions, it can survive changes. In
-        Figure 7, one annotation specification is reused across three charts of the same dataset. AnnoGram finds the
+        Figure 8, one annotation specification is reused across three charts of the same dataset. AnnoGram finds the
         target in each chart and places the annotation without any rewriting.</p>
 
       <figure class="wide">
         <button class="zoom" type="button" aria-label="Enlarge figure"><img src="annogram-portability.jpg"
             width="1341" height="614"
             alt="Three charts of the same car dataset, a scatterplot, a vertical bar chart, and a horizontal bar chart, each showing the same annotations placed appropriately." /></button>
-        <figcaption><b>Figure 7.</b> The same AnnoGram annotation specification applied to three chart types built
+        <figcaption><b>Figure 8.</b> The same AnnoGram annotation specification applied to three chart types built
           from the same dataset.<sup class="cite"><a href="#ref-6">6</a></sup> Live examples are in the AnnoGram
           gallery.<sup class="cite"><a href="#ref-17">17</a></sup></figcaption>
       </figure>
@@ -1637,14 +1647,14 @@
         annotation is correct? A polished label can still point at the wrong bar.</p>
 
       <p>We propose five criteria, each for a different way an annotation can fail.<sup class="cite"><a
-            href="#ref-8">8</a>,<a href="#ref-7">7</a></sup> Figure 8 shows one failure of each, for the task
+            href="#ref-8">8</a>,<a href="#ref-7">7</a></sup> Figure 9 shows one failure of each, for the task
         “Label the smallest bar with ‘Smallest (value)’.”</p>
 
       <figure class="wide">
         <button class="zoom" type="button" aria-label="Enlarge figure"><img src="evaluation-criteria.jpg"
             width="3227" height="516"
             alt="Five small bar charts, each showing a failing annotation for labeling the smallest bar: Precise, the label points to the wrong bar; Relevant, the label shows the wrong value; Visible, the label overlaps the bars; Preservant, the bar heights changed; Consistent, the label style clashes with the chart." /></button>
-        <figcaption><b>Figure 8.</b> One failure per criterion. From left: the label points to the wrong bar; the
+        <figcaption><b>Figure 9.</b> One failure per criterion. From left: the label points to the wrong bar; the
           label points to the right bar but states the wrong value; the label is hard to read or link; the bars
           themselves have changed; the label’s style clashes with the chart.<sup class="cite"><a
               href="#ref-7">7</a></sup></figcaption>
@@ -1863,10 +1873,12 @@
             rel="noopener">vl-annotation.netlify.app/examples</a></li>
         <li id="ref-18">H.-K. Kong, Z. Liu, and K. Karahalios. Trust and recall of information across varying degrees of
           title-visualization misalignment. In <i>Proc. ACM CHI</i>, 2019.</li>
+        <li id="ref-19">The Economist. Places with high religious participation have fewer deaths of despair. <i>The
+            Economist</i>, February 2023.</li>
       </ol>
 
-      <p class="endnote">Figures 1, 2, and 4 to 8 are from the dissertation and the papers cited with them. Figure 1
-        reproduces a Washington Post chart for research discussion. Figure 3 is drawn from the counts reported in
+      <p class="endnote">Figures 1, 2, and 4 to 9 are from the dissertation and the papers cited with them. Figures 1 and 6
+        reproduce charts from The Washington Post and The Economist for research discussion. Figure 3 is drawn from the counts reported in
         the design-space paper. Thanks to my co-authors and to everyone who took
         part in these studies.</p>
     </article>
