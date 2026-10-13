@@ -624,6 +624,32 @@
       display: none;
     }
 
+    /* Compact cards on small screens */
+    .desk[data-layout="narrow"] .paper {
+      padding: 12px 13px 13px;
+      border-radius: 8px;
+    }
+
+    .desk[data-layout="narrow"] .card-meta {
+      font-size: 10.5px;
+      margin-bottom: 5px;
+    }
+
+    .desk[data-layout="narrow"] .card-title {
+      font-size: 15px;
+      line-height: 1.2;
+      letter-spacing: -0.012em;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .desk[data-layout="narrow"] .fig {
+      border-radius: 3px;
+    }
+
     .desk-hint {
       position: absolute;
       left: 0;
@@ -1225,7 +1251,7 @@
 
     <section class="desk" id="desk" aria-label="The five papers">
       <div class="stage" id="stage">
-        <a class="card" href="#annotation-survey" data-key="survey">
+        <a class="card" href="#annotation-survey" data-key="survey" data-short-meta="TVCG · Tue, Nov 10" data-short-title="A Survey on Annotations in Visualization">
           <span class="paper">
             <span class="card-meta">TVCG · Tuesday, Nov 10</span>
             <span class="card-title">A Survey on Annotations in Information Visualization</span>
@@ -1236,7 +1262,7 @@
                 </svg></span></span>
           </span>
         </a>
-        <a class="card" href="#annotation-design" data-key="design">
+        <a class="card" href="#annotation-design" data-key="design" data-short-meta="Summit · Wed, Nov 11">
           <span class="paper">
             <span class="card-meta">Practitioners’ Summit · Wednesday, Nov 11</span>
             <span class="card-title">Designing Annotations in Visualization</span>
@@ -1247,7 +1273,7 @@
                 </svg></span></span>
           </span>
         </a>
-        <a class="card" href="#guidelines" data-key="guidelines">
+        <a class="card" href="#guidelines" data-key="guidelines" data-short-meta="BELIV · Mon, Nov 9">
           <span class="paper">
             <span class="card-meta">BELIV · Monday, Nov 9</span>
             <span class="card-title">Guidelines Are Not Rules</span>
@@ -1258,7 +1284,7 @@
                 </svg></span></span>
           </span>
         </a>
-        <a class="card" href="#mllm-claims" data-key="mllm">
+        <a class="card" href="#mllm-claims" data-key="mllm" data-short-meta="AccessViz · Mon, Nov 9">
           <span class="paper">
             <span class="card-meta">AccessViz · Monday, Nov 9</span>
             <span class="card-title">Chart-Supported or Model-Supplied?</span>
@@ -1269,7 +1295,7 @@
                 </svg></span></span>
           </span>
         </a>
-        <a class="card" href="#wastewater" data-key="wastewater">
+        <a class="card" href="#wastewater" data-key="wastewater" data-short-meta="AccessViz · Mon, Nov 9" data-short-title="Accessible Redesign of a Wastewater Dashboard">
           <span class="paper">
             <span class="card-meta">AccessViz · Monday, Nov 9</span>
             <span class="card-title">A Case Study in Accessible Redesign of a Wastewater Dashboard</span>
@@ -1548,13 +1574,13 @@
           },
         },
         narrow: {
-          w: 400, h: 1450,
+          w: 400, h: 600,
           cards: {
-            survey: { x: 26, y: 34, w: 330, r: -3.5 },
-            design: { x: 50, y: 262, w: 320, r: 3 },
-            guidelines: { x: 20, y: 560, w: 330, r: -2.5 },
-            mllm: { x: 54, y: 840, w: 320, r: 3.5 },
-            wastewater: { x: 22, y: 1080, w: 330, r: -2 },
+            survey: { x: 12, y: 26, w: 188, r: -4 },
+            design: { x: 200, y: 16, w: 188, r: 3.5 },
+            guidelines: { x: 106, y: 196, w: 188, r: -1.5 },
+            mllm: { x: 10, y: 368, w: 188, r: 3 },
+            wastewater: { x: 202, y: 360, w: 188, r: -3 },
           },
         },
       };
@@ -1573,6 +1599,13 @@
           layoutName = name;
           desk.dataset.layout = name;
           cards.forEach(card => {
+            // shorter labels on the compact layout
+            const meta = card.querySelector('.card-meta');
+            const title = card.querySelector('.card-title');
+            meta.dataset.full ??= meta.textContent;
+            title.dataset.full ??= title.textContent;
+            meta.textContent = name === 'narrow' && card.dataset.shortMeta ? card.dataset.shortMeta : meta.dataset.full;
+            title.textContent = name === 'narrow' && card.dataset.shortTitle ? card.dataset.shortTitle : title.dataset.full;
             const c = L.cards[card.dataset.key];
             card.style.left = c.x + 'px';
             card.style.top = c.y + 'px';
