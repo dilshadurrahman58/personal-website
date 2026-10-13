@@ -744,6 +744,75 @@
       margin: 0 0 8px;
     }
 
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      padding-left: 0 !important;
+      margin: 0 0 24px;
+    }
+
+    .checklist li {
+      margin: 0;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .checklist li:last-child {
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .checklist label {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 12px 4px;
+      cursor: pointer;
+      color: var(--ink-2);
+      transition: color 0.2s;
+    }
+
+    .checklist input {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      margin: 4px 0 0;
+      border: 1.5px solid var(--ink-3);
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .checklist input::after {
+      content: "";
+      width: 9px;
+      height: 5px;
+      border-left: 2px solid var(--bg);
+      border-bottom: 2px solid var(--bg);
+      transform: rotate(-45deg) translate(1px, -1px) scale(0);
+      transition: transform 0.25s var(--ease-out);
+    }
+
+    .checklist input:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .checklist input:checked::after {
+      transform: rotate(-45deg) translate(1px, -1px) scale(1);
+    }
+
+    .checklist input:checked + span {
+      color: var(--ink-3);
+    }
+
+    .checklist label:hover {
+      color: var(--ink);
+    }
+
     /* Further reading + references */
     .reading {
       list-style: none;
@@ -1155,7 +1224,7 @@
         <li><a href="#practice">How practitioners decide</a></li>
         <li><a href="#tools">Annotation in our tools</a></li>
         <li><a href="#evaluate">Judging an annotation</a></li>
-        <li><a href="#takeaways">What to take away</a></li>
+        <li><a href="#takeaways">A practical checklist</a></li>
         <li><a href="#reading">Further reading</a></li>
       </ol>
     </nav>
@@ -1163,11 +1232,10 @@
     <article class="prose">
       <p class="kicker">Research notes</p>
       <h1>What We Know About Annotating Visualizations</h1>
-      <p class="dek">A guide to my dissertation research on annotation: what annotations are, how people build
-        and decide on them, how tools can support them, and how to tell whether one is right.</p>
+      <p class="dek">What my collaborators and I learned from several years of studying chart annotations: the types people use, how professionals decide, how tools could help, and how to check that an annotation is right. Plus a checklist for your next chart.</p>
       <div class="byline">
         <span>Md Dilshadur Rahman</span>
-        <span>About 18 minutes to read</span>
+        <span>About 20 minutes to read</span>
       </div>
 
       <details class="toc-mobile">
@@ -1182,16 +1250,17 @@
           <li><a href="#practice">How practitioners decide</a></li>
           <li><a href="#tools">Annotation in our tools</a></li>
           <li><a href="#evaluate">Judging an annotation</a></li>
-          <li><a href="#takeaways">What to take away</a></li>
+          <li><a href="#takeaways">A practical checklist</a></li>
           <li><a href="#reading">Further reading</a></li>
         </ol>
       </details>
 
       <!-- 1 -->
       <h2 id="why">Why annotation deserves study</h2>
-      <p>A chart can show the data accurately and still leave the reader unsure what to look at. Annotations
-        help with that. They are the labels, callouts, arrows, shaded regions, reference lines, and color
-        highlights that point to part of a chart and say something about it.</p>
+      <p>For the past few years, I have been studying one part of charts that is easy to take for granted: the
+        annotations. These are the labels, arrows, shaded regions, reference lines, and color highlights that point
+        at part of a chart and tell you why it matters. When they are done well, you barely notice them. You just
+        get the point.</p>
 
       <figure class="wide">
         <button class="zoom" type="button" aria-label="Enlarge figure"><img
@@ -1202,54 +1271,63 @@
           peak and the later COVID-19 waves.<sup class="cite"><a href="#ref-9">9</a></sup></figcaption>
       </figure>
 
-      <p>Both versions in Figure 1 contain the same data. Only the right one tells you which periods matter and
-        why. Amanda Cox, then a graphics editor at The New York Times, described the annotation layer this
-        way:</p>
+      <p>Look at Figure 1. Both versions show exactly the same data. On the left, you are on your own. On the right,
+        a few gray bands, short notes, and arrows tell you where the peaks are and what happened. Amanda Cox, then a
+        graphics editor at The New York Times, once said:</p>
 
       <blockquote>
         <p>“The annotation layer is the most important thing we do.”</p>
         <footer>Amanda Cox, quoted by Ren et al.<sup class="cite"><a href="#ref-10">10</a></sup></footer>
       </blockquote>
 
-      <p>Studies back this up. Text in and around a chart affects what readers remember, what message they take
-        away, and how much they trust it.<sup class="cite"><a href="#ref-12">12</a>,<a
-            href="#ref-13">13</a>,<a href="#ref-18">18</a>,<a href="#ref-14">14</a></sup> Annotations also help
-        analysts record their reasoning and help teams share interpretations.<sup class="cite"><a
-            href="#ref-1">1</a></sup></p>
+      <p>Research backs up the idea that this layer matters. The text in and around a chart changes what readers remember, what message they
+        take away, and how much they trust it.<sup class="cite"><a href="#ref-12">12</a>,<a
+            href="#ref-13">13</a>,<a href="#ref-18">18</a>,<a href="#ref-14">14</a></sup> Analysts use annotations to
+        record their thinking, and teams use them to share it.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 
-      <p>Still, when we reviewed 191 papers on the topic, we found that most of them treated annotation as a side
-        topic inside work about something else, such as storytelling, collaboration, or exploratory
-        analysis.<sup class="cite"><a href="#ref-1">1</a></sup> My dissertation brings these threads
-        together.<sup class="cite"><a href="#ref-8">8</a></sup> This post summarizes it. The papers listed at
-        the end have the full methods and limitations.</p>
+      <p>And yet, when we read through 191 papers on annotation, most of them treated it as a side topic inside work
+        about something else.<sup class="cite"><a href="#ref-1">1</a></sup> So I made annotation the subject of my
+        dissertation.<sup class="cite"><a href="#ref-8">8</a></sup> This post is the short, readable version of what
+        my collaborators and I found. Here is what is coming:</p>
+      <ul>
+        <li>the seven types of annotation people actually use, and how often each one shows up;</li>
+        <li>why annotations usually work in small groups;</li>
+        <li>three questions that make it easier to design an annotation, or to critique one;</li>
+        <li>what professional newsrooms do with annotation;</li>
+        <li>how experienced practitioners make their decisions;</li>
+        <li>how our tools could treat annotations better;</li>
+        <li>five ways to check whether an annotation is actually right.</li>
+      </ul>
+      <p>At the end, you will find a practical checklist you can use on your next chart. If you want the full
+        methods and limitations, the papers are listed at the bottom.</p>
 
       <!-- 2 -->
       <h2 id="what">What counts as an annotation</h2>
-      <p>What makes something an annotation is the job it does. The same line can be data in one chart and a
-        reference line in another. The same color can encode a category or highlight one bar. We count an element
-        as an annotation when it is added to the data encoding to direct attention, explain a relationship, add
-        context, or guide interpretation.</p>
+      <p>Whether something is an annotation depends on the job it does, not on what it looks like. A line can be
+        data in one chart and a reference line in another. A color can stand for a category, or it can highlight a
+        single bar. We call an element an annotation when it is added on top of the data to point something out,
+        explain a relationship, add context, or guide the reader.</p>
 
-      <p>Annotation is also a process. Someone decides whether to annotate, what to annotate, and how. Those
-        decisions depend on the data, the evidence at hand, the audience, the medium, and the purpose of the
-        chart.</p>
+      <p>Annotation is also a set of decisions. Should I annotate this at all? What should I point out? How? The
+        answers depend on the data, the evidence you have, your audience, where the chart will appear, and what you
+        want it to say.</p>
 
-      <p>There is a limit, though. An annotation cannot fix a chart whose encoding does not fit the task. In 2020,
-        a Georgia Department of Public Health bar chart ordered dates by case count instead of by time. The values
-        were correct, but the chart looked like a timeline, and it was not one.<sup class="cite"><a
-            href="#ref-11">11</a></sup> A note could have explained the ordering. If the goal was to show change
-        over time, though, the fix was to put the dates back in order. It pays to plan annotations at the same time
-        as the encoding and layout, rather than after them.</p>
+      <p>One warning before we go further: an annotation cannot rescue a chart that is built wrong for its job. In
+        2020, the Georgia Department of Public Health published a bar chart that sorted dates by case count instead
+        of by time. Every number was correct, but the chart looked like a timeline, and it was not one.<sup
+          class="cite"><a href="#ref-11">11</a></sup> A note could have explained the order. If the point was change
+        over time, though, the real fix was to put the dates back in order. That is why I think it is best to plan
+        annotations together with the chart, not after it.</p>
 
       <!-- 3 -->
       <h2 id="types">Seven types of annotation</h2>
-      <p>To see what annotation looks like in practice, we collected 8,768 images from Google Images using
-        searches such as “annotated scatterplot” for 14 chart types. After removing duplicates and images that did
-        not fit the study, two coders classified 2,677 images. We analyzed the 1,888 annotated charts identified by
-        the first coder. The two coders agreed closely (Cohen’s κ = 0.886).<sup class="cite"><a
-            href="#ref-3">3</a></sup></p>
+      <p>To see what people really do, we went looking for annotated charts in the wild. We collected 8,768 images
+        from Google Images with searches like “annotated scatterplot,” across 14 chart types. After removing
+        duplicates and images that did not fit, two of us coded 2,677 images, and we analyzed the 1,888 annotated
+        charts that the first coder identified. The two coders agreed closely (Cohen’s κ = 0.886).<sup
+          class="cite"><a href="#ref-3">3</a></sup></p>
 
-      <p>Seven types came up again and again. Figure 2 shows all of them in one chart.</p>
+      <p>The same seven types kept appearing. Figure 2 squeezes all of them into one chart.</p>
 
       <figure>
         <button class="zoom" type="button" aria-label="Enlarge figure"><img src="seven-annotation-types.jpg"
@@ -1263,15 +1341,14 @@
 
       <ul>
         <li><strong>Enclosure.</strong> A full or partial boundary, such as a rectangle, ellipse, or bracket.</li>
-        <li><strong>Connector.</strong> A line or arrow that links an annotation to what it refers to.</li>
-        <li><strong>Text.</strong> Words, values, or sentences about the data.</li>
+        <li><strong>Connector.</strong> A line or arrow from an annotation to the thing it refers to.</li>
+        <li><strong>Text.</strong> Words, numbers, or sentences about the data.</li>
         <li><strong>Glyph.</strong> A symbol or shape that marks a point or category.</li>
-        <li><strong>Color.</strong> A change in hue, lightness, or another color property that highlights or
-          separates elements.</li>
-        <li><strong>Indicator.</strong> A mark for a trend, statistic, or threshold, such as a trend line or an
+        <li><strong>Color.</strong> A change in color that highlights or separates elements.</li>
+        <li><strong>Indicator.</strong> A mark for a trend, statistic, or threshold, like a trend line or an
           average line.</li>
-        <li><strong>Geometric.</strong> A change to the chart’s geometry, such as pulling out a pie slice or
-          zooming into a region.</li>
+        <li><strong>Geometric.</strong> A change to the chart’s shape, like pulling out a pie slice or zooming into
+          one region.</li>
       </ul>
 
       <figure>
@@ -1299,26 +1376,26 @@
         </figcaption>
       </figure>
 
-      <p>The mix depended on the chart type. Indicators were common in line charts, bar charts, histograms, and
-        scatterplots, which have an axis to mark a trend or threshold against. They were rare in pie charts and
-        treemaps, which have no such axis. Zooming in can make a line chart lose its overall trend, and it may not be needed in a bar chart.</p>
+      <p>Which types people used depended on the chart. Indicators were common in line charts, bar charts,
+        histograms, and scatterplots, where there is an axis to draw a trend or threshold against. They were rare in
+        pie charts and treemaps, which have no such axis. Geometric zooms show up in maps and pie charts, but zooming
+        into a line chart can make readers lose the overall trend.</p>
 
-      <p>Keep in mind that these counts describe what people make. They do not say which choices work best for
-        readers. They are still a useful reference: if you are about to do something unusual for your chart type,
-        it is worth knowing that you are departing from common practice.</p>
+      <p>These numbers tell you what people make, not what works best for readers. They are still handy. If you are
+        about to do something unusual for your chart type, it is good to know that you are breaking with common
+        practice, so you can make sure it is on purpose.</p>
 
       <!-- 4 -->
       <h2 id="ensembles">Annotations work in groups</h2>
-      <p>In every study, annotations often appeared in groups rather than alone. We call a group of annotations
-        that do one job together an <strong>ensemble</strong>. A text label with an arrow pointing at a bar is the
-        simplest example.</p>
+      <p>If there is one pattern that showed up in every one of our studies, it is this: annotations rarely work
+        alone. We call a group of annotations that do one job together an <strong>ensemble</strong>. A label with an
+        arrow pointing at a bar is the simplest one.</p>
 
-      <p>We first saw this in a classroom study.<sup class="cite"><a href="#ref-2">2</a></sup> Students in a
-        visualization course received grouped bar charts and questions such as “Which counties have fewer than 40
-        cases on May 1?” For each question, they listed the low-level analytic tasks it required (retrieve value,
-        filter, compute derived value, find extremum, sort). Then they annotated the chart to make the question
-        easier to answer. We analyzed 20 of the 38 submissions. The others had no annotations, or only minimal or
-        unrelated ones.</p>
+      <p>We first noticed this in a classroom study.<sup class="cite"><a href="#ref-2">2</a></sup> Students in a
+        visualization course got grouped bar charts and questions like “Which counties have fewer than 40 cases on
+        May 1?” For each question, they listed the basic tasks needed to answer it (retrieve a value, filter, compute
+        a derived value, find an extreme, sort). Then they annotated the chart to make the answer easier to find. We
+        analyzed 20 of the 38 submissions. The rest had no annotations, or only minimal or unrelated ones.</p>
 
       <figure>
         <button class="zoom" type="button" aria-label="Enlarge figure"><img src="student-ensembles.jpg"
@@ -1329,40 +1406,40 @@
           sorting task.<sup class="cite"><a href="#ref-2">2</a></sup></figcaption>
       </figure>
 
-      <p>Students used five types of annotation, which we split into 14 subtypes. They combined two, three, or four
-        types when one was not enough, either because the task was hard to show or because there was no room to
-        place a label directly. The parts of an ensemble can depend on each other in two ways:</p>
+      <p>The students used five types of annotation, which we split into 14 subtypes. Whenever one annotation was not
+        enough, they combined two, three, or four. Sometimes the task was hard to show with one mark. Sometimes there
+        was no room to put a label right next to the data. The pieces of an ensemble can lean on each other in two
+        ways:</p>
       <ul>
-        <li><strong>One-way.</strong> One part works alone and the other only adds to it. A bracket can mark a
-          range by itself. A small “#” next to it, which signals a sum, cannot.</li>
-        <li><strong>Two-way.</strong> Neither part works alone. An arrow without text does not say what to sort,
-          and text without the arrow does not show the direction.</li>
+        <li><strong>One-way.</strong> One piece works alone, and the other just helps. A bracket can mark a range
+          by itself. The small “#” next to it, which signals a sum, cannot.</li>
+        <li><strong>Two-way.</strong> Neither piece works alone. An arrow without text does not say what to sort,
+          and the text without the arrow does not show which way.</li>
       </ul>
 
-      <p>A few findings from this study are worth carrying into your own work:</p>
+      <p>Three things from this study are worth keeping in mind for your own charts:</p>
       <ul>
-        <li><strong>Some tasks are harder to annotate.</strong> Retrieving a value and filtering had many good
-          options. Sorting was the hardest, and students often fell back on text. Pairing a connector with text
-          helped, but it gets difficult when there are many items to sort.</li>
-        <li><strong>Bigger groups are not always better.</strong> Many of the three- and four-part ensembles
-          contained redundant parts. A two-part ensemble would often have done the same job.</li>
-        <li><strong>Chart order affects annotation.</strong> When dates were out of order, students needed more
-          annotations (16 per chart on average, against 14 for charts in time order), because a date range could no
-          longer be marked with one enclosure.</li>
+        <li><strong>Some tasks are harder to annotate.</strong> Pointing to a value or picking out a subset was
+          easy, and students had many ways to do it. Sorting was the hardest, and they often fell back on writing it
+          out in text. An arrow with text helped, but it gets messy when there are many items.</li>
+        <li><strong>More pieces are not always better.</strong> Many of the three- and four-piece ensembles had
+          parts that repeated each other. Two pieces would often have been enough.</li>
+        <li><strong>The chart’s order changes the annotation.</strong> When dates were out of order, students
+          needed more annotations (16 per chart on average, compared with 14 for charts in time order), because one
+          box could no longer cover a date range.</li>
       </ul>
 
-      <p>The same groupings showed up at larger scale. In the 1,888 charts, the most common ensembles were
+      <p>The same groups showed up at large scale. In the 1,888 charts, the most common ensembles were
         enclosure + connector + text, connector + text, enclosure + text, and glyph + color.<sup class="cite"><a
-            href="#ref-3">3</a></sup> In the news graphics we studied, combinations were more common than single
-        annotations.<sup class="cite"><a href="#ref-4">4</a></sup> So when you design, review, or build tools for
-        annotation, it helps to think about the whole group. Changing one part, such as moving a label, can make
-        another part, such as its arrow, unnecessary.</p>
+            href="#ref-3">3</a></sup> In the news graphics we looked at, combinations were more common than single
+        annotations.<sup class="cite"><a href="#ref-4">4</a></sup> So it helps to think about the whole group when
+        you design or review annotations. Move a label closer, and its arrow may no longer be needed.</p>
 
       <!-- 5 -->
       <h2 id="questions">Three questions: why, how, and what</h2>
-      <p>To organize these findings, we adapted Brehmer and Munzner’s task typology.<sup class="cite"><a
-            href="#ref-15">15</a></sup> It splits the design of an annotation into three separate questions.<sup
-          class="cite"><a href="#ref-3">3</a></sup></p>
+      <p>To make sense of all this, we borrowed Brehmer and Munzner’s task typology<sup class="cite"><a
+            href="#ref-15">15</a></sup> and split every annotation into three questions.<sup class="cite"><a
+            href="#ref-3">3</a></sup></p>
 
       <div class="questions">
         <div class="q">
@@ -1406,13 +1483,12 @@
               href="#ref-3">3</a></sup></figcaption>
       </figure>
 
-      <p>The left side of Figure 5 is the most practical part when you are choosing a form. Here is what the corpus
-        showed:</p>
+      <p>When you are picking a form, the left side of Figure 5 is the part to look at. Here is what it shows:</p>
       <table class="criteria">
         <thead>
           <tr>
             <th scope="col">If the task is to</th>
-            <th scope="col">Types seen doing it</th>
+            <th scope="col">Types we saw doing it</th>
           </tr>
         </thead>
         <tbody>
@@ -1430,22 +1506,22 @@
           </tr>
           <tr>
             <th scope="row">Present added context</th>
-            <td>Text, often paired with a connector to show what it refers to</td>
+            <td>Text, often with a connector to show what it refers to</td>
           </tr>
         </tbody>
       </table>
 
-      <p>The third question is easy to overlook, and it matters. A text label can show a value already in the data
-        (internal), state an average or trend computed from the data (derived), or explain an event the data cannot
-        show (external). It looks the same in all three cases, but each one needs different evidence. An internal
-        label is checked against the data. A derived one also depends on the calculation behind it. An external one
-        depends on a source outside the chart. In the corpus, internal annotations appeared in 973 charts, derived
-        ones in 330, and external ones in 994.</p>
+      <p>The third question is the easiest one to skip, so I want to spend a moment on it. A text label can show a
+        number that is already in the data (internal). It can state an average or a trend you calculated (derived).
+        Or it can explain an event that the data cannot show at all (external). All three look like text. But each
+        one is backed by something different. An internal label is checked against the data. A derived one also
+        depends on the calculation. An external one depends on a source outside the chart. In our corpus, internal
+        annotations appeared in 973 charts, derived ones in 330, and external ones in 994.</p>
 
       <div class="note">
         <p class="note-title">Worked example</p>
-        <p>In the design-space paper, we took an Economist line chart about “deaths of despair” in the United
-          States, removed its annotations, and added them back one question at a time.<sup class="cite"><a
+        <p>To try these questions out, we took an Economist line chart about “deaths of despair” in the United States,
+          removed its annotations, and added them back one question at a time.<sup class="cite"><a
               href="#ref-3">3</a></sup></p>
         <figure>
           <button class="zoom" type="button" aria-label="Enlarge figure"><img src="case-study-economist.jpg"
@@ -1457,6 +1533,7 @@
             labels under (b) and (c) give the why, how, and what for each step.<sup class="cite"><a
                 href="#ref-3">3</a>,<a href="#ref-19">19</a></sup></figcaption>
         </figure>
+
         <ul>
           <li><strong>Point out when OxyContin was introduced.</strong> Why: identify. How: a vertical indicator
             line, plus text explaining the event. What: external, from the article.</li>
@@ -1465,47 +1542,48 @@
           <li><strong>Compare two demographic groups.</strong> Why: compare. How: color and an enclosure to mark
             the gap, then a connector and text to say what the gap means. What: external.</li>
         </ul>
-        <p>Asking the three questions in turn made each choice explicit, and it made clear what each annotation
-          needed in order to be correct.</p>
+        <p>Going one question at a time made every choice explicit. It also made it obvious what each annotation
+          needed to be true.</p>
       </div>
 
-      <p>The same questions work for critique. For any annotation in a finished chart, ask what task it serves,
-        how it is built, and what supports what it says.</p>
+      <p>The same three questions work well for critique. Pick any annotation in a finished chart and ask: what is it
+        for, how is it built, and what backs up what it says?</p>
 
       <!-- 6 -->
       <h2 id="news">Annotation in professional news graphics</h2>
-      <p>News graphics are a setting where annotation is especially visible. We studied 72 static bar charts, line
-        charts, and scatterplots from The New York Times, The Economist, The Wall Street Journal, and The Washington
-        Post, published between 2017 and 2023. We read each one together with its caption and article.<sup
-          class="cite"><a href="#ref-4">4</a></sup> We saw five recurring patterns:</p>
+      <p>Major newsrooms publish some of the most heavily annotated charts around, so we wanted to see what they do. We studied 72 static bar
+        charts, line charts, and scatterplots from The New York Times, The Economist, The Wall Street Journal, and The
+        Washington Post, published between 2017 and 2023. We read each chart together with its caption and its
+        article.<sup class="cite"><a href="#ref-4">4</a></sup> Five patterns kept coming up:</p>
       <ul>
-        <li><strong>Ensembles were the norm.</strong> Combinations such as connectors with text, or highlights with
-          text, were more common than single annotations.</li>
-        <li><strong>Highlighting followed the story.</strong> Shaded regions and colored bars marked the parts of
-          the chart that the article discussed.</li>
-        <li><strong>Article content moved into the chart.</strong> Short descriptions tied points from the article
-          to specific values, periods, or events.</li>
-        <li><strong>Captions and annotations split the work.</strong> The caption stated the main message. The
-          annotations attached that message to specific places in the chart.</li>
-        <li><strong>Key numbers were written out.</strong> Values were often stated in text even when an axis
-          already showed them.</li>
+        <li><strong>Groups, not singles.</strong> Combinations like connectors with text, or highlights with text,
+          were more common than single annotations.</li>
+        <li><strong>Highlights follow the story.</strong> Shaded regions and colored bars marked the parts of the
+          chart that the article talked about.</li>
+        <li><strong>The article moves into the chart.</strong> Short notes tied points from the article to specific
+          values, periods, or events.</li>
+        <li><strong>Caption and annotations share the work.</strong> The caption gave the main message. The
+          annotations pinned it to specific places in the chart.</li>
+        <li><strong>Key numbers get written out.</strong> Important values were often stated in text, even when
+          the axis already showed them.</li>
       </ul>
-      <p>These are descriptions of professional practice, not tested rules. They do suggest a useful habit: treat
-        the chart, its caption, and the surrounding text as one unit. Before adding an annotation, check whether
-        the caption or the article already carries that information, and whether it would survive if the chart were
-        shared alone.</p>
+      <p>These patterns describe what professionals do. They were not tested on readers. Still, they suggest a good
+        habit: think of the chart, its caption, and the text around it as one piece. Before you add an annotation,
+        check whether the caption or the article already says it. Then ask whether it would still make sense if
+        someone shared the chart on its own.</p>
 
       <!-- 7 -->
       <h2 id="practice">How practitioners decide</h2>
-      <p>Finished charts show what people made, but not why. To learn the reasoning, we interviewed ten
-        practitioners who regularly make annotated charts, including data analysts, a graphics editor, a
-        visualization designer, a consultant, a professor, and managers. Most walked us through five to seven of
-        their own charts. We then asked seven visualization educators to reflect on what we found: where it holds,
-        where it breaks, and how they would teach it.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+      <p>A finished chart shows what someone made, but not why. So we asked. We interviewed ten people who regularly
+        make annotated charts in their work, including data analysts, a graphics editor,
+        a visualization designer, a consultant, a professor, and managers. Most of them walked us through five to
+        seven of their own charts. Then we asked seven visualization educators to react to what we found: where it
+        holds, where it falls apart, and how they would teach it.<sup class="cite"><a href="#ref-5">5</a></sup></p>
 
-      <p>Practitioners annotate for three main reasons: to point out what matters and give enough context, to set
-        a reading order, and to keep a chart understandable when it travels without its article. As one
-        practitioner put it, <span class="quote">“everyone screenshots things.”</span></p>
+      <p>Practitioners annotate for three main reasons. They want to point out what matters and give enough
+        context. They want to set the order in which people read the chart. And they want the chart to make sense
+        when it travels without its article. As one of them put it, <span class="quote">“everyone screenshots
+          things.”</span></p>
 
       <figure class="wide">
         <button class="zoom" type="button" aria-label="Enlarge figure"><img src="six-considerations.jpg"
@@ -1518,114 +1596,113 @@
 
       <ol class="consider">
         <li>
-          <h3>Start from the audience and the stakes</h3>
-          <p>Decide who will read the chart and what they need to get from it. If the chart is likely to be shared
-            on its own, or a misreading would be costly, put essential caveats on the chart itself. Keep them
-            short.</p>
-          <p class="caveat">Educators warned that extra notes add clutter and have to be maintained, and that no
-            design can fully prevent deliberate misuse.</p>
+          <h3>Start with the audience and the stakes</h3>
+          <p>Figure out who will read the chart and what they need from it. If the chart is likely to be shared on
+            its own, or a misreading would be costly, put the key caveats right on the chart. Keep them short.</p>
+          <p class="caveat">Educators pointed out that every extra note adds clutter and has to be kept up to date,
+            and that no design can fully stop someone who wants to misuse a chart.</p>
         </li>
         <li>
           <h3>Put text next to the data first</h3>
-          <p>Place a label beside what it describes when you can. If there is no room, use a short connector or a
-            single enclosure around a small group. Use a legend or numbered key only when direct labels would crowd
-            the chart, and order the key to match the chart. One practitioner said, <span class="quote">“a legend
-              in a figure is a lot more cognitive burden than a well placed annotation.”</span></p>
-          <p class="caveat">Not everything needs a label. As one educator noted, label everything and <span
-              class="quote">“I might as well just use a table.”</span></p>
+          <p>Place a label right beside what it describes whenever you can. If there is no room, use a short arrow
+            or draw one box around a small group. Use a legend or numbered key only when direct labels would crowd
+            the chart, and put the key in the same order as the chart. One practitioner said, <span class="quote">“a
+              legend in a figure is a lot more cognitive burden than a well placed annotation.”</span></p>
+          <p class="caveat">That does not mean label everything. As one educator said, label every mark and
+            <span class="quote">“I might as well just use a table.”</span></p>
         </li>
         <li>
           <h3>Make one annotation the main one</h3>
-          <p>Choose one primary annotation and give it the strongest position and emphasis. Keep the rest visibly
-            secondary. If a secondary note competes with it, remove it, merge it, or tone it down.</p>
+          <p>Pick the one annotation that matters most and give it the strongest spot and the most emphasis. Keep
+            the others lighter. If a smaller note starts competing with it, cut it, merge it, or tone it down.</p>
         </li>
         <li>
-          <h3>Link labels to data with more than color</h3>
-          <p>Matching a label’s color to its line or bar helps, but only when the colors are easy to tell apart.
-            Pair color with proximity, a small connector, a swatch, or an enclosure. Check that colored text is
-            still readable.</p>
-          <p class="caveat">Educators disagreed on whether label colors should match the data exactly or follow a
-            separate annotation style.</p>
+          <h3>Connect labels to data with more than color</h3>
+          <p>Coloring a label to match its line or bar helps, but only when the colors are easy to tell apart. Add
+            a second cue too: put the label close, add a small arrow, a color swatch, or a box. And make sure colored
+            text is still easy to read.</p>
+          <p class="caveat">Educators disagreed here. Some wanted label colors to match the data exactly. Others
+            preferred a separate, consistent style for annotations.</p>
         </li>
         <li>
-          <h3>Decide whether annotations blend in or stand apart</h3>
-          <p>Some practitioners style annotations like the rest of the chart, so it reads as one piece. Others make
-            them visibly different, so readers know they are added commentary. Either can work. Choose based on what
-            the annotation is for, and keep the style consistent across related charts.</p>
+          <h3>Decide whether annotations blend in or stand out</h3>
+          <p>Some practitioners style annotations like the rest of the chart, so everything reads as one piece.
+            Others make them look different on purpose, so readers know they are added commentary. Both work. Choose
+            based on what the annotation is for, and use the same style across related charts.</p>
         </li>
         <li>
-          <h3>Set an annotation budget for the medium</h3>
-          <p>Keep visible only what the main message needs at first glance. Move details to a tooltip or the
-            surrounding text. Some practitioners used rules of thumb. One aimed for about three annotations and at
-            most five. Others annotated everything they could and then removed what did not help.</p>
-          <p class="caveat">Educators rejected fixed numbers. One described the goal as <span
-              class="quote">“complexity communicated with clarity,”</span> which might take one annotation or a
-            hundred.</p>
+          <h3>Set an annotation budget</h3>
+          <p>Keep visible only what the main message needs at first glance. Move the rest to a tooltip, the
+            caption, or the text. Some practitioners had a rule of thumb. One aimed for about three annotations and
+            five at most. Others did the opposite: annotate everything, then delete what does not help.</p>
+          <p class="caveat">Educators pushed back on fixed numbers. One described the goal as <span
+              class="quote">“complexity communicated with clarity,”</span> and said that might take one annotation,
+            or a hundred.</p>
         </li>
       </ol>
 
-      <p>These considerations affect each other. Adding context for a wider audience adds density, which makes
-        hierarchy more important. Moving a label changes how clearly it links to its target. Treat them as a shared
-        vocabulary for reasoning and critique. They are not rules.</p>
+      <p>These six ideas pull on each other. Add context for a broader audience, and the chart gets denser, so the
+        main annotation needs to stand out more. Move a label, and its link to the data changes. I think of them as a
+        shared vocabulary for thinking and talking about annotation, not as rules.</p>
 
       <h3>Static and interactive charts</h3>
-      <p>Interactive charts can move detail into tooltips, which keeps the view clean. But hover does not work
-        everywhere, and many readers never hover. One educator said, <span class="quote">“If important context is
-          only on hover, many users will never see it.”</span> Practitioners kept the core message visible from the
-        start and used tooltips only for extra detail.</p>
+      <p>Interactive charts can tuck details into tooltips and keep the view clean. But hover does not work on every
+        device, and plenty of readers never hover at all. One educator said it simply: <span class="quote">“If
+          important context is only on hover, many users will never see it.”</span> The practitioners we talked to
+        kept the main message visible from the start and used tooltips only for extras.</p>
 
-      <h3>How practitioners check their annotations</h3>
-      <p>Most checking was quick and informal, but it followed a few clear habits:</p>
+      <h3>How practitioners check their work</h3>
+      <p>Most of the checking was quick and informal. A few habits came up again and again:</p>
       <ul>
-        <li>Show the chart to someone else and ask whether the main point is clear without explanation.</li>
+        <li>Show the chart to someone else and ask if the main point is clear without any explanation.</li>
         <li>Stop revising once the chart answers the questions stakeholders are likely to ask.</li>
-        <li>Try it on readers outside the field. One practitioner asked three people and treated three yeses as
-          the signal that the chart was ready.</li>
-        <li>Remove any annotation that does not change how the chart is read.</li>
+        <li>Test it on people outside the field. One practitioner asked three people and treated three yeses as a
+          sign the chart was ready.</li>
+        <li>Delete any annotation that does not change how the chart is read.</li>
       </ul>
-      <p>Educators added that the level of checking should match the stakes. Peer review is enough for routine
-        work. Charts that could steer an important decision deserve more careful testing with readers.</p>
+      <p>Educators added one thing: match the effort to the stakes. A quick peer review is fine for routine work.
+        If a chart could steer an important decision, test it more carefully with real readers.</p>
 
-      <p>One more finding: annotation is rarely taught directly. None of the seven educators had a dedicated unit
-        on it.</p>
+      <p>Finally, annotation is rarely taught on its own. None of the seven educators
+        had a dedicated unit on it.</p>
 
       <!-- 8 -->
       <h2 id="tools">Annotation in our tools</h2>
-      <p>Nine of the ten practitioners built their chart in one tool and finished the annotations in another, such
-        as PowerPoint, Illustrator, or Figma. This gives precise control over placement and type. It also cuts the
-        link between the annotation and the data, so any change to the data or layout means redoing the
-        annotations by hand. As one practitioner put it, <span class="quote">“labels need to move with the
-          data.”</span></p>
+      <p>Nine of the ten practitioners built their chart in one tool and then finished the annotations in another,
+        such as PowerPoint, Illustrator, or Figma. That gives them precise control over placement and type. The
+        catch is that the annotations are no longer connected to the data. Change the data or the layout, and the
+        annotations have to be redone by hand. As one practitioner said, <span class="quote">“labels need to move
+          with the data.”</span></p>
 
-      <p>Code-based tools have a related problem. Vega-Lite has no annotation primitive, so authors build
-        annotations from text and rule marks in extra layers. ggplot2 and Observable Plot offer text and shape
-        layers, but nothing that records which point a note refers to.<sup class="cite"><a
-            href="#ref-1">1</a></sup> The meaning of the annotation ends up spread across mark definitions,
-        coordinates, and layout code.</p>
+      <p>Code-based tools have their own version of this problem. Vega-Lite has no annotation building block, so you
+        build annotations out of text and line marks in extra layers. ggplot2 and Observable Plot give you text and
+        shape layers, but nothing that records which point a note belongs to.<sup class="cite"><a
+            href="#ref-1">1</a></sup> The annotation ends up scattered across mark definitions, coordinates, and
+        layout code.</p>
 
-      <p>AnnoGram is our attempt to fix this.<sup class="cite"><a href="#ref-6">6</a></sup> It extends the Grammar
-        of Graphics so that annotation is a first-class part of a chart specification. Each annotation has four
-        parts:</p>
+      <p>That is the problem AnnoGram tries to solve.<sup class="cite"><a href="#ref-6">6</a></sup> It extends the
+        Grammar of Graphics so that annotations are a proper part of the chart specification. Every annotation has
+        four parts:</p>
       <ul>
-        <li><strong>Target:</strong> what it refers to (data points, an axis, a chart part such as the title or
-          legend, or a fixed position).</li>
-        <li><strong>Type:</strong> the kind of annotation, such as text, an enclosure, a connector, or an
+        <li><strong>Target:</strong> what it refers to. This can be data points, an axis, a part of the chart such
+          as the title or legend, or a fixed position.</li>
+        <li><strong>Type:</strong> what kind of annotation it is, such as text, an enclosure, a connector, or an
           indicator.</li>
-        <li><strong>Placement:</strong> where it goes relative to the target. Defaults are computed automatically,
-          and the author can override them.</li>
+        <li><strong>Placement:</strong> where it goes relative to its target. AnnoGram picks a default, and you can
+          override it.</li>
         <li><strong>Style:</strong> how it looks.</li>
       </ul>
 
-      <p>A simplified example, adapted from the dissertation:</p>
+      <p>Here is a simplified example, adapted from the dissertation:</p>
 <pre><code>{
   <span class="k">"target"</span>: { "type": "data-expr", "expr": "datum.date == '2021-01-11'" },
   <span class="k">"text"</span>: { "text": "The previous case peak was ...", "position": { ... } },
   <span class="k">"connector"</span>: { "curve": "natural" }
 }</code></pre>
 
-      <p>Because the annotation refers to its target instead of fixed pixel positions, it can survive changes. In
-        Figure 8, one annotation specification is reused across three charts of the same dataset. AnnoGram finds the
-        target in each chart and places the annotation without any rewriting.</p>
+      <p>Because the annotation points to its target and not to fixed pixel positions, it can survive changes. In
+        Figure 8, the same annotation specification is reused on three different charts of the same dataset. AnnoGram
+        finds the target in each chart and places the annotation, with no rewriting.</p>
 
       <figure class="wide">
         <button class="zoom" type="button" aria-label="Enlarge figure"><img src="annogram-portability.jpg"
@@ -1636,19 +1713,20 @@
           gallery.<sup class="cite"><a href="#ref-17">17</a></sup></figcaption>
       </figure>
 
-      <p>In a comparison with eight existing tools, built-in annotation constructs reduced the work of assembling
-        annotations by hand. AnnoGram is a proof of concept built on Vega-Lite, and it does not yet cover every chart
-        composition or annotation type. It also does not decide what to annotate. That remains the author’s
-        call.</p>
+      <p>When we compared it with eight existing tools, having built-in annotation constructs cut down the work of
+        assembling annotations by hand. AnnoGram is still a proof of concept built on Vega-Lite. It does not cover
+        every chart layout or annotation type yet. And it does not decide what to annotate. That part is still up to
+        you.</p>
 
       <!-- 9 -->
       <h2 id="evaluate">How to tell whether an annotation is right</h2>
-      <p>Tools, templates, and AI models increasingly produce annotations. So how do we check that a produced
-        annotation is correct? A polished label can still point at the wrong bar.</p>
+      <p>More and more annotations are now made by tools, templates, and AI models. That makes an old question more
+        pressing: how do you know an annotation is correct? A label can look polished and still point at the wrong
+        bar.</p>
 
-      <p>We propose five criteria, each for a different way an annotation can fail.<sup class="cite"><a
-            href="#ref-8">8</a>,<a href="#ref-7">7</a></sup> Figure 9 shows one failure of each, for the task
-        “Label the smallest bar with ‘Smallest (value)’.”</p>
+      <p>We came up with five criteria. Each one catches a different kind of mistake.<sup class="cite"><a
+            href="#ref-8">8</a>,<a href="#ref-7">7</a></sup> Figure 9 shows one failure of each, for the task “Label
+        the smallest bar with ‘Smallest (value)’.”</p>
 
       <figure class="wide">
         <button class="zoom" type="button" aria-label="Enlarge figure"><img src="evaluation-criteria.jpg"
@@ -1664,102 +1742,157 @@
         <thead>
           <tr>
             <th scope="col">Criterion</th>
-            <th scope="col">The question it asks</th>
+            <th scope="col">The question to ask</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">Target correctness</th>
-            <td>Does it point clearly to the intended mark, series, or region?</td>
+            <td>Does it clearly point to the right mark, series, or region?</td>
           </tr>
           <tr>
             <th scope="row">Task accuracy</th>
-            <td>Is what it says relevant to the task and supported by the data or the given context?</td>
+            <td>Is what it says relevant, and backed by the data or the context you were given?</td>
           </tr>
           <tr>
             <th scope="row">Spatial feasibility</th>
-            <td>Is it readable and clearly linked to its target without hiding evidence?</td>
+            <td>Can you read it and tell what it belongs to, without it hiding the data?</td>
           </tr>
           <tr>
             <th scope="row">Chart preservation</th>
-            <td>Are the data, scales, marks, and encodings unchanged after it was added?</td>
+            <td>Are the data, scales, marks, and encodings exactly as they were before?</td>
           </tr>
           <tr>
             <th scope="row">Stylistic coherence</th>
-            <td>Does it fit the chart’s typography, color, and hierarchy?</td>
+            <td>Does it fit the chart’s fonts, colors, and hierarchy?</td>
           </tr>
         </tbody>
       </table>
 
-      <p>The criteria are separate because each can fail while the others pass. A correct value can sit on the
-        wrong bar. A well-placed label can make an unsupported claim. A tool can add the right label while quietly
-        changing a bar height. One overall “looks good” would hide which part failed.</p>
+      <p>Why five separate checks? Because each one can fail while the others pass. A correct number can sit on the
+        wrong bar. A neatly placed label can say something the data does not support. A tool can add exactly the
+        right label and quietly change a bar’s height along the way. If you only ask “does this look good?”, you
+        will miss these.</p>
 
-      <p>The criteria also tell you what to recheck when a chart changes. These pairings are rough guides, not fixed
+      <p>The criteria also tell you what to recheck when a chart changes. These are rough pairings, not hard
         rules:</p>
       <ul>
-        <li>After <strong>filtering or reordering</strong>, check that each annotation still points to the right
-          target.</li>
-        <li>After a <strong>data update</strong>, check that stated values and derived claims are still true.</li>
-        <li>After <strong>resizing or reflowing</strong>, check readability, overlap, and style.</li>
+        <li>After <strong>filtering or reordering</strong>, check that every annotation still points to the right
+          thing.</li>
+        <li>After a <strong>data update</strong>, check that stated values and calculated claims are still true.</li>
+        <li>After <strong>resizing</strong>, check that labels are readable, do not overlap, and still fit the
+          style.</li>
         <li>After <strong>editing the chart to add annotations</strong>, check that the data and encodings did not
           change.</li>
       </ul>
 
-      <p>We used these criteria in AnnoBench, a benchmark for annotation generation first-authored by Md
+      <p>We put these criteria to work in AnnoBench, a benchmark for annotation generation led by my colleague Md
         Rahat-uz-Zaman.<sup class="cite"><a href="#ref-7">7</a></sup> It pairs about 342 charts, from professional
-        news graphics and the Vega and Vega-Lite galleries, with more than 650 annotation tasks. It varies how the
-        chart is given to a model (image, SVG, grammar, or code), how much description comes with it, and how
-        specific the instructions are. Testing current language and vision-language models, we found:</p>
+        news graphics and the Vega and Vega-Lite galleries, with more than 650 annotation tasks. It changes how the
+        chart is given to a model (as an image, SVG, a grammar specification, or code), how much description comes
+        with it, and how specific the instructions are. When we tested current language and vision-language models,
+        we found:</p>
       <ul>
-        <li>Models did best when given the chart as code. With images, they often distorted the chart itself while
-          adding the annotation.</li>
-        <li>Explicit instructions worked better than open-ended goals. Given only a goal, models tended to use
-          simple text, arrows, and lines, and rarely chose enclosures.</li>
-        <li>Richer chart descriptions helped somewhat with targeting and relevance, but did not help with
-          preserving the chart.</li>
-        <li>Models used as automatic judges tended to give too much credit to image outputs that looked plausible
-          but had changed the underlying chart.</li>
+        <li>Models did best when they got the chart as code. Given an image, they often distorted the chart itself
+          while adding the annotation.</li>
+        <li>Specific instructions worked better than open-ended goals. Given only a goal, models mostly used plain
+          text, arrows, and lines, and rarely drew enclosures.</li>
+        <li>Richer chart descriptions helped a bit with picking the right target and saying relevant things, but
+          did nothing for keeping the chart intact.</li>
+        <li>Models used as automatic judges were too generous with image outputs that looked fine but had changed
+          the underlying chart.</li>
       </ul>
-      <p>Current models are better at describing what a chart shows than at editing it faithfully. If you use them
-        to annotate, keep the chart in a structured form such as code, give specific instructions, and check every
-        criterion yourself, especially chart preservation.</p>
+      <p>So today’s models are better at describing a chart than at editing it faithfully. If you use them to
+        annotate, the checklist below has a few suggestions.</p>
 
       <!-- 10 -->
-      <h2 id="takeaways">What to take away</h2>
-      <p>Annotation has recurring structure: a small set of types, common groupings, and three questions that
-        organize the choices. The right annotation for a given chart still depends on the data, the evidence, the
-        audience, the medium, and the purpose.</p>
+      <h2 id="takeaways">A practical checklist</h2>
+      <p>Here is everything above, turned into a list you can actually use. You can tick items off as you go. Your
+        ticks are saved only in your own browser.</p>
 
-      <h3>If you make charts</h3>
-      <ul>
-        <li>Plan annotations together with the encoding and layout. An annotation cannot rescue a chart that does
-          not fit the task.</li>
-        <li>For each annotation, know its task, its target, and its source (internal, derived, or external), and
-          what evidence that source requires.</li>
-        <li>Think about annotations in groups, and trim groups that repeat themselves.</li>
-        <li>Place text near the data, choose one main annotation, and set a budget for the medium.</li>
-        <li>Assume the chart will be screenshotted. Decide which context has to stay attached to it.</li>
-        <li>Before publishing, show the chart to someone else, then go through the five criteria one at a
-          time.</li>
+      <h3>Before you annotate</h3>
+      <ul class="checklist">
+        <li><label><input type="checkbox" /> <span><strong>Check the chart first.</strong> If the encoding does not
+              fit the task, like dates sorted by size instead of time, fix the chart. A note will not save
+              it.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Write down the one thing readers should take away.</strong>
+              That becomes your main annotation.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Picture where the chart will end up.</strong> An article,
+              a slide, a dashboard, or a screenshot in someone’s group chat? Each needs a different amount of
+              on-chart context.</span></label></li>
       </ul>
 
-      <h3>If you study or build visualization tools</h3>
+      <h3>While you annotate</h3>
+      <ul class="checklist">
+        <li><label><input type="checkbox" /> <span><strong>Ask why, how, and what for every annotation.</strong> What
+              is it for, what form does it take, and where does its information come from? If the answer is
+              “outside the data,” keep a note of the source.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Label next to the data.</strong> Use a short arrow or one
+              box only when the label cannot sit close. Use a legend last, in the same order as the
+              chart.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Make one annotation the star.</strong> Give it the best
+              spot and the most weight, and make the rest visibly lighter.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Never rely on color alone.</strong> If you color a label
+              to match its line, also put it close, or add an arrow, swatch, or box.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Pick one annotation style and stick to it.</strong> Either
+              blend in or stand out, and keep it the same across related charts.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Trim your groups.</strong> If three or four pieces are
+              doing the job of two, remove the extras.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Set a budget.</strong> Keep only what the main point needs
+              at first glance. Move the rest to the caption, the text, or a tooltip, but never hide essential context
+              behind hover.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Assume it will be screenshotted.</strong> If a missing
+              caveat could mislead, put a short version on the chart itself.</span></label></li>
+      </ul>
+
+      <h3>Before you publish</h3>
+      <ul class="checklist">
+        <li><label><input type="checkbox" /> <span><strong>Do a fresh-eyes test.</strong> Show the chart to someone
+              who has not seen it. Can they tell you the main point without help?</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Cut what does not change the reading.</strong> If removing
+              an annotation would not change how someone reads the chart, remove it.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Run the five checks.</strong> Right target? Accurate and
+              relevant? Readable and clearly linked? Chart unchanged? Fits the style?</span></label></li>
+      </ul>
+
+      <h3>When the chart changes</h3>
+      <ul class="checklist">
+        <li><label><input type="checkbox" /> <span><strong>Recheck what the change could break.</strong> Filtering or
+              reordering: targets. New data: numbers and claims. Resizing: readability and overlap. Edits: the chart
+              itself.</span></label></li>
+      </ul>
+
+      <h3>If an AI tool is doing the annotating</h3>
+      <ul class="checklist">
+        <li><label><input type="checkbox" /> <span><strong>Give it the chart as code or a specification</strong>, not
+              a screenshot, whenever you can.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Be specific.</strong> Say what type of annotation you
+              want, what it should point to, and where it should go. Vague requests tend to get plain text and
+              arrows.</span></label></li>
+        <li><label><input type="checkbox" /> <span><strong>Compare the result with your original.</strong> Make sure
+              no bar, point, or axis has moved. Do not rely on another AI model to judge it, especially for
+              images.</span></label></li>
+      </ul>
+
+      <h3>If you build tools or study visualization</h3>
       <ul>
-        <li>Represent annotations as objects linked to their targets, instead of loose text boxes on top of a
-          chart.</li>
-        <li>Record what each annotation depends on, so a tool can flag notes that a data update has made
+        <li>Let annotations point to their targets, so they move with the data instead of sitting on top of the
+          chart as loose text boxes.</li>
+        <li>Store where each annotation’s information comes from, so a tool can flag notes that a data update has
+          made wrong.</li>
+        <li>Evaluate generated annotations one criterion at a time. Something can look right and still be
           wrong.</li>
-        <li>Evaluate generated annotations one criterion at a time. An output can look right and still be wrong.</li>
       </ul>
 
       <div class="note">
-        <p class="note-title">Open questions</p>
-        <p>Most of this work describes charts and what practitioners report. It does not yet show which annotation
-          choices help readers most. Other open questions include how annotations should behave in interactive and
-          responsive charts, how people author them over time, how consistently different evaluators can apply the
-          five criteria, and how people and AI systems should share annotation work.</p>
+        <p class="note-title">What we still do not know</p>
+        <p>Most of this work describes charts and what practitioners told us. We do not yet know which annotation
+          choices help readers most. We also need to learn how annotations should behave in interactive and
+          responsive charts, how people author them over time, how consistently different people can apply the five
+          checks, and how people and AI tools should split the work. If you are working on any of these, I would
+          love to hear from you.</p>
       </div>
+
 
       <!-- Further reading -->
       <h2 id="reading">Further reading</h2>
@@ -1970,6 +2103,18 @@
       } else {
         chart.classList.add('in');
       }
+
+
+      /* Checklist ticks, saved in this browser only */
+      const boxes = [...document.querySelectorAll('.checklist input')];
+      const KEY = 'annotation-checklist';
+      try {
+        const saved = JSON.parse(localStorage.getItem(KEY) || '[]');
+        boxes.forEach((b, i) => { b.checked = !!saved[i]; });
+      } catch (e) { }
+      boxes.forEach(b => b.addEventListener('change', () => {
+        try { localStorage.setItem(KEY, JSON.stringify(boxes.map(x => x.checked))); } catch (e) { }
+      }));
 
       /* Figure viewer */
       const viewer = document.getElementById('viewer');
