@@ -1386,6 +1386,176 @@
       }
     }
 
+
+    .on-touch {
+      display: none;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .on-touch {
+        display: inline;
+      }
+
+      .on-pointer {
+        display: none;
+      }
+    }
+
+    /* Phone: a floating day switcher within thumb reach */
+    .dock {
+      display: none;
+    }
+
+    @media (max-width: 620px) {
+      .back-to-top {
+        display: none;
+      }
+
+      body {
+        padding-bottom: calc(76px + env(safe-area-inset-bottom));
+      }
+
+      .dock {
+        --dock-bg: rgba(255, 255, 255, 0.86);
+        --dock-line: rgba(21, 23, 27, 0.08);
+        --dock-ink: var(--ink-2);
+        --dock-on: #FFFFFF;
+        --dock-pill: var(--ink);
+        position: fixed;
+        left: 50%;
+        bottom: calc(14px + env(safe-area-inset-bottom));
+        z-index: 90;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        padding: 4px;
+        border-radius: 999px;
+        background: var(--dock-bg);
+        box-shadow: 0 0 0 1px var(--dock-line), 0 12px 32px -10px rgba(20, 24, 32, 0.35);
+        -webkit-backdrop-filter: blur(18px) saturate(1.2);
+        backdrop-filter: blur(18px) saturate(1.2);
+        transform: translate(-50%, 18px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease, transform 0.5s var(--ease-out);
+      }
+
+      html[data-theme="dark"] .dock {
+        --dock-bg: rgba(26, 29, 35, 0.86);
+        --dock-line: rgba(255, 255, 255, 0.09);
+        --dock-ink: var(--ink-2);
+        --dock-on: #15171B;
+        --dock-pill: #ECEDEF;
+      }
+
+      .dock.is-shown {
+        transform: translate(-50%, 0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .dock a {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        height: 40px;
+        min-width: 44px;
+        padding: 0 14px;
+        border-radius: 999px;
+        color: var(--dock-ink);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: color 0.35s ease;
+      }
+
+      .dock a b {
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .dock a.is-active {
+        color: var(--dock-on);
+      }
+
+      .dock-top {
+        padding: 0 !important;
+        width: 40px;
+        min-width: 40px !important;
+      }
+
+      .dock-top svg {
+        width: 17px;
+        height: 17px;
+      }
+
+      .dock-glide {
+        position: absolute;
+        top: 4px;
+        left: 0;
+        height: 40px;
+        width: 0;
+        border-radius: 999px;
+        background: var(--dock-pill);
+        opacity: 0;
+        transform: translateX(var(--gx, 0px));
+        transition: transform 0.5s var(--ease-out), width 0.5s var(--ease-out), opacity 0.3s ease;
+      }
+
+      .dock.has-active .dock-glide {
+        opacity: 1;
+      }
+
+      .day {
+        scroll-margin-top: 12px;
+      }
+    }
+
+    @media (max-width: 620px) and (prefers-reduced-motion: reduce) {
+      .dock,
+      .dock-glide {
+        transition: none;
+      }
+    }
+
+    /* Phone: bring each figure up under its title, so it is seen early
+       (and so a card's figure lands on screen when it travels here) */
+    @media (max-width: 760px) {
+      .entry {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .entry > .when {
+        order: 0;
+        margin-bottom: 16px;
+      }
+
+      .entry > div:not(.when) {
+        display: contents;
+      }
+
+      .entry > div:not(.when) > * {
+        order: 3;
+      }
+
+      .entry > div:not(.when) > .session,
+      .entry > div:not(.when) > h4 {
+        order: 1;
+      }
+
+      .entry > figure {
+        order: 2;
+        margin: 2px 0 20px;
+      }
+    }
+
     /* Print: a clean one-document schedule */
     @media print {
       @page {
@@ -1749,7 +1919,7 @@
           </span>
         </a>
       </div>
-      <p class="desk-hint">Select a paper to see its details.</p>
+      <p class="desk-hint"><span class="on-pointer">Select</span><span class="on-touch">Tap</span> a paper to see its details.</p>
     </section>
 
     <section class="program" id="program" aria-labelledby="program-title">
@@ -1760,7 +1930,7 @@
         </div>
 
         <!-- Monday -->
-        <div class="day">
+        <div class="day" id="day-mon">
           <h3 class="day-label">Monday, November 9</h3>
 
           <article class="entry" id="wastewater">
@@ -1867,7 +2037,7 @@
         </div>
 
         <!-- Tuesday -->
-        <div class="day">
+        <div class="day" id="day-tue">
           <h3 class="day-label">Tuesday, November 10</h3>
 
           <article class="entry" id="annotation-survey">
@@ -1907,7 +2077,7 @@
         </div>
 
         <!-- Wednesday -->
-        <div class="day">
+        <div class="day" id="day-wed">
           <h3 class="day-label">Wednesday, November 11</h3>
 
           <article class="entry" id="annotation-design">
@@ -1972,6 +2142,19 @@
     </svg>
     <span>Top</span>
   </button>
+
+  <nav class="dock" id="dock" aria-label="Jump to a day">
+    <span class="dock-glide" aria-hidden="true"></span>
+    <a class="dock-top" href="#top" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M6 11l6-6 6 6" />
+      </svg>
+    </a>
+    <a href="#day-mon" data-day>Mon <b>9</b></a>
+    <a href="#day-tue" data-day>Tue <b>10</b></a>
+    <a href="#day-wed" data-day>Wed <b>11</b></a>
+  </nav>
 
   <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Figure" hidden>
     <figure class="viewer-sheet">
@@ -2224,6 +2407,45 @@
       });
 
       /* Back to top ------------------------------------------------------ */
+
+      /* Phone dock ------------------------------------------------------- */
+      const dock = document.getElementById('dock');
+      if (dock) {
+        const glide = dock.querySelector('.dock-glide');
+        const dayLinks = [...dock.querySelectorAll('a[data-day]')];
+        const days = dayLinks.map(a => document.querySelector(a.getAttribute('href')));
+        const program = document.getElementById('program');
+        let current = null;
+        const place = a => {
+          dock.classList.toggle('has-active', !!a);
+          dayLinks.forEach(l => l.classList.toggle('is-active', l === a));
+          if (a) {
+            glide.style.width = a.offsetWidth + 'px';
+            glide.style.setProperty('--gx', a.offsetLeft + 'px');
+          }
+        };
+        const update = () => {
+          if (!window.matchMedia('(max-width: 620px)').matches) return;
+          const show = program.getBoundingClientRect().top < window.innerHeight * 0.55;
+          dock.classList.toggle('is-shown', show);
+          let active = null;
+          days.forEach((d, i) => { if (d && d.getBoundingClientRect().top < window.innerHeight * 0.4) active = dayLinks[i]; });
+          if (active !== current) { current = active; place(active); }
+        };
+        dock.querySelector('.dock-top').addEventListener('click', e => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
+        dayLinks.forEach((a, i) => a.addEventListener('click', e => {
+          e.preventDefault();
+          current = a; place(a);
+          days[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }));
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', () => { current = undefined; update(); });
+        update();
+      }
+
       const btt = document.getElementById('back-to-top');
       btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
       const updateBtt = () => btt.classList.toggle('visible', window.scrollY > (window.innerWidth <= 620 ? 260 : 400));
