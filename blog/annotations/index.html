@@ -1232,7 +1232,7 @@
     <article class="prose">
       <p class="kicker">Research notes</p>
       <h1>What We Know About Annotating Visualizations</h1>
-      <p class="dek">What my collaborators and I learned from several years of studying chart annotations: the types people use, how professionals decide, how tools could help, and how to check that an annotation is right. Plus a checklist for your next chart.</p>
+      <p class="dek">What we learned from several years of studying chart annotations: the types people use, how professionals decide, how tools could help, and how to check that an annotation is right. Plus a checklist for your next chart.</p>
       <div class="byline">
         <span>Md Dilshadur Rahman</span>
         <span>About 20 minutes to read</span>
@@ -1257,7 +1257,7 @@
 
       <!-- 1 -->
       <h2 id="why">Why annotation deserves study</h2>
-      <p>For the past few years, I have been studying one part of charts that is easy to take for granted: the
+      <p>For the past few years, we have been studying one part of charts that is easy to take for granted: the
         annotations. These are the labels, arrows, shaded regions, reference lines, and color highlights that point
         at part of a chart and tell you why it matters. When they are done well, you barely notice them. You just
         get the point.</p>
@@ -1286,9 +1286,9 @@
         record their thinking, and teams use them to share it.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 
       <p>And yet, when we read through 191 papers on annotation, most of them treated it as a side topic inside work
-        about something else.<sup class="cite"><a href="#ref-1">1</a></sup> So I made annotation the subject of my
-        dissertation.<sup class="cite"><a href="#ref-8">8</a></sup> This post is the short, readable version of what
-        my collaborators and I found. Here is what is coming:</p>
+        about something else.<sup class="cite"><a href="#ref-1">1</a></sup> So we made annotation the focus of our research, and that work became my
+        dissertation.<sup class="cite"><a href="#ref-8">8</a></sup> This post is a short, readable version of what we
+        found. Here is what is coming:</p>
       <ul>
         <li>the seven types of annotation people actually use, and how often each one shows up;</li>
         <li>why annotations usually work in small groups;</li>
@@ -1301,6 +1301,15 @@
       <p>At the end, you will find a practical checklist you can use on your next chart. If you want the full
         methods and limitations, the papers are listed at the bottom.</p>
 
+      <div class="note">
+        <p class="note-title">Before you read</p>
+        <p>Everything in this post comes from our own research: a review of 191 papers, analyses of annotated charts
+          from the web and from newsrooms, a classroom study, and interviews with practitioners and educators. These
+          studies describe what people make and how they reason about it. We did not run user studies to test
+          whether the suggestions here actually help readers understand charts better. So please treat them as
+          starting points, and think carefully about what fits your own audience, data, and medium.</p>
+      </div>
+
       <!-- 2 -->
       <h2 id="what">What counts as an annotation</h2>
       <p>Whether something is an annotation depends on the job it does, not on what it looks like. A line can be
@@ -1308,7 +1317,7 @@
         single bar. We call an element an annotation when it is added on top of the data to point something out,
         explain a relationship, add context, or guide the reader.</p>
 
-      <p>Annotation is also a set of decisions. Should I annotate this at all? What should I point out? How? The
+      <p>Annotation is also a set of decisions. Should this be annotated at all? What should the annotation point out? How? The
         answers depend on the data, the evidence you have, your audience, where the chart will appear, and what you
         want it to say.</p>
 
@@ -1316,8 +1325,8 @@
         2020, the Georgia Department of Public Health published a bar chart that sorted dates by case count instead
         of by time. Every number was correct, but the chart looked like a timeline, and it was not one.<sup
           class="cite"><a href="#ref-11">11</a></sup> A note could have explained the order. If the point was change
-        over time, though, the real fix was to put the dates back in order. That is why I think it is best to plan
-        annotations together with the chart, not after it.</p>
+        over time, though, the real fix was to put the dates back in order. That is why we suggest planning annotations
+        together with the chart, not after it.</p>
 
       <!-- 3 -->
       <h2 id="types">Seven types of annotation</h2>
@@ -1511,7 +1520,7 @@
         </tbody>
       </table>
 
-      <p>The third question is the easiest one to skip, so I want to spend a moment on it. A text label can show a
+      <p>The third question is the easiest one to skip, so it is worth a closer look. A text label can show a
         number that is already in the data (internal). It can state an average or a trend you calculated (derived).
         Or it can explain an event that the data cannot show at all (external). All three look like text. But each
         one is backed by something different. An internal label is checked against the data. A derived one also
@@ -1642,8 +1651,8 @@
       </ol>
 
       <p>These six ideas pull on each other. Add context for a broader audience, and the chart gets denser, so the
-        main annotation needs to stand out more. Move a label, and its link to the data changes. I think of them as a
-        shared vocabulary for thinking and talking about annotation, not as rules.</p>
+        main annotation needs to stand out more. Move a label, and its link to the data changes. We think of them as a
+        shared vocabulary for thinking and talking about annotation, not as rules. They come from what practitioners told us and how educators responded, not from measuring their effect on readers.</p>
 
       <h3>Static and interactive charts</h3>
       <p>Interactive charts can tuck details into tooltips and keep the view clean. But hover does not work on every
@@ -1786,7 +1795,7 @@
           change.</li>
       </ul>
 
-      <p>We put these criteria to work in AnnoBench, a benchmark for annotation generation led by my colleague Md
+      <p>We put these criteria to work in AnnoBench, a benchmark for annotation generation led by Md
         Rahat-uz-Zaman.<sup class="cite"><a href="#ref-7">7</a></sup> It pairs about 342 charts, from professional
         news graphics and the Vega and Vega-Lite galleries, with more than 650 annotation tasks. It changes how the
         chart is given to a model (as an image, SVG, a grammar specification, or code), how much description comes
@@ -1807,8 +1816,11 @@
 
       <!-- 10 -->
       <h2 id="takeaways">A practical checklist</h2>
-      <p>Here is everything above, turned into a list you can actually use. You can tick items off as you go. Your
-        ticks are saved only in your own browser.</p>
+      <p>Here is everything above, turned into a list you can use. A word of caution first: these items come from
+        our studies of charts, practitioners, and educators, and from our evaluation work. We have not tested them
+        with readers in user studies, so we cannot promise that each one improves understanding. Use them as prompts
+        to think with, and adapt them to your own context. Some will not fit every chart, and that is fine.</p>
+      <p>You can tick items off as you go. Your ticks are saved only in your own browser.</p>
 
       <h3>Before you annotate</h3>
       <ul class="checklist">
@@ -1889,7 +1901,7 @@
         <p>Most of this work describes charts and what practitioners told us. We do not yet know which annotation
           choices help readers most. We also need to learn how annotations should behave in interactive and
           responsive charts, how people author them over time, how consistently different people can apply the five
-          checks, and how people and AI tools should split the work. If you are working on any of these, I would
+          checks, and how people and AI tools should split the work. If you are working on any of these, we would
           love to hear from you.</p>
       </div>
 
