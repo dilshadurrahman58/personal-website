@@ -379,6 +379,11 @@
       text-wrap: balance;
     }
 
+    h1 em {
+      font-style: italic;
+      letter-spacing: -0.01em;
+    }
+
     .vis-logo {
       display: block;
       width: fit-content;
@@ -429,6 +434,28 @@
       background-size: 48px 48px;
       background-position: center;
       overflow: hidden;
+    }
+
+    /* a faint paper grain over the desk grid */
+    .desk::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.09;
+      mix-blend-mode: multiply;
+    }
+
+    html[data-theme="dark"] .desk::before {
+      opacity: 0.22;
+      mix-blend-mode: normal;
+    }
+
+    .intro-text,
+    .summary,
+    .authors {
+      text-wrap: pretty;
     }
 
     .stage {
@@ -1359,6 +1386,151 @@
       }
     }
 
+    /* Print: a clean one-document schedule */
+    @media print {
+      @page {
+        margin: 16mm 14mm;
+      }
+
+      html,
+      html[data-theme="dark"] {
+        --bg: #fff;
+        --ink: #111;
+        --ink-2: #333;
+        --ink-3: #555;
+        --line: #ccc;
+        --line-soft: #ddd;
+        --accent: #111;
+        --mark-plate: transparent;
+        color-scheme: light;
+      }
+
+      body {
+        background: #fff;
+        font-size: 10.5pt;
+      }
+
+      .bar,
+      .desk,
+      .back-to-top,
+      .viewer,
+      .cal,
+      .links,
+      .theme-toggle,
+      .vis-logo .logo-dark {
+        display: none !important;
+      }
+
+      .vis-logo .logo-light {
+        display: block !important;
+      }
+
+      .intro {
+        padding: 0 0 4px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+        gap: 28px;
+        align-items: end;
+      }
+
+      .intro h1 {
+        font-size: 26pt;
+      }
+
+      .intro-text {
+        font-size: 9.5pt;
+      }
+
+      .program {
+        padding-top: 14px !important;
+      }
+
+      .program-head {
+        margin-bottom: 8px !important;
+      }
+
+      .program-head h2 {
+        font-size: 15pt;
+      }
+
+      .day {
+        margin-top: 12px !important;
+      }
+
+      .day-label {
+        break-after: avoid;
+        padding-bottom: 6px;
+      }
+
+      .when {
+        display: block;
+        align-self: start;
+      }
+
+      .when p {
+        margin: 0 0 2px !important;
+      }
+
+      .entry h4 {
+        font-size: 13pt;
+        margin-bottom: 6px;
+      }
+
+      .authors {
+        margin-bottom: 6px !important;
+      }
+
+      .summary {
+        font-size: 9.5pt;
+      }
+
+      .closing {
+        padding: 12px 0 !important;
+        break-inside: avoid;
+      }
+
+      footer {
+        padding: 8px 0 !important;
+      }
+
+      .entry {
+        grid-template-columns: 110px minmax(0, 1fr);
+        gap: 18px;
+        padding: 14px 0;
+        break-inside: avoid;
+      }
+
+      .entry figure {
+        display: none;
+      }
+
+      .entry::before,
+      .entry::after {
+        display: none;
+      }
+
+      .insts,
+      html[data-theme="dark"] .insts {
+        --mark-plate: transparent;
+        --mark-pad: 0px;
+        gap: 6px 14px;
+        margin-bottom: 8px;
+      }
+
+      .inst img {
+        height: 12px !important;
+      }
+
+      .summary {
+        margin-bottom: 6px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        background: none !important;
+      }
+    }
+
     /* Page transition between the homepage and the VIS page.
        The arriving page decides the direction: the VIS page slides in from the right,
        the homepage from the left. Browsers without support simply navigate. */
@@ -1370,12 +1542,45 @@
       background: var(--bg);
     }
 
-    ::view-transition-old(root) {
+    html:not(:active-view-transition-type(open-paper))::view-transition-old(root) {
       animation: vt-leave 0.26s cubic-bezier(0.4, 0, 1, 1) both;
     }
 
-    ::view-transition-new(root) {
+    html:not(:active-view-transition-type(open-paper))::view-transition-new(root) {
       animation: vt-arrive 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+    }
+
+    /* Opening a paper from the collage: the page dissolves underneath while its figure travels */
+    html:active-view-transition-type(open-paper)::view-transition-old(root) {
+      animation: vt-fade-out 0.24s ease both;
+    }
+
+    html:active-view-transition-type(open-paper)::view-transition-new(root) {
+      animation: vt-fade-in 0.5s ease 0.26s both;
+    }
+
+    ::view-transition-group(paper-figure) {
+      animation-duration: 0.78s;
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 10;
+    }
+
+    ::view-transition-old(paper-figure),
+    ::view-transition-new(paper-figure) {
+      height: 100%;
+      animation-duration: 0.78s;
+    }
+
+    ::view-transition-image-pair(paper-figure) {
+      filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.18));
+    }
+
+    @keyframes vt-fade-out {
+      to { opacity: 0; }
+    }
+
+    @keyframes vt-fade-in {
+      from { opacity: 0; }
     }
 
     ::view-transition-group(vis-logo) {
@@ -1473,7 +1678,7 @@
       <section class="intro" aria-labelledby="page-title">
         <div>
           <p class="kicker">Boston · November 9–13, 2026</p>
-          <h1 id="page-title">Attend our talks at
+          <h1 id="page-title">Attend <em>our</em> talks at
             <a class="vis-logo" href="https://ieeevis.org/year/2026/welcome/" target="_blank" rel="noopener"
               aria-label="IEEE VIS 2026 (opens the conference website)" title="IEEE VIS 2026 conference website">
               <img class="logo-light" src="vis2026/vis2026-logo.svg" alt="" width="498" height="114" />
@@ -1922,7 +2127,7 @@
           card.addEventListener(ev, () => card.classList.remove('is-pressed')));
         card.addEventListener('click', e => {
           e.preventDefault();
-          goTo(card.getAttribute('href'));
+          openPaper(card);
         });
       });
 
@@ -1947,6 +2152,34 @@
           if (still > 3) flash(el); else requestAnimationFrame(watch);
         };
         requestAnimationFrame(watch);
+      };
+
+      // The card's figure travels down and settles into the paper's details
+      const openPaper = async card => {
+        const hash = card.getAttribute('href');
+        const entry = document.querySelector(hash);
+        const from = card.querySelector('.fig img');
+        const to = entry && entry.querySelector('figure img');
+        if (!entry || !from || !to || reduceMotion || !document.startViewTransition) {
+          goTo(hash);
+          return;
+        }
+        to.loading = 'eager';
+        try { await to.decode(); } catch (err) { /* draw it anyway */ }
+        from.style.viewTransitionName = 'paper-figure';
+        const vt = document.startViewTransition({
+          update: () => {
+            from.style.viewTransitionName = '';
+            to.style.viewTransitionName = 'paper-figure';
+            history.replaceState(null, '', hash);
+            entry.scrollIntoView({ behavior: 'instant', block: 'start' });
+          },
+          types: ['open-paper'],
+        });
+        vt.finished.then(() => {
+          to.style.viewTransitionName = '';
+          flash(entry);
+        }, () => { to.style.viewTransitionName = ''; });
       };
 
       // Arriving from a link on the homepage
