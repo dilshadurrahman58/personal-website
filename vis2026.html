@@ -841,6 +841,99 @@
       max-width: 62ch;
     }
 
+    /* Affiliations: one ink tone, each mark warms to its own color on hover */
+    .authors:has(+ .insts) {
+      margin-bottom: 12px;
+    }
+
+    .insts {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 20px;
+      margin: 0 0 20px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .inst {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8125rem;
+      line-height: 1.2;
+      letter-spacing: 0.005em;
+      color: var(--ink-3);
+      transition: color 0.3s ease;
+    }
+
+    .inst i {
+      display: block;
+      height: 19px;
+      flex: none;
+      background-color: currentColor;
+      -webkit-mask: var(--logo) center / contain no-repeat;
+      mask: var(--logo) center / contain no-repeat;
+      opacity: 0.85;
+      transition: background-color 0.35s ease, opacity 0.35s ease;
+    }
+
+    .inst-word i {
+      height: 16px;
+    }
+
+    .inst[data-inst="saclay"] i {
+      height: 25px;
+    }
+
+    .inst[data-inst="inria"] i {
+      height: 18px;
+    }
+
+    .inst[data-inst="stuttgart"] i,
+    .inst[data-inst="wisconsin"] i {
+      height: 21px;
+    }
+
+    .authors a[data-inst] {
+      transition: color 0.3s ease, opacity 0.3s ease;
+    }
+
+    .authors.is-filtered a[data-inst]:not(.is-match) {
+      opacity: 0.4;
+    }
+
+    .authors.is-filtered a.is-match {
+      color: var(--ink);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .inst:hover {
+        color: var(--ink-2);
+      }
+
+      .inst:hover i {
+        background-color: var(--brand);
+        opacity: 1;
+      }
+
+      html[data-theme="dark"] .inst:hover i {
+        background-color: var(--ink);
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .presenter {
       font-size: 0.9375rem;
       margin: 0 0 18px;
@@ -1416,7 +1509,8 @@
                   href="https://ieeevis.org/year/2026/program/session/w-accessviz-accessvis-1" target="_blank"
                   rel="noopener">AccessViz: 3rd Workshop on Accessible Data Visualization</a></p>
               <h4>A Case Study in Accessible Redesign of a Wastewater Dashboard</h4>
-              <p class="authors"><a class="u quiet" href="https://tingying-he.github.io/" target="_blank" rel="noopener">Tingying He</a>, <a class="u quiet" href="https://www.visdesignlab.net/team/wagoner/" target="_blank" rel="noopener">Jake Wagoner</a>, <a class="u quiet" href="https://rahatzamancse.netlify.app/" target="_blank" rel="noopener">Md Rahat-uz-Zaman</a>, <b><a class="u quiet" href="./">Md Dilshadur Rahman</a></b>, <a class="u quiet" href="https://www.linkedin.com/in/willy-ray-8018884/" target="_blank" rel="noopener">Willy Ray</a>, <a class="u quiet" href="https://ggvy.cl/" target="_blank" rel="noopener">George G. Vega Yon</a>, <a class="u quiet" href="https://medicine.utah.edu/faculty/matthew-h-samore" target="_blank" rel="noopener">Matthew Samore</a>, <a class="u quiet" href="https://alexander-lex.net/" target="_blank" rel="noopener">Alexander Lex</a>, <a class="u quiet" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a></p>
+              <p class="authors"><a class="u quiet" data-inst="utah" href="https://tingying-he.github.io/" target="_blank" rel="noopener">Tingying He</a>, <a class="u quiet" data-inst="utah" href="https://www.visdesignlab.net/team/wagoner/" target="_blank" rel="noopener">Jake Wagoner</a>, <a class="u quiet" data-inst="utah" href="https://rahatzamancse.netlify.app/" target="_blank" rel="noopener">Md Rahat-uz-Zaman</a>, <b><a class="u quiet" data-inst="utah" href="./">Md Dilshadur Rahman</a></b>, <a class="u quiet" data-inst="utah" href="https://www.linkedin.com/in/willy-ray-8018884/" target="_blank" rel="noopener">Willy Ray</a>, <a class="u quiet" data-inst="utah" href="https://ggvy.cl/" target="_blank" rel="noopener">George G. Vega Yon</a>, <a class="u quiet" data-inst="utah" href="https://medicine.utah.edu/faculty/matthew-h-samore" target="_blank" rel="noopener">Matthew Samore</a>, <a class="u quiet" data-inst="utah" href="https://alexander-lex.net/" target="_blank" rel="noopener">Alexander Lex</a>, <a class="u quiet" data-inst="utah" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a></p>
+              <ul class="insts" aria-label="Affiliations"><li class="inst" data-inst="utah" style="--brand:#BE0000"><i style="--logo:url(vis2026/inst/utah.png);aspect-ratio:106/96" aria-hidden="true"></i>University of Utah</li></ul>
               <p class="summary">Working with the Utah Department of Health and Human Services, we redesigned the
                 state’s public wastewater surveillance dashboard to meet accessibility requirements on desktop and
                 mobile. The paper describes our design decisions, the practical limits of working within a
@@ -1448,7 +1542,8 @@
                   href="https://ieeevis.org/year/2026/program/session/w-accessviz-accessvis-1" target="_blank"
                   rel="noopener">AccessViz: 3rd Workshop on Accessible Data Visualization</a></p>
               <h4>Chart-Supported or Model-Supplied? Examining MLLM-Generated Claims for Accessible Visualization</h4>
-              <p class="authors"><a class="u quiet" href="https://elizaan.github.io/" target="_blank" rel="noopener">Ishrat Jahan Eliza</a>, <b><a class="u quiet" href="./">Md Dilshadur Rahman</a></b></p>
+              <p class="authors"><a class="u quiet" data-inst="utah" href="https://elizaan.github.io/" target="_blank" rel="noopener">Ishrat Jahan Eliza</a>, <b><a class="u quiet" data-inst="utah" href="./">Md Dilshadur Rahman</a></b></p>
+              <ul class="insts" aria-label="Affiliations"><li class="inst" data-inst="utah" style="--brand:#BE0000"><i style="--logo:url(vis2026/inst/utah.png);aspect-ratio:106/96" aria-hidden="true"></i>University of Utah</li></ul>
               <p class="summary">Multimodal language models are now used to describe charts for blind and low-vision
                 readers, but it is not always clear where their statements come from. We examined 1,224 descriptions
                 of 102 charts from three models, labeling each claim as stated in the chart, derived from it, or
@@ -1481,7 +1576,8 @@
               <p class="session"><a class="u quiet" href="https://ieeevis.org/year/2026/program/session/w-beliv-beliv-1"
                   target="_blank" rel="noopener">BELIV: Learning What’s True, Doing What’s Right</a></p>
               <h4>Guidelines Are Not Rules: Characterizing Terminologies around Visualization Design Guidelines</h4>
-              <p class="authors"><a class="u quiet" href="https://schlosslab.discovery.wisc.edu/profile/?smid=3294" target="_blank" rel="noopener">Anna L. Chinni</a>, <b><a class="u quiet" href="./">Md Dilshadur Rahman</a></b>, <a class="u quiet" href="https://bonadriel.com/" target="_blank" rel="noopener">Bon Adriel Aseniero</a>, <a class="u quiet" href="https://petra.isenberg.cc/" target="_blank" rel="noopener">Petra Isenberg</a>, <a class="u quiet" href="https://kushinm.com/" target="_blank" rel="noopener">Kushin Mukherjee</a>, <a class="u quiet" href="https://www.jiquadcs.com/" target="_blank" rel="noopener">Ghulam Jilani Quadri</a>, <a class="u quiet" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a>, <a class="u quiet" href="https://schlosslab.discovery.wisc.edu/" target="_blank" rel="noopener">Karen B. Schloss</a>, <a class="u quiet" href="https://www.vis.uni-stuttgart.de/team/Weiskopf" target="_blank" rel="noopener">Daniel Weiskopf</a></p>
+              <p class="authors"><a class="u quiet" data-inst="wisconsin" href="https://schlosslab.discovery.wisc.edu/profile/?smid=3294" target="_blank" rel="noopener">Anna L. Chinni</a>, <b><a class="u quiet" data-inst="utah" href="./">Md Dilshadur Rahman</a></b>, <a class="u quiet" data-inst="autodesk" href="https://bonadriel.com/" target="_blank" rel="noopener">Bon Adriel Aseniero</a>, <a class="u quiet" data-inst="saclay inria" href="https://petra.isenberg.cc/" target="_blank" rel="noopener">Petra Isenberg</a>, <a class="u quiet" data-inst="stanford" href="https://kushinm.com/" target="_blank" rel="noopener">Kushin Mukherjee</a>, <a class="u quiet" data-inst="oklahoma" href="https://www.jiquadcs.com/" target="_blank" rel="noopener">Ghulam Jilani Quadri</a>, <a class="u quiet" data-inst="utah" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a>, <a class="u quiet" data-inst="wisconsin" href="https://schlosslab.discovery.wisc.edu/" target="_blank" rel="noopener">Karen B. Schloss</a>, <a class="u quiet" data-inst="stuttgart" href="https://www.vis.uni-stuttgart.de/team/Weiskopf" target="_blank" rel="noopener">Daniel Weiskopf</a></p>
+              <ul class="insts" aria-label="Affiliations"><li class="inst" data-inst="wisconsin" style="--brand:#C5050C"><i style="--logo:url(vis2026/inst/wisconsin.png);aspect-ratio:61/96" aria-hidden="true"></i>University of Wisconsin–Madison</li><li class="inst" data-inst="utah" style="--brand:#BE0000"><i style="--logo:url(vis2026/inst/utah.png);aspect-ratio:106/96" aria-hidden="true"></i>University of Utah</li><li class="inst" data-inst="autodesk" style="--brand:var(--ink)"><i style="--logo:url(vis2026/inst/autodesk.png);aspect-ratio:140/96" aria-hidden="true"></i>Autodesk Research</li><li class="inst inst-word" data-inst="saclay" style="--brand:#63003C" title="Université Paris-Saclay"><i style="--logo:url(vis2026/inst/saclay.png);aspect-ratio:274/96" aria-hidden="true"></i><span class="sr-only">Université Paris-Saclay</span></li><li class="inst inst-word" data-inst="inria" style="--brand:#E63312" title="Inria"><i style="--logo:url(vis2026/inst/inria.png);aspect-ratio:329/96" aria-hidden="true"></i><span class="sr-only">Inria</span></li><li class="inst inst-word" data-inst="stanford" style="--brand:#8C1515" title="Stanford University"><i style="--logo:url(vis2026/inst/stanford.png);aspect-ratio:458/96" aria-hidden="true"></i><span class="sr-only">Stanford University</span></li><li class="inst" data-inst="oklahoma" style="--brand:#841617"><i style="--logo:url(vis2026/inst/oklahoma.png);aspect-ratio:74/96" aria-hidden="true"></i>University of Oklahoma</li><li class="inst" data-inst="stuttgart" style="--brand:#004191"><i style="--logo:url(vis2026/inst/stuttgart.png);aspect-ratio:96/96" aria-hidden="true"></i>University of Stuttgart</li></ul>
               <p class="summary">Visualization research often presents its findings as “guidelines,” yet researchers
                 read that word in different ways. Drawing on an expert study, a crowdsourced study, and the
                 terminology of 3,877 IEEE VIS papers, we examine how the community understands it alongside related
@@ -1520,7 +1616,8 @@
                   target="_blank" rel="noopener">How you show it makes a difference!</a> · TVCG paper</p>
               <h4>A Survey on Annotations in Information Visualization: Empirical Studies, Applications, and Challenges
               </h4>
-              <p class="authors"><b><a class="u quiet" href="./">Md Dilshadur Rahman</a></b>, <a class="u quiet" href="https://www.linkedin.com/in/doppalapudib/" target="_blank" rel="noopener">Bhavana Doppalapudi</a>, <a class="u quiet" href="https://www.jiquadcs.com/" target="_blank" rel="noopener">Ghulam Jilani Quadri</a>, <a class="u quiet" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a></p>
+              <p class="authors"><b><a class="u quiet" data-inst="utah" href="./">Md Dilshadur Rahman</a></b>, <a class="u quiet" data-inst="usf" href="https://www.linkedin.com/in/doppalapudib/" target="_blank" rel="noopener">Bhavana Doppalapudi</a>, <a class="u quiet" data-inst="oklahoma" href="https://www.jiquadcs.com/" target="_blank" rel="noopener">Ghulam Jilani Quadri</a>, <a class="u quiet" data-inst="utah" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a></p>
+              <ul class="insts" aria-label="Affiliations"><li class="inst" data-inst="utah" style="--brand:#BE0000"><i style="--logo:url(vis2026/inst/utah.png);aspect-ratio:106/96" aria-hidden="true"></i>University of Utah</li><li class="inst" data-inst="usf" style="--brand:#006747"><i style="--logo:url(vis2026/inst/usf.png);aspect-ratio:217/96" aria-hidden="true"></i>University of South Florida</li><li class="inst" data-inst="oklahoma" style="--brand:#841617"><i style="--logo:url(vis2026/inst/oklahoma.png);aspect-ratio:74/96" aria-hidden="true"></i>University of Oklahoma</li></ul>
               <p class="summary">A survey of 191 papers on annotation in visualization. We classify annotations by
                 type, by how they are created, and by what they refer to, and review their role in engagement,
                 storytelling, collaboration, and exploratory analysis. All surveyed papers can be explored in an
@@ -1560,7 +1657,8 @@
                   rel="noopener">Cluster: The Practitioners’ Summit</a> · Talk</p>
               <h4>Designing Annotations in Visualization: Considerations from Visualization Practitioners and Educators
               </h4>
-              <p class="authors"><b><a class="u quiet" href="./">Md Dilshadur Rahman</a></b>, <a class="u quiet" href="https://www.devinlange.com/" target="_blank" rel="noopener">Devin Lange</a>, <a class="u quiet" href="https://www.jiquadcs.com/" target="_blank" rel="noopener">Ghulam Jilani Quadri</a>, <a class="u quiet" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a></p>
+              <p class="authors"><b><a class="u quiet" data-inst="utah" href="./">Md Dilshadur Rahman</a></b>, <a class="u quiet" data-inst="harvard" href="https://www.devinlange.com/" target="_blank" rel="noopener">Devin Lange</a>, <a class="u quiet" data-inst="oklahoma" href="https://www.jiquadcs.com/" target="_blank" rel="noopener">Ghulam Jilani Quadri</a>, <a class="u quiet" data-inst="utah" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a></p>
+              <ul class="insts" aria-label="Affiliations"><li class="inst" data-inst="utah" style="--brand:#BE0000"><i style="--logo:url(vis2026/inst/utah.png);aspect-ratio:106/96" aria-hidden="true"></i>University of Utah</li><li class="inst" data-inst="harvard" style="--brand:#A51C30"><i style="--logo:url(vis2026/inst/harvard.png);aspect-ratio:81/96" aria-hidden="true"></i>Harvard Medical School</li><li class="inst" data-inst="oklahoma" style="--brand:#841617"><i style="--logo:url(vis2026/inst/oklahoma.png);aspect-ratio:74/96" aria-hidden="true"></i>University of Oklahoma</li></ul>
               <p class="summary">Drawing on interviews with ten practitioners and seven educators, this talk looks at
                 how professionals decide what to annotate, where to place it, and how much to include. We distill
                 their practice into six design considerations, each paired with published examples. The paper
@@ -1621,6 +1719,23 @@
     (() => {
       const root = document.documentElement;
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Hovering an affiliation picks out its authors
+      document.querySelectorAll('.insts').forEach((list) => {
+        const authors = list.previousElementSibling;
+        if (!authors || !authors.classList.contains('authors')) return;
+        const links = authors.querySelectorAll('a[data-inst]');
+        list.querySelectorAll('.inst').forEach((inst) => {
+          inst.addEventListener('mouseenter', () => {
+            links.forEach((a) => a.classList.toggle('is-match', a.dataset.inst.split(' ').includes(inst.dataset.inst)));
+            authors.classList.add('is-filtered');
+          });
+          inst.addEventListener('mouseleave', () => {
+            authors.classList.remove('is-filtered');
+            links.forEach((a) => a.classList.remove('is-match'));
+          });
+        });
+      });
       const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       /* Theme ------------------------------------------------------------ */
