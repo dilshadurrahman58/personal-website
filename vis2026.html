@@ -489,7 +489,9 @@
       transition: transform 0.9s var(--ease-out);
     }
 
-    .card-title {
+    .card-title,
+    .card-meta,
+    .card-foot {
       transition: color 0.35s ease;
     }
 
@@ -569,8 +571,12 @@
         color: #24466F;
       }
 
+      .card:hover .card-meta {
+        color: #2E5381;
+      }
+
       .card:hover .card-foot {
-        color: var(--paper-ink-2);
+        color: var(--paper-ink);
       }
 
       .card:hover .card-foot .go {
@@ -1198,7 +1204,84 @@
         transition-delay: 0s !important;
       }
     }
+
+    /* Page transition between the homepage and the VIS page.
+       The arriving page decides the direction: the VIS page slides in from the right,
+       the homepage from the left. Browsers without support simply navigate. */
+    @view-transition {
+      navigation: auto;
+    }
+
+    ::view-transition {
+      background: var(--bg);
+    }
+
+    ::view-transition-old(root) {
+      animation: vt-leave 0.26s cubic-bezier(0.4, 0, 1, 1) both;
+    }
+
+    ::view-transition-new(root) {
+      animation: vt-arrive 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+    }
+
+    ::view-transition-group(vis-logo) {
+      animation-duration: 0.68s;
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    ::view-transition-old(vis-logo),
+    ::view-transition-new(vis-logo) {
+      height: 100%;
+      animation-duration: 0.68s;
+    }
+
+    @keyframes vt-leave {
+      to {
+        opacity: 0;
+        transform: translateX(-56px);
+      }
+    }
+
+    @keyframes vt-arrive {
+      from {
+        opacity: 0;
+        transform: translateX(72px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      ::view-transition-group(*),
+      ::view-transition-old(*),
+      ::view-transition-new(*) {
+        animation: none !important;
+      }
+    }
   </style>
+  <script>
+    // Let the VIS logo travel between pages, but only when it is on screen on both ends.
+    (() => {
+      const logoSelector = '.vis-logo img';
+      const onScreen = (el) => {
+        if (!el) return false;
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.bottom > 0 && r.top < window.innerHeight;
+      };
+      const visibleLogo = () => [...document.querySelectorAll(logoSelector)].find((el) => el.offsetParent !== null);
+      const clear = () => document.querySelectorAll(logoSelector).forEach((el) => { el.style.viewTransitionName = ''; });
+      window.addEventListener('pageswap', (e) => {
+        if (!e.viewTransition) return;
+        const logo = visibleLogo();
+        if (onScreen(logo)) logo.style.viewTransitionName = 'vis-logo';
+        e.viewTransition.finished.finally(clear);
+      });
+      window.addEventListener('pagereveal', (e) => {
+        if (!e.viewTransition) return;
+        const logo = visibleLogo();
+        if (onScreen(logo)) logo.style.viewTransitionName = 'vis-logo';
+        e.viewTransition.finished.finally(clear);
+      });
+    })();
+  </script>
 </head>
 
 <body>
