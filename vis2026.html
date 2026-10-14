@@ -56,6 +56,10 @@
       --line-soft: #EAE8E2;
       --grid: rgba(21, 23, 27, 0.065);
       --desk-light: rgba(44, 75, 114, 0.075);
+      --dot: rgba(44, 75, 114, 0.42);
+      --dot-halo: rgba(44, 75, 114, 0.07);
+      --dot-pink: rgba(188, 74, 114, 0.5);
+      --dot-pink-halo: rgba(188, 74, 114, 0.08);
       --accent: #24466F;
       --flash: rgba(36, 70, 111, 0.04);
       --recede: brightness(0.96) saturate(0.7);
@@ -93,6 +97,10 @@
       --line-soft: #1B1E23;
       --grid: rgba(236, 237, 239, 0.06);
       --desk-light: rgba(157, 187, 224, 0.15);
+      --dot: rgba(157, 187, 224, 0.55);
+      --dot-halo: rgba(157, 187, 224, 0.08);
+      --dot-pink: rgba(224, 122, 160, 0.6);
+      --dot-pink-halo: rgba(224, 122, 160, 0.09);
       --accent: #9DBBE0;
       --flash: rgba(157, 187, 224, 0.06);
       --recede: brightness(0.84) saturate(0.75);
@@ -445,7 +453,7 @@
         linear-gradient(var(--grid) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid) 1px, transparent 1px);
       background-size: 48px 48px;
-      background-position: center;
+      background-position: 0 0;
       animation: desk-drift 20s linear infinite;
       will-change: transform;
     }
@@ -464,6 +472,73 @@
       background: radial-gradient(closest-side, var(--desk-light), transparent);
       animation: desk-wander 26s ease-in-out infinite alternate;
       will-change: transform;
+    }
+
+
+    /* A few data points appear on the grid, travel with it, and fade */
+    .desk-dots {
+      position: absolute;
+      inset: -48px;
+      z-index: -1;
+      pointer-events: none;
+      animation: desk-drift 20s linear infinite;
+      will-change: transform;
+    }
+
+    .desk-dots i {
+      position: absolute;
+      left: calc(var(--x) * 48px);
+      top: calc(var(--y) * 48px);
+      width: 5px;
+      height: 5px;
+      margin: -2px 0 0 -2px;
+      border-radius: 50%;
+      background: var(--dot);
+      box-shadow: 0 0 0 4px var(--dot-halo);
+      opacity: 0;
+      animation: dot-a 20s ease-in-out infinite;
+    }
+
+    .desk-dots i.b {
+      animation-name: dot-b;
+    }
+
+    .desk-dots i.c {
+      animation-name: dot-c;
+    }
+
+    .desk-dots i.pink {
+      --dot: var(--dot-pink);
+      --dot-halo: var(--dot-pink-halo);
+    }
+
+    @keyframes dot-a {
+      0%, 12% { opacity: 0; transform: scale(0.4); }
+      30% { opacity: 1; transform: scale(1); }
+      52%, 100% { opacity: 0; transform: scale(0.7); }
+    }
+
+    @keyframes dot-b {
+      0%, 34% { opacity: 0; transform: scale(0.4); }
+      52% { opacity: 1; transform: scale(1); }
+      74%, 100% { opacity: 0; transform: scale(0.7); }
+    }
+
+    @keyframes dot-c {
+      0%, 56% { opacity: 0; transform: scale(0.4); }
+      74% { opacity: 1; transform: scale(1); }
+      94%, 100% { opacity: 0; transform: scale(0.7); }
+    }
+
+    .desk.is-still .desk-dots,
+    .desk.is-still .desk-dots i {
+      animation-play-state: paused;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .desk-dots {
+        display: none;
+      }
     }
 
     @keyframes desk-drift {
@@ -1911,6 +1986,7 @@
 
     <section class="desk" id="desk" aria-label="The five papers">
       <span class="desk-light" aria-hidden="true"></span>
+      <div class="desk-dots" aria-hidden="true"><i style="--x:2;--y:3"></i><i class="b" style="--x:5;--y:10"></i><i class="c pink" style="--x:4;--y:6"></i><i class="c" style="--x:7;--y:13"></i><i class="b" style="--x:9;--y:4"></i><i class="a" style="--x:12;--y:11"></i><i class="c" style="--x:15;--y:7"></i><i class="b pink" style="--x:18;--y:14"></i><i class="a" style="--x:21;--y:5"></i><i class="c" style="--x:24;--y:12"></i><i class="b" style="--x:27;--y:3"></i><i class="a pink" style="--x:30;--y:9"></i><i class="b" style="--x:33;--y:15"></i><i class="c" style="--x:36;--y:6"></i></div>
       <div class="stage" id="stage">
         <a class="card" href="#annotation-survey" data-key="survey" data-short-meta="TVCG · Tue, Nov 10" data-short-title="A Survey on Annotations in Visualization">
           <span class="paper">
