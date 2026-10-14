@@ -55,6 +55,7 @@
       --line: #DFDDD6;
       --line-soft: #EAE8E2;
       --grid: rgba(21, 23, 27, 0.045);
+      --desk-light: rgba(255, 255, 255, 0.75);
       --accent: #24466F;
       --flash: rgba(36, 70, 111, 0.04);
       --recede: brightness(0.96) saturate(0.7);
@@ -91,6 +92,7 @@
       --line: #262A31;
       --line-soft: #1B1E23;
       --grid: rgba(236, 237, 239, 0.04);
+      --desk-light: rgba(157, 187, 224, 0.1);
       --accent: #9DBBE0;
       --flash: rgba(157, 187, 224, 0.06);
       --recede: brightness(0.84) saturate(0.75);
@@ -428,12 +430,62 @@
       margin-top: 40px;
       border-top: 1px solid var(--line-soft);
       border-bottom: 1px solid var(--line-soft);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* The grid drifts about one square a minute */
+    .desk::after {
+      content: "";
+      position: absolute;
+      inset: -48px;
+      z-index: -1;
+      pointer-events: none;
       background-image:
         linear-gradient(var(--grid) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid) 1px, transparent 1px);
       background-size: 48px 48px;
       background-position: center;
-      overflow: hidden;
+      animation: desk-drift 64s linear infinite;
+      will-change: transform;
+    }
+
+    /* and a soft light wanders across it */
+    .desk-light {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: -1;
+      width: 900px;
+      height: 900px;
+      margin: -450px 0 0 -450px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(closest-side, var(--desk-light), transparent);
+      animation: desk-wander 38s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    @keyframes desk-drift {
+      to { transform: translate3d(48px, 48px, 0); }
+    }
+
+    @keyframes desk-wander {
+      0% { transform: translate3d(-34vw, -16%, 0) scale(0.9); }
+      50% { transform: translate3d(4vw, 12%, 0) scale(1.05); }
+      100% { transform: translate3d(32vw, -10%, 0) scale(0.95); }
+    }
+
+    .desk.is-still::after,
+    .desk.is-still .desk-light {
+      animation-play-state: paused;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .desk::after,
+      .desk-light {
+        animation: none;
+      }
     }
 
     /* a faint paper grain over the desk grid */
@@ -1858,6 +1910,7 @@
     </div>
 
     <section class="desk" id="desk" aria-label="The five papers">
+      <span class="desk-light" aria-hidden="true"></span>
       <div class="stage" id="stage">
         <a class="card" href="#annotation-survey" data-key="survey" data-short-meta="TVCG · Tue, Nov 10" data-short-title="A Survey on Annotations in Visualization">
           <span class="paper">
@@ -2440,6 +2493,13 @@
         window.addEventListener('scroll', update, { passive: true });
         window.addEventListener('resize', () => { current = undefined; update(); });
         update();
+      }
+
+
+      // Rest the desk's slow motion while it is off screen
+      const deskEl = document.getElementById('desk');
+      if (deskEl && 'IntersectionObserver' in window) {
+        new IntersectionObserver(([e]) => deskEl.classList.toggle('is-still', !e.isIntersecting)).observe(deskEl);
       }
 
       const btt = document.getElementById('back-to-top');
