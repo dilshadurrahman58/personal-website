@@ -54,8 +54,8 @@
       --ink-3: #6B6E76;
       --line: #DFDDD6;
       --line-soft: #EAE8E2;
-      --grid: rgba(21, 23, 27, 0.045);
-      --desk-light: rgba(255, 255, 255, 0.75);
+      --grid: rgba(21, 23, 27, 0.065);
+      --desk-light: rgba(44, 75, 114, 0.075);
       --accent: #24466F;
       --flash: rgba(36, 70, 111, 0.04);
       --recede: brightness(0.96) saturate(0.7);
@@ -91,8 +91,8 @@
       --ink-3: #8D939C;
       --line: #262A31;
       --line-soft: #1B1E23;
-      --grid: rgba(236, 237, 239, 0.04);
-      --desk-light: rgba(157, 187, 224, 0.1);
+      --grid: rgba(236, 237, 239, 0.06);
+      --desk-light: rgba(157, 187, 224, 0.15);
       --accent: #9DBBE0;
       --flash: rgba(157, 187, 224, 0.06);
       --recede: brightness(0.84) saturate(0.75);
@@ -446,7 +446,7 @@
         linear-gradient(90deg, var(--grid) 1px, transparent 1px);
       background-size: 48px 48px;
       background-position: center;
-      animation: desk-drift 64s linear infinite;
+      animation: desk-drift 20s linear infinite;
       will-change: transform;
     }
 
@@ -462,7 +462,7 @@
       border-radius: 50%;
       pointer-events: none;
       background: radial-gradient(closest-side, var(--desk-light), transparent);
-      animation: desk-wander 38s ease-in-out infinite alternate;
+      animation: desk-wander 26s ease-in-out infinite alternate;
       will-change: transform;
     }
 
