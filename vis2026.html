@@ -56,10 +56,9 @@
       --line-soft: #EAE8E2;
       --grid: rgba(21, 23, 27, 0.065);
       --desk-light: rgba(44, 75, 114, 0.075);
-      --dot: rgba(44, 75, 114, 0.42);
-      --dot-halo: rgba(44, 75, 114, 0.07);
-      --dot-pink: rgba(188, 74, 114, 0.5);
-      --dot-pink-halo: rgba(188, 74, 114, 0.08);
+      --vc: rgba(44, 75, 114, 0.4);
+      --vc-axis: rgba(44, 75, 114, 0.22);
+      --vc-note: rgba(188, 74, 114, 0.7);
       --accent: #24466F;
       --flash: rgba(36, 70, 111, 0.04);
       --recede: brightness(0.96) saturate(0.7);
@@ -97,10 +96,9 @@
       --line-soft: #1B1E23;
       --grid: rgba(236, 237, 239, 0.06);
       --desk-light: rgba(157, 187, 224, 0.15);
-      --dot: rgba(157, 187, 224, 0.55);
-      --dot-halo: rgba(157, 187, 224, 0.08);
-      --dot-pink: rgba(224, 122, 160, 0.6);
-      --dot-pink-halo: rgba(224, 122, 160, 0.09);
+      --vc: rgba(157, 187, 224, 0.42);
+      --vc-axis: rgba(157, 187, 224, 0.2);
+      --vc-note: rgba(224, 122, 160, 0.75);
       --accent: #9DBBE0;
       --flash: rgba(157, 187, 224, 0.06);
       --recede: brightness(0.84) saturate(0.75);
@@ -475,8 +473,8 @@
     }
 
 
-    /* A few data points appear on the grid, travel with it, and fade */
-    .desk-dots {
+    /* Faint charts plot themselves on the grid, one at a time, each with a small annotation */
+    .desk-charts {
       position: absolute;
       inset: -48px;
       z-index: -1;
@@ -485,58 +483,90 @@
       will-change: transform;
     }
 
-    .desk-dots i {
+    .vchart {
       position: absolute;
-      left: calc(var(--x) * 48px);
-      top: calc(var(--y) * 48px);
-      width: 5px;
-      height: 5px;
-      margin: -2px 0 0 -2px;
-      border-radius: 50%;
-      background: var(--dot);
-      box-shadow: 0 0 0 4px var(--dot-halo);
+      left: calc(var(--cx, 2) * 48px);
+      top: calc(var(--cy, 8) * 48px);
+      overflow: visible;
       opacity: 0;
-      animation: dot-a 20s ease-in-out infinite;
+      animation: 60s linear infinite;
+      fill: none;
+      stroke: var(--vc);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
-    .desk-dots i.b {
-      animation-name: dot-b;
+    .vchart .axis {
+      stroke: var(--vc-axis);
+      stroke-width: 1;
     }
 
-    .desk-dots i.c {
-      animation-name: dot-c;
+    .vchart .pt {
+      fill: var(--vc);
+      stroke: none;
     }
 
-    .desk-dots i.pink {
-      --dot: var(--dot-pink);
-      --dot-halo: var(--dot-pink-halo);
+    .vchart .note {
+      stroke: var(--vc-note);
+      fill: none;
+      opacity: 0;
+      animation: inherit;
+      animation-duration: 60s;
     }
 
-    @keyframes dot-a {
-      0%, 12% { opacity: 0; transform: scale(0.4); }
-      30% { opacity: 1; transform: scale(1); }
-      52%, 100% { opacity: 0; transform: scale(0.7); }
+    .vchart .note text {
+      fill: var(--vc-note);
+      stroke: none;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
     }
 
-    @keyframes dot-b {
-      0%, 34% { opacity: 0; transform: scale(0.4); }
-      52% { opacity: 1; transform: scale(1); }
-      74%, 100% { opacity: 0; transform: scale(0.7); }
+    .vchart .draw {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation-duration: 60s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
     }
 
-    @keyframes dot-c {
-      0%, 56% { opacity: 0; transform: scale(0.4); }
-      74% { opacity: 1; transform: scale(1); }
-      94%, 100% { opacity: 0; transform: scale(0.7); }
-    }
+    /* line chart: 0–20s */
+    .vchart-line { animation-name: vc-show-a; }
+    .vchart-line .draw { animation-name: vc-draw-a; }
+    .vchart-line .note { animation-name: vc-note-a; }
 
-    .desk.is-still .desk-dots,
-    .desk.is-still .desk-dots i {
+    /* scatterplot: 20–40s */
+    .vchart-scatter { animation-name: vc-show-b; }
+    .vchart-scatter .pt { opacity: 0; animation: vc-pts-b 60s linear infinite; }
+    .vchart-scatter .draw { animation-name: vc-draw-b; }
+    .vchart-scatter .note { animation-name: vc-note-b; }
+
+    /* bar chart: 40–60s */
+    .vchart-bars { animation-name: vc-show-c; }
+    .vchart-bars .bars { transform-origin: 0 144px; transform: scaleY(0); animation: vc-grow-c 60s linear infinite; }
+    .vchart-bars .note { animation-name: vc-note-c; }
+
+    @keyframes vc-show-a { 0% { opacity: 0; } 3%, 27% { opacity: 1; } 31%, 100% { opacity: 0; } }
+    @keyframes vc-draw-a { 0%, 3% { stroke-dashoffset: 1; animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1); } 13%, 100% { stroke-dashoffset: 0; } }
+    @keyframes vc-note-a { 0%, 14% { opacity: 0; } 17%, 100% { opacity: 1; } }
+
+    @keyframes vc-show-b { 0%, 33.4% { opacity: 0; } 36.5%, 60.5% { opacity: 1; } 64.5%, 100% { opacity: 0; } }
+    @keyframes vc-pts-b { 0%, 36% { opacity: 0; } 41%, 100% { opacity: 1; } }
+    @keyframes vc-draw-b { 0%, 42% { stroke-dashoffset: 1; animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1); } 49%, 100% { stroke-dashoffset: 0; } }
+    @keyframes vc-note-b { 0%, 49.5% { opacity: 0; } 52.5%, 100% { opacity: 1; } }
+
+    @keyframes vc-show-c { 0%, 66.8% { opacity: 0; } 70%, 94% { opacity: 1; } 98%, 100% { opacity: 0; } }
+    @keyframes vc-grow-c { 0%, 70% { transform: scaleY(0); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); } 78%, 100% { transform: scaleY(1); } }
+    @keyframes vc-note-c { 0%, 79% { opacity: 0; } 82%, 100% { opacity: 1; } }
+
+    .desk.is-still .desk-charts,
+    .desk.is-still .desk-charts * {
       animation-play-state: paused;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .desk-dots {
+      .desk-charts {
         display: none;
       }
     }
@@ -1986,7 +2016,11 @@
 
     <section class="desk" id="desk" aria-label="The five papers">
       <span class="desk-light" aria-hidden="true"></span>
-      <div class="desk-dots" aria-hidden="true"><i style="--x:2;--y:3"></i><i class="b" style="--x:5;--y:10"></i><i class="c pink" style="--x:4;--y:6"></i><i class="c" style="--x:7;--y:13"></i><i class="b" style="--x:9;--y:4"></i><i class="a" style="--x:12;--y:11"></i><i class="c" style="--x:15;--y:7"></i><i class="b pink" style="--x:18;--y:14"></i><i class="a" style="--x:21;--y:5"></i><i class="c" style="--x:24;--y:12"></i><i class="b" style="--x:27;--y:3"></i><i class="a pink" style="--x:30;--y:9"></i><i class="b" style="--x:33;--y:15"></i><i class="c" style="--x:36;--y:6"></i></div>
+      <div class="desk-charts" aria-hidden="true">
+        <svg class="vchart vchart-line" data-chart="line" width="288" height="144" viewBox="0 0 288 144"><path class="axis" d="M0 144 H288 M0 144 V0" /><path class="draw" pathLength="1" d="M0 108 L48 84 L96 96 L144 24 L192 72 L240 48 L288 84" /><g class="note"><circle cx="144" cy="24" r="10" /><path d="M152 17 L184 -8" /><text x="190" y="-4">peak</text></g></svg>
+        <svg class="vchart vchart-scatter" data-chart="scatter" width="240" height="144" viewBox="0 0 240 144"><path class="axis" d="M0 144 H240 M0 144 V0" /><circle class="pt" cx="12" cy="126" r="3" /><circle class="pt" cx="36" cy="108" r="3" /><circle class="pt" cx="60" cy="114" r="3" /><circle class="pt" cx="84" cy="90" r="3" /><circle class="pt" cx="108" cy="96" r="3" /><circle class="pt" cx="132" cy="72" r="3" /><circle class="pt" cx="156" cy="60" r="3" /><circle class="pt" cx="180" cy="66" r="3" /><circle class="pt" cx="204" cy="42" r="3" /><circle class="pt" cx="228" cy="30" r="3" /><path class="draw" pathLength="1" d="M6 134 L236 22" /><g class="note"><path d="M222 28 L222 -6 L238 -6" /><text x="244" y="-2">trend</text></g></svg>
+        <svg class="vchart vchart-bars" data-chart="bars" width="240" height="144" viewBox="0 0 240 144"><path class="axis" d="M0 144 H240" /><g class="bars"><rect x="10" y="72" width="28" height="72" /><rect x="58" y="48" width="28" height="96" /><rect x="106" y="96" width="28" height="48" /><rect x="154" y="24" width="28" height="120" /><rect x="202" y="60" width="28" height="84" /></g><g class="note"><path d="M168 16 L168 -10 L194 -10" /><path d="M162 10 L168 16 L174 10" /><text x="200" y="-6">highest</text></g></svg>
+      </div>
       <div class="stage" id="stage">
         <a class="card" href="#annotation-survey" data-key="survey" data-short-meta="TVCG · Tue, Nov 10" data-short-title="A Survey on Annotations in Visualization">
           <span class="paper">
@@ -2571,6 +2605,49 @@
         update();
       }
 
+
+
+      // Place each background chart on the grid where the cards cover it least
+      const placeCharts = () => {
+        const desk = document.getElementById('desk');
+        if (!desk) return;
+        const box = desk.getBoundingClientRect();
+        const W = desk.clientWidth, H = desk.clientHeight;
+        const pad = 14;
+        const taken = [...desk.querySelectorAll('.card')].map(c => {
+          const r = c.getBoundingClientRect();
+          return { x0: r.left - box.left - pad, y0: r.top - box.top - pad, x1: r.right - box.left + pad, y1: r.bottom - box.top + pad };
+        });
+        const overlap = (a, b) => Math.max(0, Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0)) * Math.max(0, Math.min(a.y1, b.y1) - Math.max(a.y0, b.y0));
+        desk.querySelectorAll('.vchart').forEach(el => {
+          // the chart may tuck under a paper, but its annotation should stay in the open
+          const cw = el.width.baseVal.value, ch = el.height.baseVal.value;
+          const nb = el.querySelector('.note').getBBox();
+          let best = null;
+          for (let cy = 1; (cy - 1) * 48 + ch <= H - 12; cy++) {
+            for (let cx = 1; (cx - 1) * 48 + cw + 60 <= W; cx++) {
+              const ox = (cx - 1) * 48, oy = (cy - 1) * 48;
+              if (oy + nb.y < 8) continue;
+              // allow for the grid's drift of one cell while the chart is shown
+              const chart = { x0: ox, y0: oy, x1: ox + cw + 48, y1: oy + ch + 48 };
+              const note = { x0: ox + nb.x - 8, y0: oy + nb.y - 8, x1: ox + nb.x + nb.width + 56, y1: oy + nb.y + nb.height + 56 };
+              const noteHit = taken.reduce((sum, t) => sum + overlap(note, t), 0);
+              const chartHit = taken.reduce((sum, t) => sum + overlap(chart, t), 0);
+              const cost = noteHit * 8 + chartHit;
+              if (!best || cost < best.cost) best = { cost, noteHit, cx, cy, chart, area: (note.x1 - note.x0) * (note.y1 - note.y0), chartArea: (cw + 48) * (ch + 48), chartHit };
+            }
+          }
+          if (!best) { el.style.visibility = 'hidden'; return; }
+          el.style.setProperty('--cx', best.cx);
+          el.style.setProperty('--cy', best.cy);
+          el.style.visibility = (best.noteHit > best.area * 0.15 || best.chartHit > best.chartArea * 0.6) ? 'hidden' : '';
+          taken.push(best.chart);
+        });
+      };
+      let chartTimer;
+      const schedulePlace = (ms) => { clearTimeout(chartTimer); chartTimer = setTimeout(placeCharts, ms); };
+      schedulePlace(1600);
+      window.addEventListener('resize', () => schedulePlace(300));
 
       // Rest the desk's slow motion while it is off screen
       const deskEl = document.getElementById('desk');
