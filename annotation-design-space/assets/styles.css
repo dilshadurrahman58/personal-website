@@ -978,7 +978,7 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   max-width: 100%;
   max-height: 100%;
   padding: 2%;
-  background: #fff;
+  background: var(--paper);
   border-radius: 3px;
   box-shadow: var(--paper-shadow-up);
 }
@@ -1151,7 +1151,7 @@ html[data-theme="dark"] .theme-toggle .i-moon {
 .funnel::before {
   content: "";
   position: absolute;
-  left: 31px;
+  left: 39px;
   top: 30px;
   bottom: 34px;
   width: 1px;
@@ -1161,7 +1161,7 @@ html[data-theme="dark"] .theme-toggle .i-moon {
 .funnel li {
   position: relative;
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-columns: 80px minmax(0, 1fr);
   gap: 20px;
   align-items: start;
   padding: 0 0 22px;
@@ -1176,11 +1176,11 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   display: grid;
   place-items: center;
   justify-self: center;
-  min-width: 64px;
+  min-width: 80px;
   padding: 2px 0;
   background: var(--bg);
   font-family: var(--serif);
-  font-size: 34px;
+  font-size: 32px;
   line-height: 1.1;
   letter-spacing: -0.015em;
   font-variant-numeric: lining-nums;
@@ -1242,7 +1242,6 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   font-size: clamp(28px, 3.3vw, 40px);
   line-height: 1.2;
   letter-spacing: -0.016em;
-  text-indent: -0.42em;
   text-wrap: balance;
 }
 
@@ -2593,9 +2592,14 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   margin-right: 10px;
 }
 
-.ds__keyset .kx + .kx,
-.ds__keyset .kx:not(:first-of-type) {
-  margin-left: 12px;
+.ds__keyitem {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.ds__keyitem + .ds__keyitem {
+  margin-left: 14px;
 }
 
 .ds__keyhint {
@@ -3804,6 +3808,20 @@ th.is-hi .t1__th .ti {
     grid-template-columns: 100px minmax(0, 1fr) 32px;
   }
 
+  .funnel::before {
+    left: 32px;
+  }
+
+  .funnel li {
+    grid-template-columns: 66px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .funnel__n:not(.funnel__n--step) {
+    min-width: 66px;
+    font-size: 27px;
+  }
+
   .discuss {
     padding: 72px 0;
   }
@@ -3875,6 +3893,25 @@ html[data-theme="dark"] .kx--2 {
 html[data-theme="dark"] .t1__table td.w1,
 html[data-theme="dark"] .kx--w1 {
   background: color-mix(in srgb, var(--c-what) 30%, var(--surface));
+}
+
+/* raster figures sit flush on the dimmer paper of the dark theme */
+html[data-theme="dark"] .sheet img,
+html[data-theme="dark"] .zoom__stage img {
+  filter: brightness(0.97);
+}
+
+/* small controls get a 40px+ touch target without changing how they look */
+@media (pointer: coarse) {
+  :where(.seg button, .chip, .link, .icon-btn:not(.zoom__close), .btn--small) {
+    position: relative;
+  }
+
+  :where(.seg button, .chip, .link, .icon-btn:not(.zoom__close), .btn--small)::after {
+    content: "";
+    position: absolute;
+    inset: -8px -2px;
+  }
 }
 
 /* ── Family: the way home and the sibling sites ───────────────────
@@ -4007,6 +4044,48 @@ html[data-theme="dark"] .kx--w1 {
   height: 5px;
   border-radius: 999px;
   background: var(--warm);
+}
+
+/* the label takes its own line, so the six links never leave one orphaned on a second row */
+@media (min-width: 761px) {
+  .family {
+    align-items: end;
+  }
+
+  .family__label {
+    flex-basis: 100%;
+    text-align: right;
+  }
+}
+
+/* the way home, the theme toggle, and the sibling links reach a 40px+
+   touch target without moving */
+@media (pointer: coarse) {
+  .home,
+  .theme-toggle,
+  .family__set a {
+    position: relative;
+  }
+
+  .home::after,
+  .theme-toggle::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 999px;
+  }
+
+  .family__set a::after {
+    content: "";
+    position: absolute;
+    inset: -11px -4px;
+  }
+}
+
+@media (pointer: coarse) and (max-width: 760px) {
+  .family .family__set {
+    row-gap: 20px;
+  }
 }
 
 @media (max-width: 760px) {

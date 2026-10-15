@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════
    Annotation Taxonomy: the family shell
-   The header, masthead, section heads, and footer shared with the
+   The header, masthead, buttons, and footer shared with the
    other annotation sites on dilshadur.com (paper on a quiet desk,
    Lora for reading, Inter for interface, hairline rules, one navy
    accent, one warm highlight). The study content keeps its own
-   components in index.html and reads its colors from the same tokens.
+   components in index.html, which also sets the shared tokens.
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
@@ -45,10 +45,6 @@ body,
   max-width: var(--shell-max);
   margin: 0 auto;
   padding: 0 var(--gutter);
-}
-
-.page {
-  max-width: var(--shell-max);
 }
 
 .sep {
@@ -398,42 +394,6 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   }
 }
 
-/* ── Section heads, in the family voice ───────────────────────── */
-.section {
-  border-top-color: var(--line-soft);
-}
-
-.sec-eyebrow {
-  display: none;
-}
-
-.sec-title {
-  font-size: clamp(30px, 3.6vw, 42px);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-
-.sec-title em {
-  font-style: italic;
-}
-
-.sec-desc {
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--ink-3);
-}
-
-/* the citation block sits on paper, like the siblings' BibTeX */
-.cite-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-}
-
 /* ── Footer ───────────────────────────────────────────────────── */
 .foot {
   border-top: 1px solid var(--line-soft);
@@ -676,12 +636,6 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   .bar__div {
     margin: 0 10px;
   }
-}
-
-/* content columns line up with the header and masthead */
-.section {
-  padding-left: var(--gutter);
-  padding-right: var(--gutter);
 }
 
 .bar__start + .bar__nav {

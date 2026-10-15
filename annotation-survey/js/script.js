@@ -27,6 +27,8 @@
   const TYPES = ["Textual", "Graphical"];
   const GENS = ["Manual", "Semi-automatic", "Automatic"];
   const NONE = "Not specified";
+  // Papers with no thumbnail on disk; they get a typeset cover without a failed request
+  const NO_THUMB = new Set(["sultanum2024instruction"]);
 
   // Spelling fixes for venue names as they appear in the sheet
   const VENUE_FIX = {
@@ -479,14 +481,20 @@
       .join("")}</ul>`;
   }
 
+  function coverHTML(r) {
+    return `<div class="cover"><b>${esc(r.title)}</b><span>${esc(r.venue)}${r.year ? ` · ${r.year}` : ""}</span></div>`;
+  }
+
   function thumbHTML(r, cls) {
     const id = encodeURIComponent(r.id);
+    if (NO_THUMB.has(r.id)) return `<div class="sheet ${cls}">${coverHTML(r)}</div>`;
     return `<div class="sheet ${cls}">
       <img src="thumbs/${id}.webp" data-fallback="thumbnails/${id}.png" alt="" width="612" height="560" loading="lazy" decoding="async" />
     </div>`;
   }
 
   function wireThumb(img, r) {
+    if (!img) return;
     const done = () => img.classList.add("is-loaded");
     img.addEventListener("load", done);
     img.addEventListener("error", () => {
@@ -494,10 +502,8 @@
         img.src = img.dataset.fallback;
         delete img.dataset.fallback;
       } else {
-        const cover = document.createElement("div");
-        cover.className = "cover";
-        cover.innerHTML = `<b>${esc(r.title)}</b><span>${esc(r.venue)}${r.year ? ` · ${r.year}` : ""}</span>`;
-        img.replaceWith(cover);
+        img.insertAdjacentHTML("afterend", coverHTML(r));
+        img.remove();
       }
     });
     if (img.complete && img.naturalWidth) done();
@@ -557,6 +563,12 @@
     els.cards.replaceChildren(frag);
     els.cards.removeAttribute("aria-busy");
     els.empty.hidden = results.length > 0;
+    if (!results.length) {
+      const onlySearch = state.q && activeCount() === 0;
+      $(".empty__title", els.empty).textContent = onlySearch
+        ? `No papers match “${state.q}”.`
+        : "No papers match these filters.";
+    }
     if (animate) {
       let k = 0;
       for (const el of els.cards.children) {
@@ -1186,11 +1198,36 @@
       els.search.focus();
     }
     if (e.key === "Escape" && els.filters.classList.contains("is-open")) closeFilters();
+    if (e.key === "Escape" && exportMenu.open) {
+      exportMenu.open = false;
+      $("summary", exportMenu).focus();
+    }
+    // while the filter sheet is open, Tab cycles inside it
+    if (e.key === "Tab" && els.filters.classList.contains("is-open")) {
+      const f = $$("button, input, select, a[href]", els.filters).filter(
+        (el) => !el.disabled && el.offsetParent !== null,
+      );
+      if (!f.length) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (!els.filters.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
 
   // ── Filters sheet (small screens) ─────────────────────────────
   function openFilters() {
     els.filters.classList.add("is-open");
+    els.filters.setAttribute("role", "dialog");
+    els.filters.setAttribute("aria-modal", "true");
     els.scrim.hidden = false;
     els.filtersOpen.setAttribute("aria-expanded", "true");
     document.documentElement.classList.add("has-modal");
@@ -1198,6 +1235,8 @@
   }
   function closeFilters() {
     els.filters.classList.remove("is-open");
+    els.filters.removeAttribute("role");
+    els.filters.removeAttribute("aria-modal");
     els.scrim.hidden = true;
     els.filtersOpen.setAttribute("aria-expanded", "false");
     document.documentElement.classList.remove("has-modal");

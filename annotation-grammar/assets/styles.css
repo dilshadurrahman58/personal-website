@@ -2190,7 +2190,7 @@ html[data-theme="dark"] .term__rule {
   max-width: 100%;
   max-height: 100%;
   padding: 2%;
-  background: #fff;
+  background: var(--paper);
   border-radius: 3px;
   box-shadow: var(--paper-shadow-up);
 }
@@ -4463,6 +4463,40 @@ html[data-theme="dark"] .pill.is-same {
   }
 }
 
+/* raster figures sit flush on the dimmer paper of the dark theme */
+html[data-theme="dark"] .sheet img,
+html[data-theme="dark"] .zoom__stage img {
+  filter: brightness(0.97);
+}
+
+/* on wide, tall screens the chart stays in view beside its specification */
+@media (min-width: 1001px) and (min-height: 760px) {
+  .specimen__chart {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+@media (min-width: 1101px) and (min-height: 760px) {
+  .pg__stage {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+/* small controls get a 40px+ touch target without changing how they look */
+@media (pointer: coarse) {
+  :where(.seg button, .chip, .link, .gkey, .icon-btn:not(.zoom__close), .btn--small) {
+    position: relative;
+  }
+
+  :where(.seg button, .chip, .link, .gkey, .icon-btn:not(.zoom__close), .btn--small)::after {
+    content: "";
+    position: absolute;
+    inset: -8px -2px;
+  }
+}
+
 /* ── Family: the way home and the sibling sites ───────────────────
    Shared by every annotation site on dilshadur.com. Keep identical. */
 .bar__start {
@@ -4593,6 +4627,48 @@ html[data-theme="dark"] .pill.is-same {
   height: 5px;
   border-radius: 999px;
   background: var(--warm);
+}
+
+/* the label takes its own line, so the six links never leave one orphaned on a second row */
+@media (min-width: 761px) {
+  .family {
+    align-items: end;
+  }
+
+  .family__label {
+    flex-basis: 100%;
+    text-align: right;
+  }
+}
+
+/* the way home, the theme toggle, and the sibling links reach a 40px+
+   touch target without moving */
+@media (pointer: coarse) {
+  .home,
+  .theme-toggle,
+  .family__set a {
+    position: relative;
+  }
+
+  .home::after,
+  .theme-toggle::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 999px;
+  }
+
+  .family__set a::after {
+    content: "";
+    position: absolute;
+    inset: -11px -4px;
+  }
+}
+
+@media (pointer: coarse) and (max-width: 760px) {
+  .family .family__set {
+    row-gap: 20px;
+  }
 }
 
 @media (max-width: 760px) {

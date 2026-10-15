@@ -218,17 +218,7 @@
 
     .home-logo {
       flex-shrink: 0;
-      border-radius: 50%;
-      background: rgba(243, 246, 251, 0.96);
-      border: 1px solid rgba(58, 93, 140, 0.62);
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.74), 0 8px 18px rgba(63, 86, 116, 0.08);
       transition: transform 0.45s var(--ease-out);
-    }
-
-    html[data-theme="dark"] .home-logo {
-      background: linear-gradient(180deg, rgba(22, 32, 43, 0.94) 0%, rgba(16, 24, 33, 0.92) 100%);
-      border-color: rgba(154, 181, 213, 0.46);
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 10px 22px rgba(0, 0, 0, 0.24);
     }
 
     .home-name {
@@ -270,90 +260,53 @@
       color: var(--ink);
     }
 
-    /* Theme toggle: same as the homepage, slightly smaller */
+    /* Theme toggle: the round icon button of the homepage and the paper sites */
     .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.38rem;
-      min-height: 1.9rem;
-      padding: 0.18rem 0.56rem 0.18rem 0.4rem;
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      border: 1px solid rgba(180, 194, 212, 0.58);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.68) 100%);
-      color: #1a212b;
-      box-shadow: 0 8px 18px rgba(29, 40, 62, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.78), 0 0 0 1px rgba(138, 162, 194, 0.1);
-      backdrop-filter: blur(16px) saturate(1.12);
-      -webkit-backdrop-filter: blur(16px) saturate(1.12);
-      font: inherit;
+      background: transparent;
+      color: var(--ink-2);
       cursor: pointer;
-      white-space: nowrap;
-      transition: color 0.26s var(--ease-out), background 0.26s var(--ease-out), border-color 0.26s var(--ease-out),
-        box-shadow 0.26s var(--ease-out), transform 0.26s var(--ease-out);
+      transition: border-color 0.2s, color 0.2s, transform 0.4s var(--ease-out);
+    }
+
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .theme-toggle:hover {
-      color: #243E60;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.74) 0%, rgba(247, 248, 249, 0.52) 100%);
-      border-color: rgba(110, 136, 166, 0.09);
-      box-shadow: 0 9px 20px rgba(63, 86, 116, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.78), 0 0 0 1px rgba(138, 162, 194, 0.1);
-      transform: translateY(-0.36px);
+      color: var(--ink);
+      border-color: var(--ink-3);
     }
 
     .theme-toggle:active {
-      transform: translateY(0) scale(0.985);
+      transform: rotate(-20deg);
     }
 
-    .theme-toggle-icon {
-      position: relative;
-      width: 1rem;
-      height: 1rem;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      flex-shrink: 0;
+    .theme-toggle .i-moon,
+    html[data-theme="dark"] .theme-toggle .i-sun {
+      display: none;
     }
 
-    .theme-toggle-icon svg {
-      position: absolute;
-      width: 0.88rem;
-      height: 0.88rem;
-      transition: opacity 0.26s var(--ease-out), transform 0.26s var(--ease-out);
+    html[data-theme="dark"] .theme-toggle .i-moon {
+      display: block;
     }
 
-    .theme-toggle .icon-sun {
-      opacity: 0;
-      transform: scale(0.72) rotate(-24deg);
-    }
-
-    .theme-toggle-label {
-      font-size: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.075em;
-      text-transform: uppercase;
-    }
-
-    html[data-theme="dark"] .theme-toggle {
-      background: linear-gradient(180deg, rgba(20, 30, 40, 0.8) 0%, rgba(18, 27, 37, 0.66) 100%);
-      color: #f5f8fc;
-      border-color: rgba(133, 165, 204, 0.24);
-      box-shadow: 0 10px 26px rgba(2, 6, 12, 0.22), inset 0 1px 0 rgba(191, 214, 238, 0.11), 0 0 0 1px rgba(138, 170, 208, 0.12);
-    }
-
-    html[data-theme="dark"] .theme-toggle:hover {
-      color: #dbe8ff;
-      background: linear-gradient(180deg, rgba(26, 38, 50, 0.74) 0%, rgba(19, 30, 40, 0.58) 100%);
-      border-color: rgba(145, 178, 216, 0.22);
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(191, 214, 238, 0.11), 0 0 0 1px rgba(138, 170, 208, 0.12);
-    }
-
-    html[data-theme="dark"] .theme-toggle .icon-moon {
-      opacity: 0;
-      transform: scale(0.72) rotate(24deg);
-    }
-
-    html[data-theme="dark"] .theme-toggle .icon-sun {
-      opacity: 1;
-      transform: none;
+    html.theme-vt::view-transition-old(root),
+    html.theme-vt::view-transition-new(root) {
+      animation: none !important;
+      mix-blend-mode: normal;
     }
 
     /* Intro */
@@ -585,10 +538,11 @@
 
     .card-title {
       display: block;
-      font-weight: 600;
-      font-size: 21px;
-      line-height: 1.2;
-      letter-spacing: -0.018em;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 23px;
+      line-height: 1.22;
+      letter-spacing: -0.012em;
       margin-bottom: 16px;
     }
 
@@ -628,15 +582,12 @@
 
     @media (hover: hover) and (pointer: fine) {
       .card:hover {
-        transform: rotate(0deg) translateY(-14px) scale(1.025);
+        transform: rotate(0deg) translateY(-10px) scale(1.015);
         z-index: 20 !important;
       }
 
       .card:hover .paper {
-        box-shadow:
-          var(--paper-shadow-up),
-          0 0 0 1.5px var(--accent),
-          0 0 0 7px color-mix(in srgb, var(--accent) 13%, transparent);
+        box-shadow: var(--paper-shadow-up);
       }
 
       .card:hover .paper::before {
@@ -644,7 +595,7 @@
       }
 
       .card:hover .fig img {
-        transform: scale(1.04);
+        transform: scale(1.02);
       }
 
       .card:hover .card-title {
@@ -722,9 +673,9 @@
     }
 
     .desk[data-layout="narrow"] .card-title {
-      font-size: 15px;
-      line-height: 1.2;
-      letter-spacing: -0.012em;
+      font-size: 16px;
+      line-height: 1.22;
+      letter-spacing: -0.006em;
       margin-bottom: 10px;
       display: -webkit-box;
       -webkit-line-clamp: 3;
@@ -1876,17 +1827,14 @@
       <nav class="bar-links" aria-label="Page">
         <a class="hide-sm u quiet" href="#program">Schedule</a>
         <a class="hide-sm u quiet" href="./#publications">Publications</a>
-        <button class="theme-toggle" id="theme-btn" type="button" aria-pressed="true">
-          <span class="theme-toggle-icon" aria-hidden="true">
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
-            </svg>
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-            </svg>
-          </span>
-          <span class="theme-toggle-label">Light mode</span>
+        <button class="theme-toggle" id="theme-btn" type="button" aria-label="Switch color theme">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />
+          </svg>
         </button>
       </nav>
     </div>
@@ -2240,22 +2188,29 @@
 
       /* Theme ------------------------------------------------------------ */
       const themeBtn = document.getElementById('theme-btn');
-      const themeLabel = themeBtn.querySelector('.theme-toggle-label');
-      const syncThemeLabel = () => {
-        const next = root.dataset.theme === 'dark' ? 'Light mode' : 'Dark mode';
-        themeLabel.textContent = next;
-        themeBtn.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
-        themeBtn.setAttribute('aria-label', `Switch to ${next.toLowerCase()}`);
-        themeBtn.setAttribute('title', `Switch to ${next.toLowerCase()}`);
-      };
-      syncThemeLabel();
       themeBtn.addEventListener('click', () => {
         const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-        root.dataset.theme = next;
-        root.style.colorScheme = next;
-        document.getElementById('theme-color-meta').setAttribute('content', next === 'dark' ? '#0E1013' : '#F5F4F0');
+        const apply = () => {
+          root.dataset.theme = next;
+          root.style.colorScheme = next;
+          document.getElementById('theme-color-meta').setAttribute('content', next === 'dark' ? '#0E1013' : '#F5F4F0');
+        };
         try { localStorage.setItem('theme', next); } catch (e) { }
-        syncThemeLabel();
+        if (!document.startViewTransition || reduceMotion) return apply();
+        // the new theme spreads outward from the toggle, as on the homepage
+        const r = themeBtn.getBoundingClientRect();
+        const x = r.left + r.width / 2;
+        const y = r.top + r.height / 2;
+        const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+        root.classList.add('theme-vt');
+        const vt = document.startViewTransition(apply);
+        vt.ready.then(() => {
+          root.animate(
+            { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+            { duration: 650, easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)', pseudoElement: '::view-transition-new(root)' },
+          );
+        }, () => { });
+        vt.finished.finally(() => root.classList.remove('theme-vt'));
       });
 
       /* Desk layout ------------------------------------------------------ */
@@ -2264,21 +2219,21 @@
         wide: {
           w: 1160, h: 770,
           cards: {
-            survey: { x: 40, y: 64, w: 400, r: -5 },
-            design: { x: 706, y: 34, w: 400, r: 4 },
-            guidelines: { x: 330, y: 278, w: 360, r: -2.5 },
-            mllm: { x: 736, y: 398, w: 380, r: 4.5 },
-            wastewater: { x: 34, y: 346, w: 330, r: 3 },
+            survey: { x: 40, y: 64, w: 400, r: -2.4 },
+            design: { x: 706, y: 34, w: 400, r: 1.8 },
+            guidelines: { x: 330, y: 278, w: 360, r: -1 },
+            mllm: { x: 736, y: 398, w: 380, r: 2.2 },
+            wastewater: { x: 34, y: 346, w: 330, r: 1.4 },
           },
         },
         narrow: {
           w: 400, h: 600,
           cards: {
-            survey: { x: 12, y: 26, w: 188, r: -4 },
-            design: { x: 200, y: 16, w: 188, r: 3.5 },
-            guidelines: { x: 106, y: 196, w: 188, r: -1.5 },
-            mllm: { x: 10, y: 368, w: 188, r: 3 },
-            wastewater: { x: 202, y: 360, w: 188, r: -3 },
+            survey: { x: 12, y: 26, w: 188, r: -2 },
+            design: { x: 200, y: 16, w: 188, r: 1.6 },
+            guidelines: { x: 106, y: 196, w: 188, r: -0.8 },
+            mllm: { x: 10, y: 368, w: 188, r: 1.4 },
+            wastewater: { x: 202, y: 360, w: 188, r: -1.4 },
           },
         },
       };

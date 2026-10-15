@@ -618,21 +618,49 @@
   });
 
   // ── Full-size chart ───────────────────────────────────────────
-  function openZoom(f) {
-    els.zoomStage.classList.remove("is-actual");
-    els.zoomImg.src = `images/web/${f.id}.webp`;
-    els.zoomImg.onerror = () => {
-      els.zoomImg.onerror = null;
-      els.zoomImg.src = f.img;
-    };
-    els.zoomImg.alt = chartAlt(f);
-    els.zoom.showModal();
+  // The chart is fitted to the screen, enlarged up to twice its own size.
+  // A chart the screen had to shrink can then be opened at its own pixels.
+  const MAX_ENLARGE = 2;
+  let fitted = 0; // the fitted chart's width, without its mat
+
+  function fitZoom() {
+    const img = els.zoomImg;
+    const nw = img.naturalWidth;
+    const nh = img.naturalHeight;
+    if (!els.zoom.open || !nw || !nh) return;
+    const st = getComputedStyle(els.zoomStage);
+    const mat = 2 * (parseFloat(getComputedStyle(img).paddingLeft) || 0);
+    const aw = els.zoomStage.clientWidth - parseFloat(st.paddingLeft) - parseFloat(st.paddingRight) - mat;
+    const ah = els.zoomStage.clientHeight - parseFloat(st.paddingTop) - parseFloat(st.paddingBottom) - mat;
+    fitted = Math.floor(nw * Math.max(0.05, Math.min(aw / nw, ah / nh, MAX_ENLARGE)));
+    const actual = els.zoomStage.classList.contains("is-actual");
+    img.style.width = (actual ? nw : fitted) + mat + "px";
+    img.style.cursor = actual || nw <= fitted + 1 ? "zoom-out" : "zoom-in";
+    img.classList.add("is-loaded");
   }
+
+  function openZoom(f) {
+    const img = els.zoomImg;
+    els.zoomStage.classList.remove("is-actual");
+    img.classList.remove("is-loaded");
+    img.style.width = "";
+    img.onerror = () => {
+      img.onerror = null;
+      img.src = f.img;
+    };
+    img.alt = chartAlt(f);
+    img.src = `images/web/${f.id}.webp`;
+    els.zoom.showModal();
+    if (img.complete && img.naturalWidth) fitZoom();
+  }
+  els.zoomImg.addEventListener("load", fitZoom);
+  window.addEventListener("resize", fitZoom);
   els.zoomImg.addEventListener("click", (e) => {
     e.stopPropagation();
-    const fits = els.zoomImg.naturalWidth > els.zoomImg.clientWidth + 1 || els.zoomStage.classList.contains("is-actual");
-    if (fits) els.zoomStage.classList.toggle("is-actual");
-    else els.zoom.close();
+    if (els.zoomStage.classList.contains("is-actual") || els.zoomImg.naturalWidth > fitted + 1) {
+      els.zoomStage.classList.toggle("is-actual");
+      fitZoom();
+    } else els.zoom.close();
   });
   els.zoomStage.addEventListener("click", () => els.zoom.close());
   $("#zoom-close").addEventListener("click", () => els.zoom.close());

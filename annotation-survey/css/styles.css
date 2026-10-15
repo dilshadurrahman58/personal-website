@@ -667,6 +667,14 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   padding: 48px 0 22px;
 }
 
+.section-head__note {
+  max-width: 50ch;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-3);
+}
+
 .section-head h2,
 .cite h2 {
   font-family: var(--serif);
@@ -2601,6 +2609,32 @@ html[data-theme="dark"] .theme-toggle .i-moon {
 
   .select--small select {
     width: 96px;
+  }
+
+  /* fingers need room: every control at least 40px tall */
+  .btn--small,
+  .select select,
+  .select--small select {
+    height: 40px;
+  }
+
+  .seg button {
+    width: 40px;
+    height: 34px;
+  }
+
+  .chip {
+    height: 36px;
+    padding: 0 10px 0 13px;
+  }
+
+  .facet__more {
+    padding: 10px 0;
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
   }
 }
 

@@ -2077,3 +2077,98 @@ html[data-theme="dark"] .theme-toggle .i-moon {
     margin: 0 10px;
   }
 }
+
+/* ── Refinements ──────────────────────────────────────────────────
+   Charts are drawn on white. In the dark theme the paper is a warm
+   off-white, so let each chart take the paper's tone instead of
+   sitting on it as a brighter inset. */
+html[data-theme="dark"] .sheet img,
+html[data-theme="dark"] .detail__zoom img,
+html[data-theme="dark"] .cited__thumb img {
+  mix-blend-mode: multiply;
+}
+
+/* the full-size view: JS sizes the chart to the screen */
+.zoom__stage img {
+  object-fit: contain;
+}
+
+.zoom__stage img:not(.is-loaded) {
+  visibility: hidden;
+}
+
+/* fingers need larger targets than the cursor; the look stays the same */
+.home,
+.mark,
+.family__home,
+.theme-toggle,
+.detail__full {
+  position: relative;
+}
+
+@media (pointer: coarse) {
+  .home::after,
+  .theme-toggle::after,
+  .mark::after,
+  .family__home::after,
+  .detail__full::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+  }
+
+  .chip,
+  .btn--small {
+    height: 40px;
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .family__set a,
+  .family__set [aria-current],
+  .foot__inner a {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 0;
+  }
+
+  .family__set {
+    row-gap: 0;
+    align-items: center;
+  }
+
+  .family__set a.u,
+  .foot__inner a.u {
+    background-position: 0 calc(100% - 9px);
+  }
+}
+
+@media (pointer: coarse) {
+  .con__go {
+    padding: 10px 0;
+  }
+}
+
+/* the scrolling row of filters keeps room for focus rings */
+@media (max-width: 1230px) {
+  .toolbar__scroll {
+    padding-block: 6px;
+    margin-block: -6px;
+  }
+}
+
+/* phones: the chart sets the sheet's height, so the mat stays even on wide charts */
+@media (max-width: 700px) {
+  .detail__zoom {
+    aspect-ratio: auto;
+    max-height: none;
+  }
+
+  .detail__zoom img {
+    width: 100%;
+    max-height: 52vh;
+  }
+}
