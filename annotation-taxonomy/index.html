@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#FAFAF8" id="theme-color-meta" />
+  <meta name="theme-color" content="#F5F4F0" id="theme-color-meta" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <title>Annotation Taxonomy in Grouped Bar Charts · Information Visualization 2025</title>
   <meta name="description"
     content="Exploring annotation taxonomy in grouped bar charts: A qualitative classroom study. Rahman et al., Information Visualization 2025." />
@@ -22,27 +23,28 @@
         document.documentElement.dataset.theme = t;
         document.documentElement.style.colorScheme = t;
         const m = document.getElementById('theme-color-meta');
-        if (m) m.setAttribute('content', t === 'dark' ? '#0b1117' : '#FAFAF8');
+        if (m) m.setAttribute('content', t === 'dark' ? '#0E1013' : '#F5F4F0');
+        document.documentElement.classList.add('js');
       } catch (e) { document.documentElement.dataset.theme = 'light'; }
     })();
   </script>
   <style>
     /* ── TOKENS ─────────────────────────────────────────────── */
     :root {
-      --bg: #FAFAF8;
-      --bg-alt: #F2EFE9;
+      --bg: #F5F4F0;
+      --bg-alt: #EFEDE7;
       --bg-card: #FFFFFF;
-      --text: #18181C;
-      --text-muted: #52525E;
-      --text-light: #5C5C74;
-      --accent: #3A5D8C;
-      --accent-deep: #27446B;
+      --text: #15171B;
+      --text-muted: #3E4148;
+      --text-light: #5E6169;
+      --accent: #24466F;
+      --accent-deep: #1B3757;
       --accent-mid: #5B7CB2;
-      --accent-soft: #F3F6FB;
-      --accent-warm: #B84F18;
+      --accent-soft: rgba(36, 70, 111, 0.08);
+      --accent-warm: #9E4E24;
       --accent-warm-soft: #FDF2EC;
-      --border: #DEDAD2;
-      --border-light: #ECEAE4;
+      --border: #DCDAD2;
+      --border-light: #E8E6E0;
       --radius: 10px;
       --radius-sm: 5px;
       --radius-lg: 18px;
@@ -65,10 +67,10 @@
       --surface-hover-border: rgba(110, 136, 166, .08);
       --surface-hover-line: rgba(91, 124, 178, .17);
       --surface-hover-shadow: 0 7px 18px rgba(63, 86, 116, .048);
-      --focus-outline: rgba(58, 93, 140, .84);
+      --focus-outline: rgba(36, 70, 111, .84);
       --focus-ring: rgba(91, 124, 178, .18);
-      --surface-card-bg: linear-gradient(180deg, rgba(255,255,255,.985) 0%, rgba(248,246,242,.97) 100%);
-      --surface-card-border: rgba(188, 197, 213, .56);
+      --surface-card-bg: #FFFFFF;
+      --surface-card-border: #E2E0D9;
       --surface-card-border-strong: rgba(123, 148, 182, .62);
       --surface-card-shadow-soft: 0 10px 24px rgba(29, 40, 62, .055), 0 2px 6px rgba(29, 40, 62, .035);
       --surface-card-shadow-hover: 0 18px 40px rgba(29, 40, 62, .11), 0 4px 10px rgba(29, 40, 62, .05);
@@ -77,7 +79,7 @@
       --surface-card-blue-wash: rgba(91,124,178,.035);
       --surface-card-warm-wash: rgba(184,79,24,.02);
       --page-top-halo: rgba(255,255,255,.5);
-      --max-w: 1200px;
+      --max-w: 1240px;
       --nav-h: 64px;
       --serif: 'Lora', Georgia, serif;
       --sans: 'Inter', system-ui, sans-serif;
@@ -103,20 +105,20 @@
     }
 
     [data-theme="dark"] {
-      --bg: #0E1117;
-      --bg-alt: #151A22;
-      --bg-card: #1A2030;
-      --text: #E8E8F0;
-      --text-muted: #9A9AAE;
-      --text-light: #7A7A90;
-      --accent: #7CA3CC;
-      --accent-deep: #A5C4E0;
+      --bg: #0E1013;
+      --bg-alt: #121519;
+      --bg-card: #15181D;
+      --text: #ECEDEF;
+      --text-muted: #C3C7CE;
+      --text-light: #8F959E;
+      --accent: #9DBBE0;
+      --accent-deep: #C3D6EE;
       --accent-mid: #5B7CB2;
-      --accent-soft: rgba(91, 124, 178, .14);
-      --accent-warm: #D4753A;
+      --accent-soft: rgba(157, 187, 224, 0.10);
+      --accent-warm: #F0B07C;
       --accent-warm-soft: rgba(212, 117, 58, .12);
-      --border: #2A2E3A;
-      --border-light: #22273A;
+      --border: #2A2E35;
+      --border-light: #1D2026;
       --glass-bg: rgba(20, 28, 42, .78);
       --glass-bg-strong: rgba(22, 31, 46, .92);
       --glass-border: rgba(255, 255, 255, .06);
@@ -136,8 +138,8 @@
       --surface-hover-shadow: 0 7px 18px rgba(0, 0, 0, .2);
       --focus-outline: rgba(124, 163, 204, .88);
       --focus-ring: rgba(91, 124, 178, .24);
-      --surface-card-bg: linear-gradient(180deg, rgba(24,31,46,.985) 0%, rgba(21,27,40,.97) 100%);
-      --surface-card-border: rgba(84, 102, 132, .52);
+      --surface-card-bg: #15181D;
+      --surface-card-border: #2A2E35;
       --surface-card-border-strong: rgba(124, 163, 204, .54);
       --surface-card-shadow-soft: 0 12px 28px rgba(0,0,0,.24), 0 2px 6px rgba(0,0,0,.16);
       --surface-card-shadow-hover: 0 22px 46px rgba(0,0,0,.38), 0 6px 14px rgba(0,0,0,.22);
@@ -2040,58 +2042,88 @@
       text-transform: uppercase;
     }
   </style>
+  <link rel="stylesheet" href="assets/shell.css" />
 </head>
 
 <body>
 
   <a class="skip-nav" href="#main-content">Skip to main content</a>
 
-  <!-- ── HEADER ──────────────────────────────────────────────── -->
-  <header class="top" id="site-header">
-    <div class="top__inner">
-      <div class="top__title">
-        <h1 style="margin-bottom:.32rem;">Exploring Annotation Taxonomy in Grouped Bar Charts: A Qualitative Classroom Study&thinsp;<a href="https://doi.org/10.1177/14738716241270247" target="_blank" rel="noopener" class="btn--paper" aria-label="Read the full paper" style="vertical-align:middle;white-space:nowrap;">Read Paper ↗</a></h1>
-        <div class="top__authors">
-          <strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri, Danielle Albers Szafir, Paul Rosen
-        </div>
-        <div class="top__sub"><em>Information Visualization</em> · 2025</div>
-        <nav class="top__nav" aria-label="Page sections">
-          <a href="#overview" class="active" onclick="smoothTo(event,'overview')">Overview</a>
-          <a href="#study-design" onclick="smoothTo(event,'study-design')">Study Design</a>
-          <a href="#taxonomy" onclick="smoothTo(event,'taxonomy')">Taxonomy</a>
-          <a href="#ensembles" onclick="smoothTo(event,'ensembles')">Ensembles</a>
-          <a href="#findings" onclick="smoothTo(event,'findings')">Findings</a>
-          <a href="#citation" onclick="smoothTo(event,'citation')">Citation</a>
-        </nav>
+  <header class="bar" id="site-header">
+    <div class="wrap bar__inner">
+      <div class="bar__start">
+        <a class="home" href="/" aria-label="Md Dilshadur Rahman, homepage" title="Md Dilshadur Rahman">
+          <img src="/favicon.svg" alt="" width="26" height="26" />
+        </a>
+        <span class="bar__div" aria-hidden="true"></span>
+        <a class="mark" href="#top" aria-label="Annotation Taxonomy, back to top">
+          <svg class="mark__glyph" viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="16.4" y="5.4" width="11.6" height="23.4" rx="2.6" fill="none" stroke="var(--warm)"
+              stroke-width="1.6" stroke-dasharray="2.8 2.2" />
+            <path d="M5 27V15M9.6 27V10.5M19.6 27V17.5M24.4 27V9.5" fill="none" stroke="currentColor"
+              stroke-width="2.4" stroke-linecap="round" />
+          </svg>
+          <span>Annotation Taxonomy</span>
+        </a>
       </div>
-      <div class="top__actions">
-        <div class="top__actions-row" style="display: flex; align-items: center; gap: 0.75rem;">
-          <a href="https://osf.io/vup8r/" target="_blank" rel="noopener" class="btn btn--outline">Supplemental ↗</a>
-          <button class="btn btn--outline" data-copy-bib onclick="copyBib(this)" aria-label="Copy BibTeX citation">Copy BibTeX</button>
-          <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark mode"
-            style="margin-left: 0;">
-            <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-            <span id="theme-lbl">Light</span>
-          </button>
-        </div>
-      </div>
+      <nav class="bar__nav" aria-label="Page">
+        <a class="u quiet" href="#study-design">Study</a>
+        <a class="u quiet" href="#taxonomy">Taxonomy</a>
+        <a class="u quiet" href="#ensembles">Ensembles</a>
+        <a class="u quiet" href="#findings">Findings</a>
+        <a class="u quiet" href="#citation">Cite</a>
+        <a class="u quiet bar__ext" href="https://doi.org/10.1177/14738716241270247" target="_blank"
+          rel="noopener">Paper<span aria-hidden="true">&nbsp;↗</span></a>
+        <button class="theme-toggle" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Switch color theme">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" />
+          </svg>
+        </button>
+      </nav>
     </div>
   </header>
 
   <main id="main-content">
+    <section class="hero" id="top">
+      <div class="wrap">
+        <p class="eyebrow reveal" style="--d:0">
+          <span>Information Visualization</span><span class="eyebrow__far"><span class="sep" aria-hidden="true">·</span><span>Vol. 24, No. 1</span></span><span class="sep" aria-hidden="true">·</span><span>2025</span>
+        </p>
+        <h1 class="hero__title reveal" style="--d:1">
+          Exploring Annotation
+          <em class="marked"><span class="marked__band" aria-hidden="true"></span><span
+              class="marked__word">Taxonomy</span></em>
+          in Grouped Bar Charts
+        </h1>
+        <p class="hero__sub reveal" style="--d:2">A Qualitative Classroom Study</p>
+        <p class="hero__authors reveal" style="--d:3">
+          <a class="u" href="/">Md Dilshadur Rahman</a>,
+          <a class="u" href="https://www.jiquadcs.com/" target="_blank" rel="noopener">Ghulam Jilani Quadri</a>,
+          <a class="u" href="https://danielleszafir.com/" target="_blank" rel="noopener">Danielle Albers Szafir</a>, and
+          <a class="u" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a>
+        </p>
+        <div class="hero__lede reveal" style="--d:4">
+          <p>This study evaluates how visualization students annotate grouped bar charts when answering high-level analytical questions. Through qualitative coding, we identify a taxonomy of annotation types and characterize how different types support specific low-level analytic tasks.</p>
+          <div class="hero__actions">
+            <a class="fbtn fbtn--solid" href="https://doi.org/10.1177/14738716241270247" target="_blank"
+              rel="noopener">Read the paper<span aria-hidden="true">↗</span></a>
+            <a class="fbtn fbtn--ghost" href="https://osf.io/vup8r/" target="_blank" rel="noopener">Supplemental
+              materials<span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
     <div class="page">
 
       <!-- ── 01 OVERVIEW ──────────────────────────────────────── -->
       <section class="section" id="overview" aria-labelledby="h-overview">
         <div class="sec-head fu">
           <span class="sec-eyebrow">01 · Overview</span>
-          <h2 class="sec-title" id="h-overview">Research Overview</h2>
-          <p class="sec-desc">This study evaluates how visualization students annotate grouped bar charts when answering
-            high-level analytical questions. Through qualitative coding, we identify a taxonomy of annotation types and
-            characterize how different types support specific low-level analytic tasks.</p>
+          <h2 class="sec-title" id="h-overview">Three <em>contributions</em></h2>
         </div>
 
         <div class="fu d1">
@@ -2131,7 +2163,7 @@
       <section class="section" id="study-design" aria-labelledby="h-study">
         <div class="sec-head fu">
           <span class="sec-eyebrow">02 · Study Design</span>
-          <h2 class="sec-title" id="h-study">Methodology</h2>
+          <h2 class="sec-title" id="h-study">How the <em>study</em> worked</h2>
           <p class="sec-desc">We used a course assignment in a mixed undergraduate/graduate data visualization course at the University of South Florida (Spring 2022). Students annotated three grouped bar charts based on the Georgia Department of Public Health (<span class="gdph-trigger" role="button" tabindex="0" aria-haspopup="dialog" onclick="openGdph()" onkeydown="if(event.key==='Enter'||event.key===' ')openGdph()">GDPH</span>) COVID-19 visualization to support answering 12 high-level questions.</p>
         </div>
 
@@ -2265,7 +2297,7 @@
       <section class="section" id="taxonomy" aria-labelledby="h-taxonomy">
         <div class="sec-head fu">
           <span class="sec-eyebrow">03 · Taxonomy</span>
-          <h2 class="sec-title" id="h-taxonomy">Five Annotation Categories</h2>
+          <h2 class="sec-title" id="h-taxonomy">Five annotation <em>categories</em></h2>
           <p class="sec-desc">Five annotation types were identified. Usage counts reflect instances observed across all
             20 analyzed submissions. Primary tasks are those most frequently associated with each type; secondary tasks
             were observed less often.</p>
@@ -2534,7 +2566,7 @@
       <section class="section" id="ensembles" aria-labelledby="h-ensembles">
         <div class="sec-head fu">
           <span class="sec-eyebrow">04 · Ensembles</span>
-          <h2 class="sec-title" id="h-ensembles">Ensemble Annotations</h2>
+          <h2 class="sec-title" id="h-ensembles">Ensemble <em>annotations</em></h2>
           <p class="sec-desc">An ensemble is two or more annotation types used together for a single task instance.
             Ensembles arose when individual annotations were insufficient, either because the task was complex (e.g.,
             sort) or because visual clutter required spatial separation between an annotation and its referent.</p>
@@ -2717,7 +2749,7 @@
       <section class="section" id="findings" aria-labelledby="h-findings">
         <div class="sec-head fu">
           <span class="sec-eyebrow">05 · Findings</span>
-          <h2 class="sec-title" id="h-findings">Key Findings</h2>
+          <h2 class="sec-title" id="h-findings">Key <em>findings</em></h2>
           <p class="sec-desc">Patterns observed across the 20 coded submissions, organized by annotation usage, ensemble
             behavior, and task-specific constraints.</p>
         </div>
@@ -2767,9 +2799,9 @@
       <section class="section" id="citation" aria-labelledby="h-cite">
         <div class="sec-head fu">
           <span class="sec-eyebrow">06 · Citation</span>
-          <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem;">
-            <h2 class="sec-title" id="h-cite" style="margin-bottom:0;">Cite This Work</h2>
-            <button class="btn btn--outline cite-copy" data-copy-bib onclick="copyBib(this)" aria-label="Copy BibTeX to clipboard" style="flex-shrink:0;">Copy BibTeX</button>
+          <div class="cite-head">
+            <h2 class="sec-title" id="h-cite">Cite the <em>paper</em></h2>
+            <button class="fbtn" type="button" data-copy-bib onclick="copyBib(this)" aria-label="Copy BibTeX to clipboard">Copy BibTeX</button>
           </div>
         </div>
         <div class="cite-wrap fu d1">
@@ -2792,14 +2824,27 @@
     </div><!-- /page -->
   </main>
 
-  <footer class="footer">
-    <div class="footer__inner">
-      <p>© 2025 Md Dilshadur Rahman, Ghulam Jilani Quadri, Danielle Albers Szafir, Paul Rosen</p>
-      <div class="footer__right">
-        <a href="https://doi.org/10.1177/14738716241270247" target="_blank"
-          rel="noopener">DOI&thinsp;10.1177/14738716241270247</a>
-        <a href="https://osf.io/vup8r/" target="_blank" rel="noopener">Supplemental Materials</a>
-        <a href="https://journals.sagepub.com/home/ivi" target="_blank" rel="noopener">Information Visualization</a>
+  <footer class="foot">
+    <div class="wrap">
+      <nav class="family" aria-label="Annotation research by Md Dilshadur Rahman">
+        <a class="family__home" href="/"><img src="/favicon.svg" alt="" width="22" height="22" /><span>Md Dilshadur Rahman</span></a>
+        <ul class="family__set">
+          <li class="family__label">Annotation research</li>
+          <li><a class="u quiet" href="/annotation-strategies/">Annotation Strategies</a></li>
+          <li><span aria-current="page">Annotation Taxonomy</span></li>
+          <li><a class="u quiet" href="/annotation-design-space/">Annotation Design Space</a></li>
+          <li><a class="u quiet" href="/annotation-survey/">Annotation Survey</a></li>
+          <li><a class="u quiet" href="/annotation-grammar/">AnnoGram</a></li>
+          <li><a class="u quiet" href="/annotation-design/">Annotation Design</a></li>
+        </ul>
+      </nav>
+      <div class="foot__inner">
+        <p>
+          <a class="u quiet" href="https://doi.org/10.1177/14738716241270247" target="_blank" rel="noopener">doi:10.1177/14738716241270247</a>
+          <span class="sep foot__sep" aria-hidden="true">·</span>
+          <a class="u quiet" href="https://osf.io/vup8r/" target="_blank" rel="noopener">Supplemental materials</a>
+        </p>
+        <p><a class="u quiet" href="#top">Back to top ↑</a></p>
       </div>
     </div>
   </footer>
@@ -2835,24 +2880,7 @@
     </div>
   </aside>
 
-  <!-- Back to top -->
-  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
-    aria-label="Back to top" title="Back to top">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <polyline points="18 15 12 9 6 15" />
-    </svg>
-  </button>
 
-  <!-- Nav dots -->
-  <nav class="nav-dots" aria-label="Section navigation">
-    <button class="nav-dot active" data-sec="overview" title="Overview" onclick="scrollToSec('overview')"></button>
-    <button class="nav-dot" data-sec="study-design" title="Study Design" onclick="scrollToSec('study-design')"></button>
-    <button class="nav-dot" data-sec="taxonomy" title="Taxonomy" onclick="scrollToSec('taxonomy')"></button>
-    <button class="nav-dot" data-sec="ensembles" title="Ensembles" onclick="scrollToSec('ensembles')"></button>
-    <button class="nav-dot" data-sec="findings" title="Findings" onclick="scrollToSec('findings')"></button>
-    <button class="nav-dot" data-sec="citation" title="Citation" onclick="scrollToSec('citation')"></button>
-  </nav>
 
   <script>
     /* ── THEME ──────────────────────────────────────────────── */
@@ -2864,7 +2892,7 @@
     function applyTheme(t) {
       html.dataset.theme = t;
       html.style.colorScheme = t;
-      if (meta) meta.setAttribute('content', t === 'dark' ? '#0b1117' : '#FAFAF8');
+      if (meta) meta.setAttribute('content', t === 'dark' ? '#0E1013' : '#F5F4F0');
       if (lbl) lbl.textContent = t === 'dark' ? 'Light' : 'Dark';
       if (icon) {
         if (t === 'dark') {
@@ -2919,7 +2947,7 @@
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       header.classList.toggle('scrolled', y > 10);
-      btt.classList.toggle('visible', y > 400);
+      if (btt) btt.classList.toggle('visible', y > 400);
     }, { passive: true });
 
     /* ── REVEAL ─────────────────────────────────────────────── */

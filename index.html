@@ -14,7 +14,7 @@
   <link rel="canonical" href="https://dilshadur.com/" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#080d12" id="theme-color-meta" />
+  <meta name="theme-color" content="#F5F4F0" id="theme-color-meta" />
   <meta property="og:title" content="Md Dilshadur Rahman — Postdoctoral Researcher at Harvard University" />
   <meta property="og:description"
     content="Md Dilshadur Rahman is a postdoctoral researcher at Harvard University's HIDIVE Lab at Harvard Medical School, working with Nils Gehlenborg. He earned his PhD in Computer Science at the University of Utah with Paul Rosen." />
@@ -46,11 +46,11 @@
     (() => {
       try {
         const storedTheme = localStorage.getItem('theme');
-        const theme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : 'dark';
+        const theme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.dataset.theme = theme;
         document.documentElement.style.colorScheme = theme;
         const themeColorMeta = document.getElementById('theme-color-meta');
-        if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#080d12' : '#FAFAF8');
+        if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#0E1013' : '#F5F4F0');
       } catch (error) {
         document.documentElement.dataset.theme = 'dark';
         document.documentElement.style.colorScheme = 'dark';
@@ -136,13 +136,13 @@
   </script>
   <style>
     :root {
-      --bg: #FBFAF7;
-      --bg-alt: #F4F1EA;
+      --bg: #F5F4F0;
+      --bg-alt: #EFEDE7;
       --bg-card: #FFFFFF;
-      --text: #101115;
-      --text-muted: #383944;
-      --text-light: #52535F;
-      --accent: #2C4B72;
+      --text: #15171B;
+      --text-muted: #3E4148;
+      --text-light: #5E6169;
+      --accent: #24466F;
       /* softer, less saturated blue */
       --accent-deep: #243E60;
       /* deeper but less harsh */
@@ -152,8 +152,8 @@
       /* very light blue tint */
       --accent-warm: #9E4E24;
       --accent-warm-soft: #FAF1EC;
-      --border: #DEDAD2;
-      --border-light: #ECEAE4;
+      --border: #DCDAD2;
+      --border-light: #E8E6E0;
       --radius: 10px;
       --radius-sm: 5px;
       --radius-lg: 14px;
@@ -2991,22 +2991,22 @@
     /* DARK THEME */
     html[data-theme="dark"] {
       color-scheme: dark;
-      --bg: #080d12;
-      --bg-alt: #0f171f;
-      --bg-card: #121b24;
-      --text: #f5f8fc;
-      --text-muted: #dae3ec;
-      --text-light: #b6c5d5;
-      --accent: #a9cbf7;
+      --bg: #0E1013;
+      --bg-alt: #121519;
+      --bg-card: #15181D;
+      --text: #ECEDEF;
+      --text-muted: #C3C7CE;
+      --text-light: #A3A8B0;
+      --accent: #9DBBE0;
       --accent-deep: #dbe8ff;
       --accent-mid: #6f94cb;
       --accent-soft: rgba(124, 157, 201, 0.18);
       --accent-warm: #f0b07c;
       --accent-warm-soft: rgba(240, 176, 124, 0.16);
-      --border: #223140;
-      --border-light: #18222d;
-      --glass-bg: rgba(18, 27, 37, 0.66);
-      --glass-bg-strong: rgba(20, 30, 40, 0.8);
+      --border: #2A2E35;
+      --border-light: #1D2026;
+      --glass-bg: rgba(21, 24, 29, 0.68);
+      --glass-bg-strong: rgba(23, 26, 31, 0.84);
       --glass-border: rgba(191, 214, 238, 0.11);
       --glass-stroke: rgba(133, 165, 204, 0.24);
       --glass-shadow: 0 16px 38px rgba(2, 6, 12, 0.32);
@@ -3018,10 +3018,10 @@
       --steel-blue-shadow: 0 14px 30px rgba(2, 6, 12, 0.28);
       --divider-subtle: rgba(131, 151, 176, 0.16);
       --divider-fade: rgba(110, 136, 166, 0.08);
-      --glass-hover-bg: linear-gradient(180deg, rgba(31, 45, 60, 0.9) 0%, rgba(23, 35, 47, 0.82) 56%, rgba(18, 29, 39, 0.88) 100%);
-      --glass-hover-bg-soft: linear-gradient(180deg, rgba(26, 38, 50, 0.74) 0%, rgba(19, 30, 40, 0.58) 100%);
+      --glass-hover-bg: linear-gradient(180deg, rgba(36, 40, 47, 0.9) 0%, rgba(28, 31, 37, 0.82) 56%, rgba(22, 25, 30, 0.88) 100%);
+      --glass-hover-bg-soft: linear-gradient(180deg, rgba(31, 34, 40, 0.74) 0%, rgba(23, 26, 31, 0.58) 100%);
       --glass-hover-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
-      --surface-hover-bg: linear-gradient(180deg, rgba(31, 45, 60, 0.28) 0%, rgba(17, 26, 35, 0.28) 100%);
+      --surface-hover-bg: linear-gradient(180deg, rgba(36, 40, 47, 0.28) 0%, rgba(22, 25, 30, 0.28) 100%);
       --surface-hover-border: rgba(145, 178, 216, 0.085);
       --surface-hover-line: rgba(145, 178, 216, 0.16);
       --surface-hover-shadow: 0 7px 16px rgba(0, 0, 0, 0.11);
@@ -4411,7 +4411,7 @@
             width="210" height="210" style="width:100%;height:100%;object-fit:cover;display:block;" />
         </div>
         <div class="hero-sidebar-links">
-          <a href="https://dilshadur.com/cv/" target="_blank" rel="noopener noreferrer"
+          <a href="/cv/"
             class="btn btn-primary">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               aria-hidden="true">
@@ -4603,8 +4603,7 @@
                 <span class="bv">Computer Graphics Forum</span>
                 <span class="bv">EuroVis 2026</span>
                 <a class="pl" href="https://doi.org/10.1111/cgf.70435" target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
-                <a class="pl" href="https://dilshadur.com/annotation-design/" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                <a class="pl" href="/annotation-design/"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -4656,8 +4655,7 @@
                 <span class="bv">IEEE VIS 2024</span>
                 <a class="pl" href="https://doi.org/10.1109/TVCG.2024.3456359" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
-                <a class="pl" href="https://dilshadur.com/annotation-design-space/" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                <a class="pl" href="/annotation-design-space/"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -4683,8 +4681,7 @@
                 <span class="bv">IEEE TVCG</span>
                 <a class="pl" href="https://doi.org/10.1109/TVCG.2025.3600957" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
-                <a class="pl" href="https://dilshadur.com/annotation-survey/" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                <a class="pl" href="/annotation-survey/"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -4703,7 +4700,7 @@
           </div>
 
           <div class="pub-item" itemscope itemtype="https://schema.org/ScholarlyArticle">
-            <div class="pub-year" itemprop="datePublished">2024</div>
+            <div class="pub-year" itemprop="datePublished">2025</div>
             <div class="pub-body">
               <div class="pub-title" itemprop="name">Exploring Annotation Taxonomy in Grouped Bar Charts: A Qualitative
                 Classroom Study
@@ -4711,13 +4708,12 @@
               <div class="pub-authors" itemprop="author"><strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri,
                 Danielle Szafir, Paul
                 Rosen</div>
-              <div class="pub-venue" itemprop="isPartOf">Information Visualization, 2024.</div>
+              <div class="pub-venue" itemprop="isPartOf">Information Visualization, 2025.</div>
               <div class="pub-links">
                 <span class="bv">Information Visualization</span>
                 <a class="pl" href="https://doi.org/10.1177/14738716241270247" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
-                <a class="pl" href="https://dilshadur.com/annotation-taxonomy/" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                <a class="pl" href="/annotation-taxonomy/"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -4761,7 +4757,7 @@
               <div class="pub-venue" itemprop="isPartOf">IEEE Evaluation and BEyond: Methodological Approaches for Visualization (BELIV), co-located with IEEE VIS, 2026.</div>
               <div class="pub-links">
                 <span class="bv">BELIV @ IEEE VIS 2026</span>
-                <a class="pl" href="https://dilshadur.com/vis-guidelines/" target="_blank" rel="noopener noreferrer"><svg
+                <a class="pl" href="/vis-guidelines/"><svg
                     width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
@@ -4834,8 +4830,7 @@
                 <span class="bv">IEEE VIS 2025</span>
                 <a class="pl" href="https://doi.org/10.48550/arXiv.2507.04236" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>arXiv</a>
-                <a class="pl" href="https://dilshadur.com/annotation-grammar/" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                <a class="pl" href="/annotation-grammar/"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -4953,8 +4948,7 @@
                     <polyline points="15 3 21 3 21 9" />
                     <line x1="10" y1="14" x2="21" y2="3" />
                   </svg>Workshop Page</a>
-                <a class="pl" href="https://dilshadur.com/annotation-strategies/" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                <a class="pl" href="/annotation-strategies/"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -5024,8 +5018,7 @@
                 <span class="bv">IEEE VIS 2024</span>
                 <a class="pl" href="https://content-staging.ieeevis.org/year/2024/poster_v-vis-posters-1067.html"
                   target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3" width="17" height="12.5" rx="1.5" /><path d="M7.5 7.5h9" /><path d="M7.5 11h5.5" /><path d="M8.5 21l3.5-5.5 3.5 5.5" /></svg>Poster Page</a>
-                <a class="pl" href="https://dilshadur.com/annotation-strategies/" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                <a class="pl" href="/annotation-strategies/"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -5065,8 +5058,7 @@
                 <span class="bv">IEEE VIS 2022</span>
                 <a class="pl" href="https://virtual.ieeevis.org/year/2022/poster_v-vis-posters-1047.html"
                   target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3" width="17" height="12.5" rx="1.5" /><path d="M7.5 7.5h9" /><path d="M7.5 11h5.5" /><path d="M8.5 21l3.5-5.5 3.5 5.5" /></svg>Poster Page</a>
-                <a class="pl" href="https://dilshadur.com/annotation-taxonomy/" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                <a class="pl" href="/annotation-taxonomy/"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="2" y1="12" x2="22" y2="12" />
@@ -5497,7 +5489,7 @@
           href="https://www.harvard.edu/" target="_blank" rel="noopener noreferrer">Harvard University</a></p>
       <nav aria-label="Footer links">
         <ul class="footer-links" role="list">
-          <li><a href="https://dilshadur.com/cv/" target="_blank" rel="noopener noreferrer">CV</a></li>
+          <li><a href="/cv/">CV</a></li>
           <li><a href="mailto:dilshadur@sci.utah.edu">Email</a></li>
           <li><a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&hl=en" target="_blank"
               rel="noopener noreferrer">Scholar</a></li>
@@ -5562,10 +5554,10 @@
     function applyTheme(theme) {
       rootEl.dataset.theme = theme;
       rootEl.style.colorScheme = theme;
-      if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#080d12' : '#FAFAF8');
+      if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#0E1013' : '#F5F4F0');
       updateThemeToggle(theme);
     }
-    applyTheme(getStoredTheme() || 'dark');
+    applyTheme(getStoredTheme() || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     function switchTheme(theme, origin) {
       if (!document.startViewTransition || !rootEl.classList.contains('motion')) {
         applyTheme(theme);

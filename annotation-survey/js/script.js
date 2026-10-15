@@ -1263,7 +1263,7 @@
       $("#theme-color-meta").setAttribute("content", next === "dark" ? "#0E1013" : "#F5F4F0");
     };
     try {
-      localStorage.setItem("survey-theme", next);
+      localStorage.setItem("theme", next);
     } catch (err) {}
     if (!document.startViewTransition || reduceMotion()) return apply();
     // the new theme spreads outward from the toggle

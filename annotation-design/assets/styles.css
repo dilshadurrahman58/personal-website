@@ -1907,3 +1907,173 @@ html[data-theme="dark"] .theme-toggle .i-moon {
     transform: none !important;
   }
 }
+
+/* ── Family: the way home and the sibling sites ───────────────────
+   Shared by every annotation site on dilshadur.com. Keep identical. */
+.bar__start {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.home {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  outline-offset: 3px;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.2s;
+}
+
+.home img {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+}
+
+.home:hover {
+  transform: translateX(-2px);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.bar__div {
+  flex: none;
+  width: 1px;
+  height: 18px;
+  margin: 0 14px;
+  background: var(--line);
+}
+
+.bar__start .mark {
+  min-width: 0;
+}
+
+.bar__start .mark span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.family + .foot__inner {
+  justify-content: flex-end;
+}
+
+.family {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 14px 40px;
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.family__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.family__home img {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+}
+
+.family__home span {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s var(--ease-out);
+}
+
+.family__home:hover span {
+  background-size: 100% 1px;
+}
+
+.family__set {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 6px 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.family__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.family__set a,
+.family__set [aria-current] {
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+.family__set [aria-current] {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+}
+
+.family__set [aria-current]::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--warm);
+}
+
+@media (max-width: 760px) {
+  .family {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .family__set {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: start;
+    gap: 10px 16px;
+  }
+
+  .family__label {
+    grid-column: 1 / -1;
+  }
+}
+
+.bar__start + .bar__nav {
+  flex: none;
+}
+
+.bar__inner:has(.bar__start) {
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .bar__start + .bar__nav .bar__ext {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .bar__div {
+    margin: 0 10px;
+  }
+}

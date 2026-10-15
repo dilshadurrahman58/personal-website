@@ -163,7 +163,10 @@ const buildPubItem = (pub, index) => {
     ? `<div class="pub-links">${pub.links
         .map(
           (l) =>
-            `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="pub-link">${l.label}</a>`,
+            // dilshadur.com pages open in place; everything else opens a new tab
+            l.url.startsWith("https://dilshadur.com/")
+              ? `<a href="${l.url.slice("https://dilshadur.com".length)}" class="pub-link">${l.label}</a>`
+              : `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="pub-link">${l.label}</a>`,
         )
         .join("")}</div>`
     : "";

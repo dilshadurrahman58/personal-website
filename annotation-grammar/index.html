@@ -23,7 +23,7 @@
       const root = document.documentElement;
       root.classList.add('js');
       let theme = null;
-      try { theme = localStorage.getItem('grammar-theme'); } catch (e) { }
+      try { theme = localStorage.getItem('theme'); } catch (e) { }
       if (theme !== 'light' && theme !== 'dark') {
         theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
@@ -40,7 +40,12 @@
   <!-- Top bar -->
   <header class="bar">
     <div class="wrap bar__inner">
-      <a class="mark" href="#top" aria-label="AnnoGram, back to top">
+      <div class="bar__start">
+        <a class="home" href="/" aria-label="Md Dilshadur Rahman, homepage" title="Md Dilshadur Rahman">
+          <img src="/favicon.svg" alt="" width="26" height="26" />
+        </a>
+        <span class="bar__div" aria-hidden="true"></span>
+        <a class="mark" href="#top" aria-label="AnnoGram, back to top">
         <svg class="mark__glyph" viewBox="0 0 32 32" aria-hidden="true">
           <rect x="12.5" y="13" width="15" height="6" rx="1.5" class="mark__hl" />
           <path d="M10 5.5c-2.4 0-3 1.2-3 3.4v3.7c0 2-.9 3.1-2.6 3.4 1.7.3 2.6 1.4 2.6 3.4v3.7c0 2.2.6 3.4 3 3.4"
@@ -51,6 +56,7 @@
         </svg>
         <span>AnnoGram</span>
       </a>
+      </div>
       <nav class="bar__nav" aria-label="Page">
         <a class="u quiet" href="#why">Why</a>
         <a class="u quiet" href="#grammar">Grammar</a>
@@ -81,7 +87,7 @@
           <span class="intro__sub">An Annotative Grammar of Graphics Extension</span></h1>
         <div class="intro__row reveal" style="--d:2">
           <p class="hero__authors">
-            <a class="u" href="https://dilshadur.com/" target="_blank" rel="noopener">Md Dilshadur Rahman</a><sup
+            <a class="u" href="/">Md Dilshadur Rahman</a><sup
               aria-label="equal contribution">*</sup>, Md Rahat-uz-Zaman<sup aria-label="equal contribution">*</sup>,
             <a class="u" href="https://www.mcnutt.in/" target="_blank" rel="noopener">Andrew McNutt</a>, and
             <a class="u" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a>
@@ -840,20 +846,24 @@
   </main>
 
   <footer class="foot">
-    <div class="wrap foot__inner">
-      <p>
-        <a class="u quiet" href="https://dilshadur.com/" target="_blank" rel="noopener">dilshadur.com</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a class="u quiet" href="https://dilshadur.com/annotation-survey/" target="_blank" rel="noopener">Annotation
-          Survey</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a class="u quiet" href="https://dilshadur.com/annotation-design/" target="_blank"
-          rel="noopener">Annotation Design</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a class="u quiet" href="https://dilshadur.com/annotation-strategies/" target="_blank"
-          rel="noopener">Annotation Strategies</a>
-      </p>
-      <p><a class="u quiet" href="#top">Back to top ↑</a></p>
+    <div class="wrap">
+      <nav class="family" aria-label="Annotation research by Md Dilshadur Rahman">
+        <a class="family__home" href="/"><img src="/favicon.svg" alt="" width="22" height="22" /><span>Md Dilshadur Rahman</span></a>
+        <ul class="family__set">
+          <li class="family__label">Annotation research</li>
+          <li><a class="u quiet" href="/annotation-strategies/">Annotation Strategies</a></li>
+          <li><a class="u quiet" href="/annotation-taxonomy/">Annotation Taxonomy</a></li>
+          <li><a class="u quiet" href="/annotation-design-space/">Annotation Design Space</a></li>
+          <li><a class="u quiet" href="/annotation-survey/">Annotation Survey</a></li>
+          <li><span aria-current="page">AnnoGram</span></li>
+          <li><a class="u quiet" href="/annotation-design/">Annotation Design</a></li>
+        </ul>
+      </nav>
+      <div class="foot__inner">
+        <p>
+        <a class="u quiet" href="#top">Back to top ↑</a>
+        </p>
+      </div>
     </div>
   </footer>
 

@@ -6,7 +6,7 @@
 <title>Guideline-Related Terms in IEEE VIS Papers, 1990–2024</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
 <style>
 :root{
@@ -1311,6 +1311,20 @@ section[role="tabpanel"]{padding-bottom:12px;}
 </head>
 <body>
 <a class="skip-link" href="#dashboardMain">Skip to dashboard content</a>
+<nav class="home-strip" aria-label="Site">
+  <a class="home-strip__home" href="/"><img src="/favicon.svg" alt="" width="22" height="22"><span>Md Dilshadur Rahman</span></a>
+  <span class="home-strip__note">Companion to <em>Guidelines Are Not Rules</em>, BELIV 2026</span>
+</nav>
+<style>
+.home-strip{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1240px;margin:0 auto;padding:14px 24px;border-bottom:1px solid var(--color-border-soft,#E4E9F0);font:13px/1.4 Inter,ui-sans-serif,system-ui,sans-serif;color:var(--color-text-secondary,#5D6673)}
+.home-strip__home{display:inline-flex;align-items:center;gap:10px;color:var(--color-text-primary,#1F2933);text-decoration:none;font:16px/1 Lora,Georgia,serif;white-space:nowrap}
+.home-strip__home img{width:22px;height:22px;border-radius:999px;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.home-strip__home:hover img{transform:translateX(-2px)}
+.home-strip__home span{background:linear-gradient(currentColor,currentColor) 0 100%/0% 1px no-repeat;padding-bottom:2px;transition:background-size .35s cubic-bezier(.16,1,.3,1)}
+.home-strip__home:hover span{background-size:100% 1px}
+.home-strip__note em{font-style:italic;font-family:Lora,Georgia,serif;font-size:14px}
+@media (max-width:640px){.home-strip{padding:12px 16px}.home-strip__note{display:none}}
+</style>
 <div class="dash-wrap">
 
 <header class="dash-header">

@@ -341,7 +341,7 @@ html {
 }
 
 body {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
   position: relative;
   background:
     radial-gradient(
@@ -535,9 +535,9 @@ button:focus-visible {
 }
 
 .mobile-nav-name {
-  font-family: "Cormorant", serif;
-  font-size: 19px;
-  font-weight: 600;
+  font-family: "Lora", Georgia, serif;
+  font-size: 16.3px;
+  font-weight: 500;
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
@@ -630,7 +630,7 @@ button:focus-visible {
   border-radius: 999px;
   background: color-mix(in srgb, var(--surface-muted) 88%, transparent);
   color: var(--text-secondary);
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
   font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -794,9 +794,9 @@ button:focus-visible {
 }
 
 .sidebar-name {
-  font-family: "Cormorant", serif;
-  font-size: 25px;
-  font-weight: 600;
+  font-family: "Lora", Georgia, serif;
+  font-size: 21.5px;
+  font-weight: 500;
   color: #fff;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -1076,7 +1076,7 @@ button:focus-visible {
   );
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--sidebar-text);
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -1273,8 +1273,8 @@ button:focus-visible {
 }
 
 .header-name {
-  font-family: "Cormorant", serif;
-  font-size: clamp(40px, 8.4vw, 72px);
+  font-family: "Lora", Georgia, serif;
+  font-size: clamp(34.4px, 8.4vw, 61.9px);
   font-weight: 400;
   line-height: 0.9;
   color: var(--text-primary);
@@ -1399,9 +1399,9 @@ section:nth-of-type(6) {
 }
 
 .section-title {
-  font-family: "Cormorant", serif;
-  font-size: clamp(27px, 4vw, 35px);
-  font-weight: 600;
+  font-family: "Lora", Georgia, serif;
+  font-size: clamp(23.2px, 4vw, 30.1px);
+  font-weight: 500;
   color: var(--text-primary);
   letter-spacing: -0.02em;
   display: flex;
@@ -1465,9 +1465,9 @@ section:nth-of-type(6) {
 }
 
 .edu-degree {
-  font-family: "Cormorant", serif;
-  font-size: 23px;
-  font-weight: 600;
+  font-family: "Lora", Georgia, serif;
+  font-size: 19.8px;
+  font-weight: 500;
   color: var(--text-primary);
   grid-column: 1;
   letter-spacing: -0.02em;
@@ -1599,7 +1599,7 @@ section:nth-of-type(6) {
   min-height: 34px;
   background: color-mix(in srgb, var(--surface-muted) 68%, transparent);
   border: 1px solid color-mix(in srgb, var(--border-light) 92%, transparent);
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
   font-size: 11.5px;
   font-weight: 600;
   color: var(--text-muted);
@@ -1776,9 +1776,9 @@ section:nth-of-type(6) {
 }
 
 .pub-title {
-  font-family: "Cormorant", serif;
-  font-size: 21px;
-  font-weight: 600;
+  font-family: "Lora", Georgia, serif;
+  font-size: 18.1px;
+  font-weight: 500;
   color: var(--text-primary);
   line-height: 1.25;
   letter-spacing: -0.02em;
@@ -2160,9 +2160,9 @@ section:nth-of-type(6) {
 }
 
 .talk-title {
-  font-family: "Cormorant", serif;
-  font-size: 20px;
-  font-weight: 600;
+  font-family: "Lora", Georgia, serif;
+  font-size: 17.2px;
+  font-weight: 500;
   color: var(--text-primary);
   margin-bottom: 6px;
   line-height: 1.3;
@@ -5263,9 +5263,9 @@ section,
 :root[data-theme] .pub-title,
 :root[data-theme] .teach-role,
 :root[data-theme] .talk-title {
-  font-family: "Cormorant", serif;
-  font-size: 22px;
-  font-weight: 600;
+  font-family: "Lora", Georgia, serif;
+  font-size: 18.9px;
+  font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.015em;
   color: var(--ink);
@@ -5422,7 +5422,7 @@ section,
   gap: 8px;
   margin: 0 0 4px;
   padding: 0;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -5483,19 +5483,19 @@ section,
 
 /* ══════════════════════════════════════════════════
    READING SERIF + MEASURE
-   Entry titles use Source Serif 4, a text serif with a
-   larger x-height and sturdier strokes than Cormorant,
-   which stays for display sizes (name, section headings).
+   Lora and Inter, shared with dilshadur.com and the
+   annotation paper sites. Entry titles are set a touch
+   smaller and lighter than the display sizes.
    Running text is capped near 75 characters per line.
    ══════════════════════════════════════════════════ */
 :root[data-theme] .edu-degree,
 :root[data-theme] .pub-title,
 :root[data-theme] .teach-role,
 :root[data-theme] .talk-title {
-  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-family: "Lora", Georgia, "Times New Roman", serif;
   font-optical-sizing: auto;
-  font-size: 19.5px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.005em;
   margin-bottom: 3px;
@@ -5548,4 +5548,47 @@ section,
 :root[data-theme="dark"] .teach-role,
 :root[data-theme="dark"] .talk-title {
   font-weight: 400;
+}
+
+/* ══════════════════════════════════════════════════
+   FAMILY PALETTE
+   The paper, ink, and navy of dilshadur.com and the
+   annotation paper sites, so moving between them
+   never changes the light in the room.
+   ══════════════════════════════════════════════════ */
+:root:not([data-theme="dark"]) {
+  --main-bg: #F5F4F0;
+  --main-bg-soft: #FBFAF7;
+  --text-primary: #15171B;
+  --text-secondary: #3E4148;
+  --text-muted: #5E6169;
+  --accent: #24466F;
+  --accent-strong: #1B3757;
+  --accent-soft: rgba(36, 70, 111, 0.08);
+  --border: #DCDAD2;
+  --border-light: #E8E6E0;
+}
+
+:root[data-theme="dark"] {
+  --main-bg: #0E1013;
+  --main-bg-soft: #121519;
+  --surface-strong: #15181D;
+  --surface-muted: #15181D;
+  --text-primary: #ECEDEF;
+  --text-secondary: #C3C7CE;
+  --text-muted: #8F959E;
+  --accent: #9DBBE0;
+  --accent-strong: #C3D6EE;
+  --accent-soft: rgba(157, 187, 224, 0.10);
+  --border: #2A2E35;
+  --border-light: #1D2026;
+}
+
+:root[data-theme] body {
+  background: var(--main-bg);
+}
+
+a.mobile-nav-name {
+  color: inherit;
+  text-decoration: none;
 }

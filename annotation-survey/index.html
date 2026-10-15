@@ -23,7 +23,7 @@
       const root = document.documentElement;
       root.classList.add('js');
       let theme = null;
-      try { theme = localStorage.getItem('survey-theme'); } catch (e) { }
+      try { theme = localStorage.getItem('theme'); } catch (e) { }
       if (theme !== 'light' && theme !== 'dark') {
         theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
@@ -40,7 +40,12 @@
   <!-- Top bar -->
   <header class="bar">
     <div class="wrap bar__inner">
-      <a class="mark" href="#top" aria-label="Annotation Survey, back to top">
+      <div class="bar__start">
+        <a class="home" href="/" aria-label="Md Dilshadur Rahman, homepage" title="Md Dilshadur Rahman">
+          <img src="/favicon.svg" alt="" width="26" height="26" />
+        </a>
+        <span class="bar__div" aria-hidden="true"></span>
+        <a class="mark" href="#top" aria-label="Annotation Survey, back to top">
         <svg class="mark__glyph" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4 18 L9 12 L13 15 L20 6" fill="none" stroke="currentColor" stroke-width="1.6"
             stroke-linecap="round" stroke-linejoin="round" />
@@ -48,6 +53,7 @@
         </svg>
         <span>Annotation Survey</span>
       </a>
+      </div>
       <nav class="bar__nav" aria-label="Page">
         <a class="u quiet" href="#papers">Papers</a>
         <a class="u quiet" href="#cite">Cite</a>
@@ -85,7 +91,7 @@
         </h1>
         <p class="hero__sub reveal" style="--d:2">Empirical Studies, Applications and Challenges</p>
         <p class="hero__authors reveal" style="--d:3">
-          <a class="u" href="https://dilshadur.com/" target="_blank" rel="noopener">Md Dilshadur Rahman</a>,
+          <a class="u" href="/">Md Dilshadur Rahman</a>,
           <a class="u" href="https://www.linkedin.com/in/doppalapudib/" target="_blank" rel="noopener">Bhavana Doppalapudi</a>,
           <a class="u" href="https://www.jiquadcs.com/" target="_blank" rel="noopener">Ghulam Jilani Quadri</a>, and
           <a class="u" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a>
@@ -319,14 +325,26 @@
   </main>
 
   <footer class="foot">
-    <div class="wrap foot__inner">
-      <p><a class="u quiet" href="https://dilshadur.com/" target="_blank" rel="noopener">dilshadur.com</a></p>
-      <p>
-        <a class="u quiet" href="https://github.com/VIS-Annotations/annotation-survey" target="_blank"
-          rel="noopener">Source on GitHub</a>
+    <div class="wrap">
+      <nav class="family" aria-label="Annotation research by Md Dilshadur Rahman">
+        <a class="family__home" href="/"><img src="/favicon.svg" alt="" width="22" height="22" /><span>Md Dilshadur Rahman</span></a>
+        <ul class="family__set">
+          <li class="family__label">Annotation research</li>
+          <li><a class="u quiet" href="/annotation-strategies/">Annotation Strategies</a></li>
+          <li><a class="u quiet" href="/annotation-taxonomy/">Annotation Taxonomy</a></li>
+          <li><a class="u quiet" href="/annotation-design-space/">Annotation Design Space</a></li>
+          <li><span aria-current="page">Annotation Survey</span></li>
+          <li><a class="u quiet" href="/annotation-grammar/">AnnoGram</a></li>
+          <li><a class="u quiet" href="/annotation-design/">Annotation Design</a></li>
+        </ul>
+      </nav>
+      <div class="foot__inner">
+        <p>
+        <a class="u quiet" href="https://github.com/VIS-Annotations/annotation-survey" target="_blank" rel="noopener">Source on GitHub</a>
         <span class="sep" aria-hidden="true">·</span>
         <a class="u quiet" href="#top">Back to top ↑</a>
-      </p>
+        </p>
+      </div>
     </div>
   </footer>
 
