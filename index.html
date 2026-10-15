@@ -777,6 +777,36 @@
       opacity: 0.94;
     }
 
+    /* Line icons: one consistent, finer stroke */
+    .btn svg,
+    .pl svg,
+    .contact-icon svg,
+    .theme-toggle-icon svg,
+    .back-to-top svg,
+    .hero-event-go svg {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .btn svg,
+    .contact-icon svg,
+    .theme-toggle-icon svg {
+      stroke-width: 1.7;
+    }
+
+    .pl svg {
+      stroke-width: 1.9;
+    }
+
+    .hero-sidebar-links .btn svg {
+      flex-shrink: 0;
+      opacity: 0.82;
+    }
+
+    .hero-sidebar-links .btn:hover svg {
+      opacity: 1;
+    }
+
     .btn:hover svg,
     .pl:hover svg,
     .contact-row:hover .contact-icon svg,
@@ -3868,6 +3898,9 @@
                 at IEEE VIS 2026.</span></li>
               <li class="update-item"><span class="update-date">Oct 2026</span><span class="update-text">Gave an invited lecture on <em>"Annotations in Visualizations"</em> at <a
                 href="https://www.furman.edu/academics/computer-science/" target="_blank" rel="noopener noreferrer">Furman University Computer Science</a>.</span></li>
+              <li class="update-item"><span class="update-date">Oct 2026</span><span class="update-text">Started as a Postdoctoral Research Fellow in the <a
+                href="https://dbmi.hms.harvard.edu/" target="_blank" rel="noopener noreferrer">Department of Biomedical Informatics</a> at <a
+                href="https://hms.harvard.edu/" target="_blank" rel="noopener noreferrer">Harvard Medical School</a>!</span></li>
               <li class="update-item"><span class="update-date">Sep 2026</span><span class="update-text">Successfully defended my PhD dissertation, <em>"Design Space and Tooling for Annotations in Visualizations,"</em> at the <a
                 href="https://www.cs.utah.edu/" target="_blank" rel="noopener noreferrer">Kahlert School of Computing</a>, <a
                 href="https://www.utah.edu/" target="_blank" rel="noopener noreferrer">University of Utah</a>, on September 9, 2026.</span></li>
@@ -3986,9 +4019,15 @@
             Curriculum Vitae
           </a>
           <a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&hl=en" target="_blank"
-            rel="noopener noreferrer" class="btn btn-outline">Google Scholar</a>
+            rel="noopener noreferrer" class="btn btn-outline">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 9 12 4 2 9l10 5 10-5z" /><path d="M6 11.5V16c3.5 2.7 8.5 2.7 12 0v-4.5" /><path d="M22 9v5" /></svg>
+            Google Scholar
+          </a>
           <a href="https://www.linkedin.com/in/dilshadur/" target="_blank" rel="noopener noreferrer"
-            class="btn btn-outline">LinkedIn</a>
+            class="btn btn-outline">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="4" /><path d="M7.5 10.5v6" /><path d="M7.5 7.5v.01" /><path d="M11.5 16.5v-6" /><path d="M11.5 13.2c0-1.6 1.2-2.7 2.6-2.7s2.4 1 2.4 2.7v3.3" /></svg>
+            LinkedIn
+          </a>
           <a href="mailto:dilshadur@sci.utah.edu" class="btn btn-outline btn-email">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               aria-hidden="true" style="flex-shrink:0;">
@@ -4161,12 +4200,7 @@
               <div class="pub-links">
                 <span class="bv">Computer Graphics Forum</span>
                 <span class="bv">EuroVis 2026</span>
-                <a class="pl" href="https://doi.org/10.1111/cgf.70435" target="_blank" rel="noopener noreferrer"><svg
-                    width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                <a class="pl" href="https://doi.org/10.1111/cgf.70435" target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
                 <a class="pl" href="https://vis-annotations.github.io/annotation-design/" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -4197,12 +4231,7 @@
               <div class="pub-venue" itemprop="isPartOf">ACM Transactions on Computing Education (ACM TOCE)</div>
               <div class="pub-links">
                 <span class="bv">ACM TOCE</span>
-                <a class="pl" href="https://doi.org/10.1145/3800962" target="_blank" rel="noopener noreferrer"><svg
-                    width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                <a class="pl" href="https://doi.org/10.1145/3800962" target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
               </div>
             </div>
           </div>
@@ -4224,11 +4253,7 @@
                 <span class="bv">IEEE TVCG</span>
                 <span class="bv">IEEE VIS 2024</span>
                 <a class="pl" href="https://doi.org/10.1109/TVCG.2024.3456359" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
                 <a class="pl" href="https://dilshadurrahman58.github.io/annotation-design-space/" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -4255,11 +4280,7 @@
               <div class="pub-links">
                 <span class="bv">IEEE TVCG</span>
                 <a class="pl" href="https://doi.org/10.1109/TVCG.2025.3600957" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
                 <a class="pl" href="https://annotation-survey.netlify.app/" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -4292,11 +4313,7 @@
               <div class="pub-links">
                 <span class="bv">Information Visualization</span>
                 <a class="pl" href="https://doi.org/10.1177/14738716241270247" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
                 <a class="pl" href="https://dilshadurrahman58.github.io/annotation-taxonomy/" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -4322,11 +4339,7 @@
               <div class="pub-venue" itemprop="isPartOf">2026.</div>
               <div class="pub-links">
                 <a class="pl" href="https://doi.org/10.48550/arXiv.2604.14456" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
                 <a class="pl" href="https://focal-lens.github.io/" target="_blank" rel="noopener noreferrer"><svg
                     width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     aria-hidden="true">
@@ -4373,11 +4386,7 @@
               <div class="pub-links">
                 <span class="bv">Accessible Data Visualization Workshop @ IEEE VIS 2026</span>
                 <a class="pl" href="https://doi.org/10.48550/arXiv.2607.25021" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
                 <a class="pl pl-vis" href="vis2026.html#mllm-claims"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     aria-hidden="true">
                     <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -4422,11 +4431,7 @@
               <div class="pub-links">
                 <span class="bv">IEEE VIS 2025</span>
                 <a class="pl" href="https://doi.org/10.48550/arXiv.2507.04236" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>arXiv</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>arXiv</a>
                 <a class="pl" href="https://dilshadurrahman58.github.io/annotation-grammar/" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -4451,11 +4456,7 @@
               <div class="pub-links">
                 <span class="bv">ISVC 2024</span>
                 <a class="pl" href="https://doi.org/10.1007/978-3-031-77392-1_32" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
               </div>
             </div>
           </div>
@@ -4475,11 +4476,7 @@
               <div class="pub-links">
                 <span class="bv">BELIV @ IEEE VIS 2024</span>
                 <a class="pl" href="https://doi.org/10.1109/BELIV64461.2024.00020" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
               </div>
             </div>
           </div>
@@ -4526,11 +4523,7 @@
               <div class="pub-links">
                 <span class="bv">IEEE EDUCON 2024</span>
                 <a class="pl" href="https://doi.org/10.1109/EDUCON60312.2024.10578647" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
               </div>
             </div>
           </div>
@@ -4550,11 +4543,7 @@
               <div class="pub-links">
                 <span class="bv">VisComm @ IEEE VIS 2023</span>
                 <a class="pl" href="https://doi.org/10.31219/osf.io/fd8zj" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
                 <a class="pl" href="https://tinyurl.com/viscomm2023" target="_blank" rel="noopener noreferrer"><svg
                     width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     aria-hidden="true">
@@ -4587,11 +4576,7 @@
               <div class="pub-links">
                 <span class="bv">VisComm @ IEEE VIS 2022</span>
                 <a class="pl" href="https://doi.org/10.31219/osf.io/e5vfy" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
                 <a class="pl" href="https://tinyurl.com/viscomm2022" target="_blank" rel="noopener noreferrer"><svg
                     width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     aria-hidden="true">
@@ -4616,11 +4601,7 @@
               <div class="pub-links">
                 <span class="bv">IEEE ECCE 2019</span>
                 <a class="pl" href="https://doi.org/10.1109/ECACE.2019.8679373" target="_blank"
-                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>DOI</a>
+                  rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z" /><path d="M14 2.5V8h5.5" /><path d="M8.5 13h7" /><path d="M8.5 17h4.5" /></svg>DOI</a>
               </div>
             </div>
           </div>
@@ -4640,12 +4621,7 @@
               <div class="pub-links">
                 <span class="bv">IEEE VIS 2024</span>
                 <a class="pl" href="https://content-staging.ieeevis.org/year/2024/poster_v-vis-posters-1067.html"
-                  target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>Poster Page</a>
+                  target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3" width="17" height="12.5" rx="1.5" /><path d="M7.5 7.5h9" /><path d="M7.5 11h5.5" /><path d="M8.5 21l3.5-5.5 3.5 5.5" /></svg>Poster Page</a>
                 <a class="pl" href="https://dilshadurrahman58.github.io/annotation-strategies/" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -4670,12 +4646,7 @@
               <div class="pub-links">
                 <span class="bv">IEEE VIS 2024</span>
                 <a class="pl" href="https://content-staging.ieeevis.org/year/2024/poster_v-vis-posters-1089.html"
-                  target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>Poster Page</a>
+                  target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3" width="17" height="12.5" rx="1.5" /><path d="M7.5 7.5h9" /><path d="M7.5 11h5.5" /><path d="M8.5 21l3.5-5.5 3.5 5.5" /></svg>Poster Page</a>
               </div>
             </div>
           </div>
@@ -4691,12 +4662,7 @@
               <div class="pub-links">
                 <span class="bv">IEEE VIS 2022</span>
                 <a class="pl" href="https://virtual.ieeevis.org/year/2022/poster_v-vis-posters-1047.html"
-                  target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>Poster Page</a>
+                  target="_blank" rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3" width="17" height="12.5" rx="1.5" /><path d="M7.5 7.5h9" /><path d="M7.5 11h5.5" /><path d="M8.5 21l3.5-5.5 3.5 5.5" /></svg>Poster Page</a>
                 <a class="pl" href="https://dilshadurrahman58.github.io/annotation-taxonomy/" target="_blank"
                   rel="noopener noreferrer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
