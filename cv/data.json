@@ -9,7 +9,7 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.1145/3800962",
+          "label": "doi:10.1145/3800962",
           "url": "https://doi.org/10.1145/3800962"
         }
       ]
@@ -23,11 +23,11 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.1111/cgf.70435",
+          "label": "doi:10.1111/cgf.70435",
           "url": "https://doi.org/10.1111/cgf.70435"
         },
         {
-          "label": "Interactive Website",
+          "label": "Project site",
           "url": "https://dilshadur.com/annotation-design/"
         }
       ]
@@ -41,11 +41,11 @@
       "note": "22% acceptance rate",
       "links": [
         {
-          "label": "DOI: 10.1109/TVCG.2024.3456359",
+          "label": "doi:10.1109/TVCG.2024.3456359",
           "url": "https://doi.org/10.1109/TVCG.2024.3456359"
         },
         {
-          "label": "Interactive Website",
+          "label": "Project site",
           "url": "https://dilshadur.com/annotation-design-space/"
         }
       ]
@@ -59,11 +59,11 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.1109/TVCG.2025.3600957",
+          "label": "doi:10.1109/TVCG.2025.3600957",
           "url": "https://doi.org/10.1109/TVCG.2025.3600957"
         },
         {
-          "label": "Interactive Website",
+          "label": "Project site",
           "url": "https://dilshadur.com/annotation-survey/"
         }
       ]
@@ -77,11 +77,11 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.1177/14738716241270247",
+          "label": "doi:10.1177/14738716241270247",
           "url": "https://doi.org/10.1177/14738716241270247"
         },
         {
-          "label": "Interactive Website",
+          "label": "Project site",
           "url": "https://dilshadur.com/annotation-taxonomy/"
         }
       ]
@@ -95,7 +95,11 @@
       "note": "Accepted; to appear",
       "links": [
         {
-          "label": "Interactive Website",
+          "label": "arXiv:2608.27842",
+          "url": "https://doi.org/10.48550/arXiv.2608.27842"
+        },
+        {
+          "label": "Project site",
           "url": "https://dilshadur.com/vis-guidelines/"
         }
       ]
@@ -109,7 +113,7 @@
       "note": "Accepted; to appear",
       "links": [
         {
-          "label": "arXiv: 2607.25021",
+          "label": "arXiv:2607.25021",
           "url": "https://doi.org/10.48550/arXiv.2607.25021"
         }
       ]
@@ -117,11 +121,16 @@
     {
       "type": "conference",
       "title": "A Case Study in Accessible Redesign of a Wastewater Dashboard",
-      "authors": "Tingying He, Jake Wagoner, George G. Vega Yon, Md Rahat-uz-Zaman, **Md Dilshadur Rahman**, Willy Ray, Matthew Samore, Alexander Lex, Paul Rosen",
+      "authors": "Tingying He, Jake Wagoner, Md Rahat-uz-Zaman, **Md Dilshadur Rahman**, Willy Ray, George G. Vega Yon, Matthew Samore, Alexander Lex, Paul Rosen",
       "venue": "**Accessible Data Visualization Workshop at IEEE VIS**, 2026",
       "badge": "Conference",
       "note": "Accepted; to appear",
-      "links": []
+      "links": [
+        {
+          "label": "arXiv:2609.25273",
+          "url": "https://doi.org/10.48550/arXiv.2609.25273"
+        }
+      ]
     },
     {
       "type": "conference",
@@ -132,29 +141,29 @@
       "note": null,
       "links": [
         {
-          "label": "arXiv: 2604.14456",
+          "label": "arXiv:2604.14456",
           "url": "https://doi.org/10.48550/arXiv.2604.14456"
         },
         {
-          "label": "Interactive Website",
+          "label": "Website",
           "url": "https://focal-lens.github.io/"
         }
       ]
     },
     {
       "type": "conference",
-      "title": "AnnoGram: An Annotative Extension of the Grammar of Graphics",
+      "title": "AnnoGram: An Annotative Grammar of Graphics Extension",
       "authors": "**Md Dilshadur Rahman***, Md Rahat-uz-Zaman*, Andrew McNutt, Paul Rosen",
-      "venue": "**IEEE Visualization and Visual Analytics (IEEE VIS)**, 2025",
+      "venue": "**IEEE Visualization and Visual Analytics (IEEE VIS)**, 2025 · Short Paper",
       "badge": "Conference",
       "note": "* Co-first authors",
       "links": [
         {
-          "label": "DOI: 10.48550/arXiv.2507.04236",
+          "label": "arXiv:2507.04236",
           "url": "https://doi.org/10.48550/arXiv.2507.04236"
         },
         {
-          "label": "Interactive Website",
+          "label": "Project site",
           "url": "https://dilshadur.com/annotation-grammar/"
         }
       ]
@@ -168,7 +177,7 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.1007/978-3-031-77392-1_32",
+          "label": "doi:10.1007/978-3-031-77392-1_32",
           "url": "https://doi.org/10.1007/978-3-031-77392-1_32"
         }
       ]
@@ -182,7 +191,7 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.1109/BELIV64461.2024.00020",
+          "label": "doi:10.1109/BELIV64461.2024.00020",
           "url": "https://doi.org/10.1109/BELIV64461.2024.00020"
         }
       ]
@@ -210,7 +219,7 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.1109/EDUCON60312.2024.10578647",
+          "label": "doi:10.1109/EDUCON60312.2024.10578647",
           "url": "https://doi.org/10.1109/EDUCON60312.2024.10578647"
         }
       ]
@@ -224,7 +233,7 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.31219/osf.io/fd8zj",
+          "label": "doi:10.31219/osf.io/fd8zj",
           "url": "https://doi.org/10.31219/osf.io/fd8zj"
         },
         {
@@ -232,7 +241,7 @@
           "url": "https://tinyurl.com/viscomm2023"
         },
         {
-          "label": "Interactive Website",
+          "label": "Project site",
           "url": "https://dilshadur.com/annotation-strategies/"
         }
       ]
@@ -246,7 +255,7 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.31219/osf.io/e5vfy",
+          "label": "doi:10.31219/osf.io/e5vfy",
           "url": "https://doi.org/10.31219/osf.io/e5vfy"
         },
         {
@@ -264,7 +273,7 @@
       "note": null,
       "links": [
         {
-          "label": "DOI: 10.1109/ECACE.2019.8679373",
+          "label": "doi:10.1109/ECACE.2019.8679373",
           "url": "https://doi.org/10.1109/ECACE.2019.8679373"
         }
       ]
@@ -282,7 +291,7 @@
           "url": "https://content-staging.ieeevis.org/year/2024/poster_v-vis-posters-1067.html"
         },
         {
-          "label": "Interactive Website",
+          "label": "Project site",
           "url": "https://dilshadur.com/annotation-strategies/"
         }
       ]
@@ -314,7 +323,7 @@
           "url": "https://virtual.ieeevis.org/year/2022/poster_v-vis-posters-1047.html"
         },
         {
-          "label": "Interactive Website",
+          "label": "Project site",
           "url": "https://dilshadur.com/annotation-taxonomy/"
         }
       ]
@@ -337,7 +346,7 @@
       "note": "* Co-first authors",
       "links": [
         {
-          "label": "Interactive Website",
+          "label": "Website",
           "url": "https://annobench.aiexplain.org/"
         }
       ]
