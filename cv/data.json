@@ -1,0 +1,364 @@
+{
+  "publications": [
+    {
+      "type": "journal",
+      "title": "Designing for Engagement: A Comparison of Canvas and a Visual Peer Review Dashboard",
+      "authors": "Alon Friedman, **Md Dilshadur Rahman**, Ly Dinh, Paul Rosen",
+      "venue": "**ACM Transactions on Computing Education**, 2026",
+      "badge": "Journal",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.1145/3800962",
+          "url": "https://doi.org/10.1145/3800962"
+        }
+      ]
+    },
+    {
+      "type": "journal",
+      "title": "Designing Annotations in Visualization: Considerations from Visualization Practitioners and Educators",
+      "authors": "**Md Dilshadur Rahman**, Devin Lange, Ghulam Jilani Quadri, Paul Rosen",
+      "venue": "**Computer Graphics Forum**, 2026 · Proc. of Eurographics/IEEE VGTC Conference on Visualization (EuroVis)",
+      "badge": "Journal",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.1111/cgf.70435",
+          "url": "https://doi.org/10.1111/cgf.70435"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/annotation-design/"
+        }
+      ]
+    },
+    {
+      "type": "journal",
+      "title": "A Qualitative Analysis of Common Practices in Annotations: A Taxonomy and Design Space",
+      "authors": "**Md Dilshadur Rahman**, Ghulam Jilani Quadri, Bhavana Doppalapudi, Danielle Szafir, Paul Rosen",
+      "venue": "**IEEE Transactions on Visualization and Computer Graphics (IEEE TVCG)**, 2025 · Proc. of IEEE VIS 2024",
+      "badge": "Journal",
+      "note": "22% acceptance rate",
+      "links": [
+        {
+          "label": "DOI: 10.1109/TVCG.2024.3456359",
+          "url": "https://doi.org/10.1109/TVCG.2024.3456359"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/annotation-design-space/"
+        }
+      ]
+    },
+    {
+      "type": "journal",
+      "title": "A Survey on Annotations in Information Visualization: Empirical Studies, Applications, and Challenges",
+      "authors": "**Md Dilshadur Rahman**, Bhavana Doppalapudi, Ghulam Jilani Quadri, Paul Rosen",
+      "venue": "**IEEE Transactions on Visualization and Computer Graphics (IEEE TVCG)**, 2025",
+      "badge": "Journal",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.1109/TVCG.2025.3600957",
+          "url": "https://doi.org/10.1109/TVCG.2025.3600957"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/annotation-survey/"
+        }
+      ]
+    },
+    {
+      "type": "journal",
+      "title": "Exploring Annotation Taxonomy in Grouped Bar Charts: A Qualitative Classroom Study",
+      "authors": "**Md Dilshadur Rahman**, Ghulam Jilani Quadri, Danielle Szafir, Paul Rosen",
+      "venue": "**Information Visualization**, 2024",
+      "badge": "Journal",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.1177/14738716241270247",
+          "url": "https://doi.org/10.1177/14738716241270247"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/annotation-taxonomy/"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "Guidelines Are Not Rules: Characterizing Terminologies around Visualization Design Guidelines",
+      "authors": "Anna L. Chinni, **Md Dilshadur Rahman**, Bon Adriel Aseniero, Petra Isenberg, Kushin Mukherjee, Ghulam Jilani Quadri, Paul Rosen, Karen B. Schloss, Daniel Weiskopf",
+      "venue": "**IEEE BELIV (co-located with IEEE VIS)**, 2026",
+      "badge": "Conference",
+      "note": "Accepted; to appear",
+      "links": [
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/vis-guidelines/"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "Chart-Supported or Model-Supplied? Examining MLLM-Generated Claims for Accessible Visualization",
+      "authors": "Ishrat Jahan Eliza, **Md Dilshadur Rahman**",
+      "venue": "**Accessible Data Visualization Workshop at IEEE VIS**, 2026",
+      "badge": "Conference",
+      "note": "Accepted; to appear",
+      "links": [
+        {
+          "label": "arXiv: 2607.25021",
+          "url": "https://doi.org/10.48550/arXiv.2607.25021"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "A Case Study in Accessible Redesign of a Wastewater Dashboard",
+      "authors": "Tingying He, Jake Wagoner, George G. Vega Yon, Md Rahat-uz-Zaman, **Md Dilshadur Rahman**, Willy Ray, Matthew Samore, Alexander Lex, Paul Rosen",
+      "venue": "**Accessible Data Visualization Workshop at IEEE VIS**, 2026",
+      "badge": "Conference",
+      "note": "Accepted; to appear",
+      "links": []
+    },
+    {
+      "type": "conference",
+      "title": "FocalLens: Visualizing Narratives through Focalization",
+      "authors": "S. M. Raihanul Alam, **Md Dilshadur Rahman**, Md Naimul Hoque",
+      "venue": "**arXiv preprint**, 2026",
+      "badge": "Conference",
+      "note": null,
+      "links": [
+        {
+          "label": "arXiv: 2604.14456",
+          "url": "https://doi.org/10.48550/arXiv.2604.14456"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://focal-lens.github.io/"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "AnnoGram: An Annotative Extension of the Grammar of Graphics",
+      "authors": "**Md Dilshadur Rahman***, Md Rahat-uz-Zaman*, Andrew McNutt, Paul Rosen",
+      "venue": "**IEEE Visualization and Visual Analytics (IEEE VIS)**, 2025",
+      "badge": "Conference",
+      "note": "* Co-first authors",
+      "links": [
+        {
+          "label": "DOI: 10.48550/arXiv.2507.04236",
+          "url": "https://doi.org/10.48550/arXiv.2507.04236"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/annotation-grammar/"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "Seeing is Believing: The Role of Scatterplots in Recommender System Trust and Decision-Making",
+      "authors": "Bhavana Doppalapudi, **Md Dilshadur Rahman**, Paul Rosen",
+      "venue": "**International Symposium on Visual Computing (ISVC)**, 2024",
+      "badge": "Conference",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.1007/978-3-031-77392-1_32",
+          "url": "https://doi.org/10.1007/978-3-031-77392-1_32"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "Striking the Right Balance: Systematic Assessment of Evaluation Method Distribution Across Contribution Types",
+      "authors": "Feng Lin, Arran Zeyu Wang, **Md Dilshadur Rahman**, Danielle Szafir, Ghulam Jilani Quadri",
+      "venue": "**IEEE BELIV (co-located with IEEE VIS)**, 2024",
+      "badge": "Workshop",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.1109/BELIV64461.2024.00020",
+          "url": "https://doi.org/10.1109/BELIV64461.2024.00020"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "EduVis: 2nd IEEE VIS Workshop on Visualization Education, Literacy, and Activities",
+      "authors": "Fateme Rajabiyazdi, Mandy Keck, Christina Stoiber, Jonathan Roberts, Hari Subramonyam, Lily Ge, Magdalena Boucher, Benjamin Bach, Lonni Besancon, Mathis Brossier, Anders Ynnerman, Konrad Schonborn, Alon Friedman, Bo Pei, Ly Dinh, Kevin Hawley, Julia Woodward, Paul Rosen, **Md Dilshadur Rahman**, Yan Chen",
+      "venue": "**IEEE VIS**, 2024",
+      "badge": "Workshop",
+      "note": null,
+      "links": [
+        {
+          "label": "EduVis Workshop 2024",
+          "url": "https://ieee-eduvis.github.io/2024.html"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "Enhancing Student Feedback Using Predictive Models in Visual Literacy Courses",
+      "authors": "Alon Friedman, Kevin Hawley, Paul Rosen, **Md Dilshadur Rahman**",
+      "venue": "**IEEE Engineering Education Conference (IEEE EDUCON)**, 2024",
+      "badge": "Conference",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.1109/EDUCON60312.2024.10578647",
+          "url": "https://doi.org/10.1109/EDUCON60312.2024.10578647"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "Exploring Annotation Strategies in Professional Visualizations: Insights from Prominent US News Portals",
+      "authors": "**Md Dilshadur Rahman**, Ghulam Jilani Quadri, Paul Rosen",
+      "venue": "**IEEE VIS Workshop on Visualization for Communication (VisComm)**, 2023",
+      "badge": "Workshop",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.31219/osf.io/fd8zj",
+          "url": "https://doi.org/10.31219/osf.io/fd8zj"
+        },
+        {
+          "label": "VisComm Workshop 2023",
+          "url": "https://tinyurl.com/viscomm2023"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/annotation-strategies/"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "A Qualitative Evaluation and Taxonomy of Student Annotations on Bar Charts",
+      "authors": "**Md Dilshadur Rahman**, Ghulam Jilani Quadri, Paul Rosen",
+      "venue": "**IEEE VIS Workshop on Visualization for Communication (VisComm)**, 2022",
+      "badge": "Workshop",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.31219/osf.io/e5vfy",
+          "url": "https://doi.org/10.31219/osf.io/e5vfy"
+        },
+        {
+          "label": "VisComm Workshop 2022",
+          "url": "https://tinyurl.com/viscomm2022"
+        }
+      ]
+    },
+    {
+      "type": "conference",
+      "title": "A Framework for Implementing Join Operation Between Multiple MOLAPs",
+      "authors": "**Md Dilshadur Rahman**, MAA Hossain, KMA Hasan",
+      "venue": "**IEEE International Conference on Electrical, Computer and Communication Engineering (IEEE ECCE)**, 2019",
+      "badge": "Conference",
+      "note": null,
+      "links": [
+        {
+          "label": "DOI: 10.1109/ECACE.2019.8679373",
+          "url": "https://doi.org/10.1109/ECACE.2019.8679373"
+        }
+      ]
+    },
+    {
+      "type": "poster",
+      "title": "How Do Professionals Use Annotations in Visualizations?",
+      "authors": "**Md Dilshadur Rahman**, Ghulam Jilani Quadri, Paul Rosen",
+      "venue": "**IEEE VIS Poster Proceedings**, 2024",
+      "badge": "Poster",
+      "note": null,
+      "links": [
+        {
+          "label": "IEEE VIS 2024 Poster",
+          "url": "https://content-staging.ieeevis.org/year/2024/poster_v-vis-posters-1067.html"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/annotation-strategies/"
+        }
+      ]
+    },
+    {
+      "type": "poster",
+      "title": "Seeing is Believing: The Role Recommender System Accuracy Plays on Trust in Scatterplots",
+      "authors": "Bhavana Doppalapudi, **Md Dilshadur Rahman**, Paul Rosen",
+      "venue": "**IEEE VIS Poster Proceedings**, 2024",
+      "badge": "Poster",
+      "note": null,
+      "links": [
+        {
+          "label": "IEEE VIS 2024 Poster",
+          "url": "https://content-staging.ieeevis.org/year/2024/poster_v-vis-posters-1089.html"
+        }
+      ]
+    },
+    {
+      "type": "poster",
+      "title": "A Qualitative Evaluation and Taxonomy of Bar Chart Annotations",
+      "authors": "**Md Dilshadur Rahman**, Ghulam Jilani Quadri, Paul Rosen",
+      "venue": "**IEEE VIS Poster Proceedings**, 2022",
+      "badge": "Poster",
+      "note": null,
+      "links": [
+        {
+          "label": "IEEE VIS 2022 Poster",
+          "url": "https://virtual.ieeevis.org/year/2022/poster_v-vis-posters-1047.html"
+        },
+        {
+          "label": "Interactive Website",
+          "url": "https://dilshadur.com/annotation-taxonomy/"
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "title": "Interfaces for Judgment: Scaffolding Evaluative Reasoning in Interaction",
+      "authors": "Alon Friedman, **Md Dilshadur Rahman**, Ly Dinh, Julia Woodward, Bo Pei, Paul Rosen",
+      "venue": "Under Review in **ACM Transactions on Computer-Human Interaction**, 2026",
+      "badge": "Under Review",
+      "note": null,
+      "links": []
+    },
+    {
+      "type": "review",
+      "title": "AnnoBench: A Benchmark for Visualization Annotation Generation",
+      "authors": "Md Rahat-uz-Zaman*, **Md Dilshadur Rahman***, Andrew McNutt, Paul Rosen",
+      "venue": "Under Review, 2026",
+      "badge": "Under Review",
+      "note": "* Co-first authors",
+      "links": [
+        {
+          "label": "Interactive Website",
+          "url": "https://annobench.aiexplain.org/"
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "title": "Shaping Evaluative Analysis Through Data Visualization Design: A Study of Visual Nudges",
+      "authors": "Alon Friedman, **Md Dilshadur Rahman**, Paul Rosen",
+      "venue": "Under Review, 2026",
+      "badge": "Under Review",
+      "note": null,
+      "links": []
+    },
+    {
+      "type": "review",
+      "title": "Influence of Visualizing Class Balance Information on Recommendations' Trust and Decision-Making",
+      "authors": "Bhavana Doppalapudi, **Md Dilshadur Rahman**, Paul Rosen",
+      "venue": "In preparation, 2026",
+      "badge": "In Preparation",
+      "note": null,
+      "links": []
+    }
+  ]
+}

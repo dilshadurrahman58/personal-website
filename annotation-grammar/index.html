@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>AnnoGram · An Annotative Grammar of Graphics Extension</title>
+  <meta name="description"
+    content="AnnoGram extends the Grammar of Graphics so annotations become first-class design elements: a target, an effect, and a placement. Companion to the IEEE VIS 2025 paper, with the grammar, the Vega-Lite Annotation prototype, and the comparison with eight tools." />
+  <meta name="theme-color" id="theme-color-meta" content="#F5F4F0" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AnnoGram: An Annotative Grammar of Graphics Extension" />
+  <meta property="og:description"
+    content="Annotations as first-class elements of a visualization grammar. The grammar, the prototype, and the comparison with eight tools, from the IEEE VIS 2025 paper." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <script>
+    (() => {
+      const root = document.documentElement;
+      root.classList.add('js');
+      let theme = null;
+      try { theme = localStorage.getItem('grammar-theme'); } catch (e) { }
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      root.dataset.theme = theme;
+      document.getElementById('theme-color-meta').setAttribute('content', theme === 'dark' ? '#0E1013' : '#F5F4F0');
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <a href="#why" class="skip-link">Skip to the content</a>
+
+  <!-- Top bar -->
+  <header class="bar">
+    <div class="wrap bar__inner">
+      <a class="mark" href="#top" aria-label="AnnoGram, back to top">
+        <svg class="mark__glyph" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="12.5" y="13" width="15" height="6" rx="1.5" class="mark__hl" />
+          <path d="M10 5.5c-2.4 0-3 1.2-3 3.4v3.7c0 2-.9 3.1-2.6 3.4 1.7.3 2.6 1.4 2.6 3.4v3.7c0 2.2.6 3.4 3 3.4"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M14 9h12M14 16h9M14 23h11" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" />
+          <circle cx="26" cy="16" r="2.1" fill="var(--warm)" />
+        </svg>
+        <span>AnnoGram</span>
+      </a>
+      <nav class="bar__nav" aria-label="Page">
+        <a class="u quiet" href="#why">Why</a>
+        <a class="u quiet" href="#grammar">Grammar</a>
+        <a class="u quiet" href="#portability">Try it</a>
+        <a class="u quiet" href="#pipeline">How it works</a>
+        <a class="u quiet" href="#evaluation">Compare</a>
+        <a class="u quiet bar__ext" href="https://arxiv.org/abs/2507.04236" target="_blank"
+          rel="noopener">Paper<span aria-hidden="true">&nbsp;↗</span></a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="intro" aria-labelledby="title">
+      <div class="wrap">
+        <p class="eyebrow reveal" style="--d:0">IEEE VIS 2025</p>
+        <h1 class="intro__title reveal" id="title" style="--d:1"><span class="intro__name">Anno<b>Gram</b></span>
+          <span class="intro__sub">An Annotative Grammar of Graphics Extension</span></h1>
+        <div class="intro__row reveal" style="--d:2">
+          <p class="hero__authors">
+            <a class="u" href="https://dilshadur.com/" target="_blank" rel="noopener">Md Dilshadur Rahman</a><sup
+              aria-label="equal contribution">*</sup>, Md Rahat-uz-Zaman<sup aria-label="equal contribution">*</sup>,
+            <a class="u" href="https://www.mcnutt.in/" target="_blank" rel="noopener">Andrew McNutt</a>, and
+            <a class="u" href="https://cspaul.com/" target="_blank" rel="noopener">Paul Rosen</a>
+            <span class="intro__equal"><span aria-hidden="true">*</span> equal contribution</span>
+          </p>
+          <div class="intro__actions">
+            <a class="btn btn--solid btn--small" href="https://arxiv.org/abs/2507.04236" target="_blank" rel="noopener">Paper<span aria-hidden="true">↗</span></a>
+            <a class="btn btn--small" href="https://vl-annotation.netlify.app/" target="_blank" rel="noopener">Playground<span aria-hidden="true">↗</span></a>
+            <a class="btn btn--small btn--ghost" href="#cite">Cite</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why: extend the blueprint -->
+    <section class="sec sec--first" id="why" aria-labelledby="why-heading" tabindex="-1">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="why-heading">Make annotation part of the <em>grammar</em></h2>
+          <p class="section-head__note">Popular charting libraries share one blueprint, the Grammar of Graphics.
+            Annotations were never part of it, so they are drawn on top of the chart and break when it changes.
+            AnnoGram adds them to the blueprint itself.</p>
+        </div>
+
+        <!-- 1 · one blueprint, many libraries -->
+        <div class="scene" id="scene-tree">
+          <div class="scene__pin">
+          <figure class="tree" id="tree" aria-labelledby="tree-cap">
+          <div class="fig__top">
+            <ol class="beats" id="tree-beats" aria-label="Steps of the animation">
+              <li><button type="button" data-beat="0"><span class="num">1</span><span class="beats__l">The blueprint</span></button></li>
+              <li><button type="button" data-beat="1"><span class="num">2</span><span class="beats__l">Add annotations</span></button></li>
+              <li><button type="button" data-beat="2"><span class="num">3</span><span class="beats__l">Libraries inherit it</span></button></li>
+            </ol>
+            <button type="button" class="icon-btn fig__play" id="tree-play" aria-label="Pause the animation">
+              <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" /></svg>
+              <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" /></svg>
+            </button>
+          </div>
+          <div class="fig__rail" aria-hidden="true"><span></span></div>
+
+          <div class="tree__stage" id="tree-stage">
+            <svg class="tree__wires" id="tree-wires" aria-hidden="true"></svg>
+            <div class="tree__gog" id="tree-gog">
+              <p class="tree__k">The blueprint</p>
+              <h3 class="tree__title">Grammar of Graphics</h3>
+              <ul class="tree__parts">
+                <li>Data</li>
+                <li>Scales</li>
+                <li>Geometries</li>
+                <li>Coordinates</li>
+                <li>Guides</li>
+                <li class="tree__new"><span aria-hidden="true">+</span> Annotations</li>
+              </ul>
+            </div>
+            <ul class="tree__libs" id="tree-libs" aria-label="Libraries built on the grammar">
+              <li style="--i:0"><b>ggplot2</b><span>R</span><em>shares the blueprint</em></li>
+              <li style="--i:1"><b>plotnine</b><span>Python</span><em>shares the blueprint</em></li>
+              <li style="--i:2" class="is-proto"><b>Vega-Lite</b><span>JSON</span><em>AnnoGram prototype</em></li>
+              <li style="--i:3"><b>Altair</b><span>Python</span><em>shares the blueprint</em></li>
+              <li style="--i:4"><b>G2</b><span>JavaScript</span><em>shares the blueprint</em></li>
+            </ul>
+          </div>
+          <figcaption class="fig__cap" id="tree-cap" aria-live="polite"></figcaption>
+        </figure>
+            <p class="scene__hint" aria-hidden="true">Keep scrolling</p>
+          </div>
+        </div>
+
+        <!-- 2 · on top vs. in the grammar -->
+        <div class="scene" id="scene-duo">
+          <div class="scene__pin">
+          <figure class="duo" id="duo" aria-labelledby="duo-cap">
+          <div class="fig__top">
+            <div class="seg seg--sm" role="group" aria-label="Chart type" id="duo-mode">
+              <button type="button" data-v="scatter" aria-pressed="true">Scatterplot</button>
+              <button type="button" data-v="bar" aria-pressed="false">Bars</button>
+              <button type="button" data-v="hbar" aria-pressed="false">Horizontal</button>
+            </div>
+            <button type="button" class="icon-btn fig__play" id="duo-play" aria-label="Pause the animation">
+              <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" /></svg>
+              <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" /></svg>
+            </button>
+          </div>
+          <div class="fig__rail" aria-hidden="true"><span></span></div>
+          <div class="duo__grid">
+            <div class="duo__pane" id="duo-pa">
+              <p class="duo__k"><span class="duo__tag">Today</span>Drawn on top, in pixels</p>
+              <div class="duo__chart"><svg id="duo-a" aria-hidden="true"></svg></div>
+              <p class="duo__status" id="duo-sa"></p>
+            </div>
+            <div class="duo__pane duo__pane--good" id="duo-pb">
+              <p class="duo__k"><span class="duo__tag">AnnoGram</span>Declared in the grammar</p>
+              <div class="duo__chart"><svg id="duo-b" aria-hidden="true"></svg></div>
+              <p class="duo__status" id="duo-sb"></p>
+            </div>
+          </div>
+          <figcaption class="fig__cap" id="duo-cap">Both notes start on the hybrid. When the chart changes, the
+            note drawn on top stays where it was put; the note in the grammar finds the hybrid again.</figcaption>
+        </figure>
+            <p class="scene__hint" aria-hidden="true">Keep scrolling</p>
+          </div>
+        </div>
+        <p class="fig__note">ggplot2, plotnine, Vega-Lite, Altair, and G2 each trace their design to the
+          Grammar of Graphics (Altair through Vega-Lite). The AnnoGram prototype extends Vega-Lite. Charts on this
+          page use made-up values.</p>
+      </div>
+    </section>
+
+    <!-- Anatomy of an annotation -->
+    <section class="sec" id="design" aria-labelledby="design-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="design-heading">Every annotation answers <em>three</em> questions</h2>
+          <p class="section-head__note">What it points at, what it draws, and where it goes. Like a CSS rule, each
+            annotation pairs a target with its effects. These three colors follow you through the rest of the
+            page.</p>
+        </div>
+
+        <ol class="decisions">
+          <li class="decision in-view f-tgt">
+            <div class="decision__head"><span class="num">1</span><span class="decision__q">What is being
+                annotated?</span></div>
+            <h3>Target</h3>
+            <p>The specific visualization element an annotation applies to. It can be part of the chart, a rule over
+              the data, a fixed position, or nothing at all.</p>
+            <ul class="kinds">
+              <li><strong>Data points</strong>: individual points, or subsets chosen by direct indexing or by an
+                expression, such as every value above a temperature threshold, updating as the data changes.</li>
+              <li><strong>Axes</strong>: the x- or y-axis, to mark significant values, ranges, or tick marks,
+                gridlines, and labels.</li>
+              <li><strong>Chart parts</strong>: titles, legends, and axis labels, for meta-level explanations such as
+                what a legend's colors mean.</li>
+              <li><strong>None</strong>: a standalone note, placed independently to offer supplementary context.</li>
+            </ul>
+          </li>
+
+          <li class="decision in-view f-typ" style="--d:1">
+            <div class="decision__head"><span class="num">2</span><span class="decision__q">How should it be
+                annotated?</span></div>
+            <h3>Annotation type</h3>
+            <p>The grammar accommodates all seven types of Rahman et al.'s taxonomy. These four are the ones the
+              proof-of-concept implements.</p>
+            <ul class="types">
+              <li class="type">
+                <svg viewBox="0 0 56 40" aria-hidden="true">
+                  <path class="g-ink" d="M4 34 C 14 30, 18 18, 28 20 S 44 10, 52 8" />
+                  <text class="g-text" x="6" y="13">Aa</text>
+                </svg>
+                <h4>Text</h4>
+                <p>Explanatory context for data points, regions, or encodings.</p>
+              </li>
+              <li class="type">
+                <svg viewBox="0 0 56 40" aria-hidden="true">
+                  <rect class="g-bar" x="6" y="22" width="8" height="14" rx="1" />
+                  <rect class="g-bar" x="18" y="12" width="8" height="24" rx="1" />
+                  <rect class="g-bar" x="30" y="16" width="8" height="20" rx="1" />
+                  <rect class="g-bar" x="42" y="26" width="8" height="10" rx="1" />
+                  <rect class="g-warm" x="15" y="8" width="26" height="30" rx="3" />
+                </svg>
+                <h4>Enclosure</h4>
+                <p>Rectangles, ellipses, brackets, or braces around regions of interest.</p>
+              </li>
+              <li class="type">
+                <svg viewBox="0 0 56 40" aria-hidden="true">
+                  <circle class="g-dot" cx="44" cy="30" r="3.4" />
+                  <path class="g-warm" d="M8 8 C 22 6, 34 14, 40 26" />
+                  <path class="g-warm" d="M35 24 L 40.5 27 L 41 20.8" />
+                  <path class="g-ink" d="M4 8 H 10" />
+                </svg>
+                <h4>Connector</h4>
+                <p>Paths or lines linking elements, such as a note and its point.</p>
+              </li>
+              <li class="type">
+                <svg viewBox="0 0 56 40" aria-hidden="true">
+                  <path class="g-ink" d="M4 30 L 14 26 L 24 28 L 34 18 L 44 20 L 52 12" />
+                  <path class="g-warm" d="M4 16 H 52" stroke-dasharray="3 3" />
+                </svg>
+                <h4>Indicator</h4>
+                <p>Lines, arrows, or highlights marking thresholds, trends, or events.</p>
+              </li>
+            </ul>
+          </li>
+
+          <li class="decision in-view f-plc" style="--d:2">
+            <div class="decision__head"><span class="num">3</span><span class="decision__q">Where does it go?</span>
+            </div>
+            <h3>Placement</h3>
+            <p>Annotations receive meaningful placement automatically from their target and the layout. Authors can
+              override the defaults, the way inline CSS takes precedence over a stylesheet.</p>
+            <ul class="modes">
+              <li><strong>Fixed positioning</strong>In data space, anchored to the encoding scales so it carries across
+                chart types; or in pixel space, for absolute control. Fine adjustments use <code>dx</code> and
+                <code>dy</code> offsets.</li>
+              <li><strong>Relative positioning and anchoring</strong>Aligns an annotation with its target as the chart
+                changes, in one or both dimensions, snapping to the target's edges or center.</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="together">
+          <div class="in-view" style="--d:1">
+            <h3 class="sub">Annotations can work together</h3>
+            <ul class="rels">
+              <li>
+                <h4>Reference</h4>
+                <p>One annotation explicitly links to another through its <code>id</code>. A marker on an anomaly,
+                  for instance, can refer to a separate annotation that explains its cause.</p>
+              </li>
+              <li>
+                <h4>Composite</h4>
+                <p>Several annotations grouped together to describe a repeated structure in the data, such as
+                  seasonal trends across several time intervals, drawn with coordinated shapes, markers, and
+                  labels.</p>
+              </li>
+            </ul>
+            <p class="rels__note">Both reflect annotation ensembles: annotations combined on purpose to convey
+              meaning that a single annotation cannot express on its own.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- On a real chart -->
+    <section class="sec" id="specimen" aria-labelledby="specimen-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="specimen-heading">On a real <em>chart</em></h2>
+          <p class="section-head__note">A Washington Post chart of COVID-19 cases, recreated with the Vega-Lite
+            Annotation prototype. Point at either annotation in the specification to find it on the chart.</p>
+        </div>
+
+        <div class="specimen in-view" id="specimen-box">
+          <div class="spec">
+            <div class="spec__head">
+              <span class="spec__file">"annotations": [ … ]</span>
+              <span class="label">Excerpt</span>
+            </div>
+            <div class="spec__body">
+              <button type="button" class="spec__block" data-k="1" aria-pressed="false"
+                aria-label="Annotation 1: a highlight rectangle with the label Jan. 2021 peak"><pre><span class="j-p">{ </span><span class="spec__pin" aria-hidden="true">1</span><span class="j-c">// Highlight Rectangle</span>
+  <span class="j-k">"target"</span><span class="j-p">: {</span>
+    <span class="j-k">"type"</span><span class="j-p">:</span> <span class="j-s">"data-space"</span><span class="j-p">,</span>
+    <span class="j-k">"x"</span><span class="j-p">:</span> <span class="j-s">"2021-01-11"</span><span class="j-p">,</span> <span class="j-k">"y"</span><span class="j-p">:</span> <span class="j-s">0</span>
+  <span class="j-p">},</span>
+  <span class="j-k">"enclosure"</span><span class="j-p">: {</span>
+    <span class="j-k">"shape"</span><span class="j-p">: { ... },</span>
+    <span class="j-k">"style"</span><span class="j-p">: { ... },</span>
+  <span class="j-p">},</span>
+  <span class="j-k">"text"</span><span class="j-p">: {</span>
+    <span class="j-k">"text"</span><span class="j-p">:</span> <span class="j-s">"Jan. 2021 peak"</span><span class="j-p">,</span>
+    <span class="j-k">"position"</span><span class="j-p">:</span> <span class="j-s">"upperMiddle"</span><span class="j-p">,</span>
+    <span class="j-k">"style"</span><span class="j-p">: { ... }</span>
+  <span class="j-p">}</span>
+<span class="j-p">},</span></pre></button>
+              <button type="button" class="spec__block" data-k="2" aria-pressed="false"
+                aria-label="Annotation 2: the text The previous case peak, with a connector"><pre><span class="j-p">{ </span><span class="spec__pin" aria-hidden="true">2</span><span class="j-c">// Text: "The previous...</span>
+  <span class="j-k">"target"</span><span class="j-p">: {</span>
+    <span class="j-k">"type"</span><span class="j-p">:</span> <span class="j-s">"data-expr"</span><span class="j-p">,</span>
+    <span class="j-k">"expr"</span><span class="j-p">:</span> <span class="j-s">"datum.date ==</span>
+<span class="j-s">            '2021-01-11'"</span>
+  <span class="j-p">},</span>
+  <span class="j-k">"text"</span><span class="j-p">: {</span>
+    <span class="j-k">"text"</span><span class="j-p">:</span> <span class="j-s">"The previous..."</span><span class="j-p">,</span>
+    <span class="j-k">"position"</span><span class="j-p">: {...},</span>
+    <span class="j-k">"style"</span><span class="j-p">: {...}</span>
+  <span class="j-p">},</span>
+  <span class="j-k">"connector"</span><span class="j-p">: {</span>
+    <span class="j-k">"curve"</span><span class="j-p">:</span> <span class="j-s">"natural"</span><span class="j-p">,</span>
+    <span class="j-k">"style"</span><span class="j-p">: {...}</span>
+  <span class="j-p">}</span>
+<span class="j-p">}</span></pre></button>
+              <p class="spec__tail" aria-hidden="true">...</p>
+            </div>
+          </div>
+
+          <figure class="specimen__chart" style="margin:0">
+            <button type="button" class="zoomable" data-zoom="fig1-recreated"
+              aria-label="Open the recreated chart at full size">
+              <div class="sheet">
+                <div class="plate__art">
+                  <div class="plate__img">
+                    <img src="images/fig1-recreated.webp" width="1438" height="742" decoding="async"
+                      alt="Line chart of Covid-19 measures from December 2020 to January 2022, as a percentage of the January 2021 peak, with gray bands marking the January 2021 peak, the Delta wave, and the Omicron wave, and two explanatory notes with arrows." />
+                    <span class="hot" data-k="1" style="left:11.7%;top:0.2%;width:12.9%;height:95.8%"></span>
+                    <span class="hot" data-k="2" style="left:25.8%;top:30.8%;width:28.8%;height:25.4%"></span>
+                    <span class="hot hot--ring" data-k="2" style="left:16.9%;top:65.4%"></span>
+                    <span class="pin" data-k="1" style="left:17.9%;top:14%;--k:0" aria-hidden="true">1</span>
+                    <span class="pin" data-k="2" style="left:55.2%;top:31.2%;--k:1" aria-hidden="true">2</span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <figcaption class="figcap"><span>Recreated with the prototype: <a class="u" href="https://vl-annotation.netlify.app/teaser" target="_blank"
+                  rel="noopener">vl-annotation.netlify.app/teaser</a></span></figcaption>
+            <ol class="notes" id="spec-notes">
+              <li data-k="1"><span class="notes__n" aria-hidden="true">1</span><span><strong>An enclosure with a
+                    label.</strong> The gray band is an <code>enclosure</code> on a <code>data-space</code> target at
+                  2021-01-11, and its <code>text</code>, “Jan. 2021 peak”, sits at <code>upperMiddle</code>.</span>
+              </li>
+              <li data-k="2"><span class="notes__n" aria-hidden="true">2</span><span><strong>A text with a
+                    connector.</strong> The note targets the datum dated 2021-01-11, chosen by an expression, and a
+                  <code>connector</code> with a <code>natural</code> curve ties the two together.</span></li>
+            </ol>
+          </figure>
+        </div>
+      </div>
+    </section>
+    <!-- The grammar -->
+    <section class="sec" id="grammar" aria-labelledby="grammar-heading" tabindex="-1">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="grammar-heading">The whole <em>grammar</em></h2>
+          <p class="section-head__note">Every rule on one page, colored by family. Hover a name to trace where it is
+            defined and used, or select it to read what it does.</p>
+        </div>
+
+        <div class="gram-layout">
+          <div class="gram in-view" id="gram">
+            <div class="gram__legend" role="group" aria-label="Color key; select a family to highlight it">
+              <button type="button" class="gkey" data-fam="target" aria-pressed="false"><i></i>Targets</button>
+              <button type="button" class="gkey" data-fam="type" aria-pressed="false"><i></i>Annotation types</button>
+              <button type="button" class="gkey" data-fam="place" aria-pressed="false"><i></i>Placement</button>
+              <span class="gkey gkey--static"><span class="kw">keyword</span></span>
+              <span class="gkey gkey--static"><span class="prim">primitive</span></span>
+            </div>
+            <svg class="gram__arcs" id="gram-arcs" aria-hidden="true"></svg>
+            <div class="gtip" id="gtip" aria-hidden="true"></div>
+            <div class="gram__group">
+              <div class="gram__root">
+                <button type="button" class="gram__rootlabel nt" data-t="Root" aria-label="Root"><span
+                    aria-hidden="true">Root</span></button>
+                <svg class="gram__brace" aria-hidden="true"><path /></svg>
+                <ul class="rules">
+                  <li class="rule is-wide" data-d="target" data-u="id FixedPos ChartPart DataPoint Axis None">
+                    <span class="rule__lhs"><button type="button" class="fld" data-t="target">target</button></span>
+                    <span class="rule__op">:=</span>
+                    <span class="rule__rhs">(<button type="button" class="kw" data-t="id">id</button> | <button
+                        type="button" class="nt" data-t="FixedPos">FixedPos</button> | <button type="button"
+                        class="nt" data-t="ChartPart">ChartPart</button> | <button type="button" class="nt"
+                        data-t="DataPoint">DataPoint</button> | <button type="button" class="nt"
+                        data-t="Axis">Axis</button> | <button type="button" class="prim"
+                        data-t="None">None</button>)[]</span>
+                  </li>
+                  <li class="rule" data-u="Annotation TextAnn">
+                    <span class="rule__lhs"><span class="fld" data-f="type">text</span></span>
+                    <span class="rule__op">:=<sup>opt</sup></span>
+                    <span class="rule__rhs"><button type="button" class="nt"
+                        data-t="Annotation">Annotation</button>⟨<button type="button" class="nt"
+                        data-t="TextAnn">TextAnn</button>⟩</span>
+                  </li>
+                  <li class="rule" data-u="Annotation EnclosureAnn">
+                    <span class="rule__lhs"><span class="fld" data-f="type">enclosure</span></span>
+                    <span class="rule__op">:=<sup>opt</sup></span>
+                    <span class="rule__rhs"><button type="button" class="nt"
+                        data-t="Annotation">Annotation</button>⟨<button type="button" class="nt"
+                        data-t="EnclosureAnn">EnclosureAnn</button>⟩</span>
+                  </li>
+                  <li class="rule" data-u="Annotation ConnectorAnn">
+                    <span class="rule__lhs"><span class="fld" data-f="type">connector</span></span>
+                    <span class="rule__op">:=<sup>opt</sup></span>
+                    <span class="rule__rhs"><button type="button" class="nt"
+                        data-t="Annotation">Annotation</button>⟨<button type="button" class="nt"
+                        data-t="ConnectorAnn">ConnectorAnn</button>⟩</span>
+                  </li>
+                  <li class="rule" data-u="Annotation IndicatorAnn">
+                    <span class="rule__lhs"><span class="fld" data-f="type">indicator</span></span>
+                    <span class="rule__op">:=<sup>opt</sup></span>
+                    <span class="rule__rhs"><button type="button" class="nt"
+                        data-t="Annotation">Annotation</button>⟨<button type="button" class="nt"
+                        data-t="IndicatorAnn">IndicatorAnn</button>⟩</span>
+                  </li>
+                  <li class="rule" data-d="more">
+                    <span class="rule__lhs"><button type="button" class="kw" data-t="more"
+                        aria-label="More annotation types">···</button></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="gram__group">
+              <h3 class="gram__title" data-f="target">Annotation Targets</h3>
+              <ul class="rules">
+                <li class="rule" data-d="DataPoint">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="DataPoint">DataPoint</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs"><span class="prim">Expression</span> | <span class="kw">index[]</span></span>
+                </li>
+                <li class="rule is-wide" data-d="ChartPart">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="ChartPart">ChartPart</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs"><span class="kw">title</span> | <span class="kw">legend</span> | <span
+                      class="kw">subtitle</span> | <span class="kw">caption</span> | ···</span>
+                </li>
+                <li class="rule is-wide" data-d="Axis" data-u="Coord">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="Axis">Axis</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs rule__pair">
+                    <span><span class="fld">axis</span> := <span class="kw">x</span> | <span class="kw">y</span>,
+                      <span class="fld">parts</span> := <span class="kw">label</span> | <span class="kw">tick</span>
+                      | <span class="kw">grid</span> | <span class="kw">tick-label</span></span>
+                    <span><span class="fld">range</span> <span class="rule__op" style="display:inline-block">:=<sup>opt</sup></span>
+                      <button type="button" class="nt" data-t="Coord">Coord</button>[] | <span
+                        class="prim">Expression</span></span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="gram__group">
+              <h3 class="gram__title" data-f="type">Annotation Types</h3>
+              <ul class="rules">
+                <li class="rule is-wide" data-d="Annotation Style" style="--lhs:140px">
+                  <span class="rule__lhs"><button type="button" class="nt"
+                      data-t="Annotation">Annotation</button>⟨<span class="prim">X</span>⟩</span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs">(<span class="kw">id</span>, <button type="button" class="nt"
+                      data-t="Style">Style</button>, <span class="prim">X</span>),&ensp; <button type="button"
+                      class="nt" data-t="Style">Style</button> = ···</span>
+                </li>
+                <li class="rule" data-d="TextAnn" data-u="Position None" style="--lhs:140px">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="TextAnn">TextAnn</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs">(<span class="prim">string</span>, <button type="button" class="nt"
+                      data-t="Position">Position</button> | <span class="prim">None</span>)</span>
+                </li>
+                <li class="rule is-wide" data-d="EnclosureAnn" data-u="Position None" style="--lhs:140px">
+                  <span class="rule__lhs"><button type="button" class="nt"
+                      data-t="EnclosureAnn">EnclosureAnn</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs">(<span class="nt nt--plain" data-f="type">Rect</span> | <span
+                      class="nt nt--plain" data-f="type">Ellipse</span> | <span class="kw">SVGShapePath</span> | ···, <button
+                      type="button" class="nt" data-t="Position">Position</button> | <span
+                      class="prim">None</span>)</span>
+                </li>
+                <li class="rule is-wide" data-d="ConnectorAnn" data-u="None" style="--lhs:140px">
+                  <span class="rule__lhs"><button type="button" class="nt"
+                      data-t="ConnectorAnn">ConnectorAnn</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs">(<span class="kw">Markers</span> | <span class="prim">None</span>, <span
+                      class="kw">SVGShapePath</span>, <span class="kw">linear</span> | <span
+                      class="kw">catmull-rom</span> | ···)</span>
+                </li>
+                <li class="rule is-wide" data-d="IndicatorAnn" style="--lhs:140px">
+                  <span class="rule__lhs"><button type="button" class="nt"
+                      data-t="IndicatorAnn">IndicatorAnn</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs">(<span class="kw">line</span> | <span class="kw">area</span> | <span
+                      class="kw">arrow</span> | ···, <span class="prim">Expression</span>)</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="gram__group">
+              <h3 class="gram__title" data-f="place">Placement</h3>
+              <ul class="rules">
+                <li class="rule" data-d="Position" data-u="FixedPos Anchor1D Anchor2D">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="Position">Position</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs"><button type="button" class="nt" data-t="FixedPos">FixedPos</button> |
+                    <button type="button" class="nt" data-t="Anchor1D">Anchor1D</button> | <button type="button"
+                      class="nt" data-t="Anchor2D">Anchor2D</button></span>
+                </li>
+                <li class="rule" data-d="Anchor1D">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="Anchor1D">Anchor1D</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs"><span class="kw">auto</span> | <span class="kw">start</span> | <span
+                      class="kw">mid</span> | <span class="kw">end</span></span>
+                </li>
+                <li class="rule" data-d="Anchor2D">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="Anchor2D">Anchor2D</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs"><span class="kw">auto</span> | <span class="kw">upLeft</span> | <span
+                      class="kw">midRight</span> | ···</span>
+                </li>
+                <li class="rule is-wide" data-d="FixedPos" data-u="Coord">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="FixedPos">FixedPos</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs">{<span class="fld">type</span> := <span class="kw">data</span> | <span
+                      class="kw">pixel</span>, <span class="fld">x</span> := <button type="button" class="nt"
+                      data-t="Coord">Coord</button>, <span class="fld">y</span> := <button type="button" class="nt"
+                      data-t="Coord">Coord</button>}</span>
+                </li>
+                <li class="rule" data-d="Coord">
+                  <span class="rule__lhs"><button type="button" class="nt" data-t="Coord">Coord</button></span>
+                  <span class="rule__op">:=</span>
+                  <span class="rule__rhs"><span class="prim">string</span> | <span class="prim">number</span></span>
+                </li>
+              </ul>
+            </div>
+
+            <p class="gram__hint">Hover a name to trace where it is defined and used; select it to read more. <kbd>Esc</kbd> clears.</p>
+          </div>
+
+          <aside class="reader" id="reader" aria-label="About the selected name">
+            <div class="panel__head">
+              <span class="label" id="reader-label">Reading the grammar</span>
+              <button type="button" class="icon-btn" id="reader-clear" aria-label="Clear the selection" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </button>
+            </div>
+            <div class="reader__body" id="reader-body" aria-live="polite"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+    <!-- Portability, to try -->
+    <section class="sec" id="portability" aria-labelledby="portability-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="portability-heading">Try it: change the chart, <em>keep</em> the annotation</h2>
+          <p class="section-head__note">Switch the chart, update the data, or narrow the layout. The annotation is
+            written once and found again every time; nothing in it has to change.</p>
+        </div>
+
+        <div class="pg in-view" id="pg">
+          <div class="pg__stage">
+            <div class="pg__bar">
+              <div class="seg" role="group" aria-label="Chart type" id="pg-mode">
+                <button type="button" data-v="scatter" aria-pressed="true">Scatterplot</button>
+                <button type="button" data-v="bar" aria-pressed="false">Bars</button>
+                <button type="button" data-v="hbar" aria-pressed="false"><span class="pg__long">Horizontal</span><span class="pg__short">H. bars</span></button>
+              </div>
+              <div class="pg__acts">
+                <button type="button" class="btn btn--small" id="pg-data"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9M20 4v5h-5M20 12a8 8 0 0 1-13.7 5.6L4 15M4 20v-5h5" /></svg>Update the data</button>
+                <div class="seg seg--sm pg__width" role="group" aria-label="Layout width" id="pg-width">
+                  <button type="button" data-v="wide" aria-pressed="true">Wide</button>
+                  <button type="button" data-v="narrow" aria-pressed="false">Narrow</button>
+                </div>
+              </div>
+            </div>
+            <div class="pg__canvas" id="pg-canvas">
+              <svg id="pg-chart" role="img" aria-labelledby="pg-live"></svg>
+            </div>
+            <dl class="pg__read">
+              <div class="f-tgt"><dt>Target</dt><dd id="r-target"></dd></div>
+              <div><dt>Resolved to</dt><dd id="r-mark"></dd></div>
+              <div class="f-plc"><dt>Placement</dt><dd id="r-place"></dd></div>
+            </dl>
+            <div class="pg__foot">
+              <label class="switch"><input type="checkbox" id="pg-ghost" /><span class="switch__ui" aria-hidden="true"></span><span>Compare with the same note placed by hand, in pixels</span></label>
+              <button type="button" class="link" id="pg-reset">Reset</button>
+            </div>
+            <p class="visually-hidden" id="pg-live" aria-live="polite"></p>
+          </div>
+
+          <div class="pg__panel">
+            <div class="pg__controls">
+              <div class="field f-tgt">
+                <label class="field__label" for="pg-target"><i></i>Target</label>
+                <div class="select"><select id="pg-target">
+                    <option value="hybrid">The hybrid · datum.type == 'Hybrid'</option>
+                    <option value="mpg">Highest mpg · datum.mpg == max(mpg)</option>
+                    <option value="price">Highest price · datum.price == max(price)</option>
+                    <option value="sales">Most sales · datum.sales == max(sales)</option>
+                  </select></div>
+              </div>
+              <div class="field f-typ">
+                <span class="field__label" id="pg-eff-l"><i></i>Effects</span>
+                <div class="pg__effects" role="group" aria-labelledby="pg-eff-l" id="pg-effects">
+                  <button type="button" class="chip" data-e="text" aria-pressed="true">Text</button>
+                  <button type="button" class="chip" data-e="enclosure" aria-pressed="true">Enclosure</button>
+                  <button type="button" class="chip" data-e="connector" aria-pressed="true">Connector</button>
+                </div>
+              </div>
+              <div class="field f-typ">
+                <label class="field__label" for="pg-text"><i></i>Text</label>
+                <input class="input" id="pg-text" type="text" maxlength="48" autocomplete="off" spellcheck="false" />
+              </div>
+              <div class="field f-plc">
+                <span class="field__label" id="pg-pos-l"><i></i>Position</span>
+                <div class="seg seg--sm" role="group" aria-labelledby="pg-pos-l" id="pg-pos">
+                  <button type="button" data-v="auto" aria-pressed="true">auto</button>
+                  <button type="button" data-v="upLeft" aria-pressed="false">upLeft</button>
+                  <button type="button" data-v="midRight" aria-pressed="false">midRight</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="pg__spec">
+              <div class="pg__spechead">
+                <span class="label">Specification</span>
+                <span class="pg__status"><span class="pill" id="pg-s-chart">chart</span><span class="pill pill--ann" id="pg-s-ann">annotation</span></span>
+              </div>
+              <pre id="pg-spec"></pre>
+            </div>
+            <p class="pg__tally" id="pg-tally"></p>
+          </div>
+        </div>
+        <p class="pg__fine">Made-up values, drawn by this page with a simplified specification. The real
+          prototype runs in the <a class="u" href="https://vl-annotation.netlify.app/" target="_blank"
+            rel="noopener">playground</a>.</p>
+
+      </div>
+    </section>
+    <!-- How it works -->
+    <section class="sec" id="pipeline" aria-labelledby="pipeline-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="pipeline-heading">How it <em>works</em></h2>
+          <p class="section-head__note">The prototype, Vega-Lite Annotation, adds five steps to Vega-Lite's compiler
+            instead of replacing it, so every chart still renders through Vega as usual.</p>
+        </div>
+        <ol class="flow in-view" id="flow">
+          <li class="flow__step" style="--i:0">
+            <span class="flow__n">1</span>
+            <h3>Parse</h3>
+            <p>Read the specification and pull out the annotations, at the top level or inside layers.</p>
+          </li>
+          <li class="flow__step" style="--i:1">
+            <span class="flow__n">2</span>
+            <h3>Resolve positions</h3>
+            <p>Find each target in the drawn chart and look for free space near it, unless the author fixed a
+              position.</p>
+          </li>
+          <li class="flow__step" style="--i:2">
+            <span class="flow__n">3</span>
+            <h3>Assemble</h3>
+            <p>Link related pieces, such as a connector from a label to its enclosure, and resolve references
+              between annotations.</p>
+          </li>
+          <li class="flow__step" style="--i:3">
+            <span class="flow__n">4</span>
+            <h3>Transpile</h3>
+            <p>Turn each annotation into ordinary Vega data and marks, beside the chart's own.</p>
+          </li>
+          <li class="flow__step" style="--i:4">
+            <span class="flow__n">5</span>
+            <h3>Post-add</h3>
+            <p>Add the few shapes that need special rendering, such as ellipses, straight into the drawn scene.</p>
+          </li>
+        </ol>
+        <p class="flow__loop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9M20 4v5h-5M20 12a8 8 0 0 1-13.7 5.6L4 15M4 20v-5h5" /></svg>Steps 2 and 3 repeat, backtracking to reduce overlap between annotations and marks.</p>
+      </div>
+    </section>
+
+    <!-- How it compares -->
+    <section class="sec" id="evaluation" aria-labelledby="evaluation-heading" tabindex="-1">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="evaluation-heading">How it <em>compares</em></h2>
+          <p class="section-head__note">The same annotated bar chart, line chart, and scatterplot, built with the
+            prototype and with eight other tools. The examples are on
+            <a class="u" href="https://github.com/shape-vis/codelines-comparison" target="_blank"
+              rel="noopener">GitHub</a>.</p>
+        </div>
+
+        <div class="loc">
+          <div class="loc__card in-view">
+            <div class="loc__top">
+              <div>
+                <h3 class="loc__title">Lines of code for just the annotation</h3>
+                <p class="loc__sub" id="loc-sub">Annotated bar chart, from Table 1</p>
+              </div>
+              <div class="seg" role="group" aria-label="Chart type" id="loc-seg">
+                <button type="button" data-c="bar" aria-pressed="true">Bar</button>
+                <button type="button" data-c="line" aria-pressed="false">Line</button>
+                <button type="button" data-c="scatter" aria-pressed="false">Scatter</button>
+              </div>
+            </div>
+            <ol class="bars" id="bars" aria-describedby="loc-read"></ol>
+            <p class="loc__read" id="loc-read" aria-live="polite"></p>
+            <p class="loc__foot">Fewer is better. Visual editors such as PowerPoint and Figma have no code, so they
+              are not shown.</p>
+          </div>
+
+          <div class="in-view" style="--d:1">
+            <h3 class="sub">Four qualitative dimensions</h3>
+            <ul class="dims">
+              <li>
+                <h4>1st-class annotation support</h4>
+                <p>Whether annotations are structured components within the visualization model rather than
+                  external overlays.</p>
+              </li>
+              <li>
+                <h4>Intuitiveness</h4>
+                <p>How naturally the annotation syntax reflects the data and chart structure, and how easily common
+                  annotation tasks can be expressed.</p>
+              </li>
+              <li>
+                <h4>Error proneness</h4>
+                <p>The likelihood of mistakes while authoring or editing annotations, such as misalignment or broken
+                  references.</p>
+              </li>
+              <li>
+                <h4>Portability</h4>
+                <p>How well annotations adapt to different datasets or chart types without manual rework.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <ul class="findings">
+          <li class="finding in-view">
+            <h4>Without annotation constructs</h4>
+            <p>D3, Vega, and Vega-Lite need manual positioning, anchoring, and updates: high annotation LOC, “Hard”
+              intuitiveness and portability, and “High” error proneness.</p>
+          </li>
+          <li class="finding in-view" style="--d:1">
+            <h4>Primitives, weakly coupled</h4>
+            <p>d3-annotate, ggplot2, and ggplot2-annotate reduce LOC and initial effort, but weak semantic coupling
+              still means manual adjustment when things change. HighCharts eases initial authoring with similar
+              limits. Visual editors are easy to use but detach annotations from the data.</p>
+          </li>
+          <li class="finding in-view" style="--d:2">
+            <h4>Embedded in the grammar</h4>
+            <p>With annotations attached to data points, axes, and chart elements, updates to the visualization
+              propagate to the annotations, which lowers error proneness and keeps them portable without
+              reauthoring.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- Cite -->
+    <section class="cite" id="cite" aria-labelledby="cite-heading">
+      <div class="wrap cite__inner">
+        <div>
+          <h2 id="cite-heading">Cite the <em>paper</em></h2>
+          <p class="cite__ref">
+            Md Dilshadur Rahman, Md Rahat-uz-Zaman, Andrew McNutt, and Paul Rosen.
+            AnnoGram: An Annotative Grammar of Graphics Extension.
+            <em>2025 IEEE Visualization and Visual Analytics (VIS)</em>, pp. 236–240, 2025.
+            <a class="u" href="https://doi.org/10.1109/VIS60296.2025.00053" target="_blank"
+              rel="noopener">doi:10.1109/VIS60296.2025.00053</a>
+          </p>
+          <p class="cite__more">
+            Preprint on <a class="u" href="https://arxiv.org/abs/2507.04236" target="_blank"
+              rel="noopener">arXiv:2507.04236</a>. Try the prototype in the
+            <a class="u" href="https://vl-annotation.netlify.app/" target="_blank" rel="noopener">playground</a>.
+            This work was supported in part by NSF award 2402719.
+          </p>
+        </div>
+        <div class="bib">
+          <div class="bib__head">
+            <span class="label">BibTeX</span>
+            <button class="btn btn--small btn--ghost" type="button" data-copy="paper-bibtex">Copy</button>
+          </div>
+          <pre id="paper-bibtex">@inproceedings{rahman2025annogram,
+  author    = {Rahman, Md Dilshadur and
+               Rahat-uz-Zaman, Md and
+               McNutt, Andrew and
+               Rosen, Paul},
+  title     = {{AnnoGram}: An Annotative
+               Grammar of Graphics
+               Extension},
+  booktitle = {2025 IEEE Visualization
+               and Visual Analytics (VIS)},
+  pages     = {236--240},
+  year      = {2025},
+  doi       = {10.1109/VIS60296.2025.00053}
+}</pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__inner">
+      <p>
+        <a class="u quiet" href="https://dilshadur.com/" target="_blank" rel="noopener">dilshadur.com</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a class="u quiet" href="https://dilshadur.com/annotation-survey/" target="_blank" rel="noopener">Annotation
+          Survey</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a class="u quiet" href="https://dilshadur.com/annotation-design/" target="_blank"
+          rel="noopener">Annotation Design</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a class="u quiet" href="https://dilshadur.com/annotation-strategies/" target="_blank"
+          rel="noopener">Annotation Strategies</a>
+      </p>
+      <p><a class="u quiet" href="#top">Back to top ↑</a></p>
+    </div>
+  </footer>
+
+  <!-- On phones, a name opens here -->
+  <dialog class="tsheet" id="tsheet" aria-labelledby="tsheet-title">
+    <div class="tsheet__bar">
+      <span class="sheet-handle" aria-hidden="true"></span>
+      <button type="button" class="icon-btn" id="tsheet-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+    <div class="tsheet__body" id="tsheet-body"></div>
+  </dialog>
+
+  <!-- Full-size figure -->
+  <dialog class="zoom" id="zoom" aria-label="Figure at full size">
+    <button type="button" class="icon-btn zoom__close" id="zoom-close" aria-label="Close full-size figure">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <div class="zoom__stage" id="zoom-stage"><img id="zoom-img" alt="" /></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/anno-chart.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+
+</html>

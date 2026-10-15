@@ -1,0 +1,3029 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#FAFAF8" id="theme-color-meta" />
+  <title>Annotation Taxonomy in Grouped Bar Charts · Information Visualization 2025</title>
+  <meta name="description"
+    content="Exploring annotation taxonomy in grouped bar charts: A qualitative classroom study. Rahman et al., Information Visualization 2025." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script>
+    (() => {
+      try {
+        const s = localStorage.getItem('theme');
+        const t = s === 'light' || s === 'dark' ? s : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t;
+        const m = document.getElementById('theme-color-meta');
+        if (m) m.setAttribute('content', t === 'dark' ? '#0b1117' : '#FAFAF8');
+      } catch (e) { document.documentElement.dataset.theme = 'light'; }
+    })();
+  </script>
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bg: #FAFAF8;
+      --bg-alt: #F2EFE9;
+      --bg-card: #FFFFFF;
+      --text: #18181C;
+      --text-muted: #52525E;
+      --text-light: #5C5C74;
+      --accent: #3A5D8C;
+      --accent-deep: #27446B;
+      --accent-mid: #5B7CB2;
+      --accent-soft: #F3F6FB;
+      --accent-warm: #B84F18;
+      --accent-warm-soft: #FDF2EC;
+      --border: #DEDAD2;
+      --border-light: #ECEAE4;
+      --radius: 10px;
+      --radius-sm: 5px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, .05), 0 4px 16px rgba(0, 0, 0, .05);
+      --shadow-md: 0 2px 8px rgba(0, 0, 0, .06), 0 8px 30px rgba(0, 0, 0, .07);
+      --glass-bg: rgba(255, 255, 255, .75);
+      --glass-bg-strong: rgba(255, 255, 255, .91);
+      --glass-border: rgba(255, 255, 255, .95);
+      --glass-stroke: rgba(190, 203, 220, .84);
+      --glass-shadow: 0 18px 40px rgba(29, 40, 62, .125);
+      --glass-shadow-soft: 0 10px 24px rgba(29, 40, 62, .082);
+      --glass-ring: rgba(138, 162, 194, .18);
+      --steel-blue-wash: rgba(110, 136, 166, .045);
+      --steel-blue-edge: rgba(110, 136, 166, .1);
+      --divider-subtle: rgba(210, 206, 198, .5);
+      --glass-hover-bg: linear-gradient(180deg, rgba(255, 255, 255, .92) 0%, rgba(244, 248, 251, .8) 56%, rgba(248, 245, 240, .84) 100%);
+      --glass-hover-bg-soft: linear-gradient(180deg, rgba(255, 255, 255, .78) 0%, rgba(244, 248, 251, .56) 100%);
+      --glass-hover-shadow: 0 12px 24px rgba(63, 86, 116, .07);
+      --surface-hover-bg: linear-gradient(180deg, rgba(255, 255, 255, .3) 0%, rgba(244, 247, 250, .22) 52%, rgba(248, 246, 242, .31) 100%);
+      --surface-hover-border: rgba(110, 136, 166, .08);
+      --surface-hover-line: rgba(91, 124, 178, .17);
+      --surface-hover-shadow: 0 7px 18px rgba(63, 86, 116, .048);
+      --focus-outline: rgba(58, 93, 140, .84);
+      --focus-ring: rgba(91, 124, 178, .18);
+      --surface-card-bg: linear-gradient(180deg, rgba(255,255,255,.985) 0%, rgba(248,246,242,.97) 100%);
+      --surface-card-border: rgba(188, 197, 213, .56);
+      --surface-card-border-strong: rgba(123, 148, 182, .62);
+      --surface-card-shadow-soft: 0 10px 24px rgba(29, 40, 62, .055), 0 2px 6px rgba(29, 40, 62, .035);
+      --surface-card-shadow-hover: 0 18px 40px rgba(29, 40, 62, .11), 0 4px 10px rgba(29, 40, 62, .05);
+      --surface-card-highlight: rgba(255,255,255,.32);
+      --surface-card-line: rgba(255,255,255,.28);
+      --surface-card-blue-wash: rgba(91,124,178,.035);
+      --surface-card-warm-wash: rgba(184,79,24,.02);
+      --page-top-halo: rgba(255,255,255,.5);
+      --max-w: 1200px;
+      --nav-h: 64px;
+      --serif: 'Lora', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --ease-fluid: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --dur-fast: 160ms;
+      --dur-base: 240ms;
+      --dur-slow: 320ms;
+      --lift-btn: 0.5px;
+      /* annotation type colors, kept distinct from UI accent (#3A5D8C) */
+      --enc: #4B6EC8;
+      --enc-soft: #EEF0FB;
+      --con: #2E7D5E;
+      --con-soft: #EAF5F0;
+      --txt: #B84F18;
+      --txt-soft: #FDF2EC;
+      --mrk: #7754B3;
+      --mrk-soft: #F4F0FB;
+      --clr: #1A6B8A;
+      --clr-soft: #E8F4F9;
+      --oth: #636372;
+      --oth-soft: #F3F3F5;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0E1117;
+      --bg-alt: #151A22;
+      --bg-card: #1A2030;
+      --text: #E8E8F0;
+      --text-muted: #9A9AAE;
+      --text-light: #7A7A90;
+      --accent: #7CA3CC;
+      --accent-deep: #A5C4E0;
+      --accent-mid: #5B7CB2;
+      --accent-soft: rgba(91, 124, 178, .14);
+      --accent-warm: #D4753A;
+      --accent-warm-soft: rgba(212, 117, 58, .12);
+      --border: #2A2E3A;
+      --border-light: #22273A;
+      --glass-bg: rgba(20, 28, 42, .78);
+      --glass-bg-strong: rgba(22, 31, 46, .92);
+      --glass-border: rgba(255, 255, 255, .06);
+      --glass-stroke: rgba(80, 100, 130, .6);
+      --glass-shadow: 0 18px 40px rgba(0, 0, 0, .38);
+      --glass-shadow-soft: 0 10px 24px rgba(0, 0, 0, .22);
+      --glass-ring: rgba(80, 110, 158, .18);
+      --steel-blue-wash: rgba(80, 110, 158, .07);
+      --steel-blue-edge: rgba(80, 110, 158, .16);
+      --divider-subtle: rgba(80, 90, 110, .28);
+      --glass-hover-bg: linear-gradient(180deg, rgba(30, 42, 60, .88) 0%, rgba(22, 32, 48, .74) 100%);
+      --glass-hover-bg-soft: linear-gradient(180deg, rgba(28, 40, 58, .72) 0%, rgba(20, 30, 46, .58) 100%);
+      --glass-hover-shadow: 0 12px 24px rgba(0, 0, 0, .32);
+      --surface-hover-bg: linear-gradient(180deg, rgba(30, 42, 60, .28) 0%, rgba(22, 32, 48, .18) 100%);
+      --surface-hover-border: rgba(80, 110, 158, .14);
+      --surface-hover-line: rgba(91, 124, 178, .24);
+      --surface-hover-shadow: 0 7px 18px rgba(0, 0, 0, .2);
+      --focus-outline: rgba(124, 163, 204, .88);
+      --focus-ring: rgba(91, 124, 178, .24);
+      --surface-card-bg: linear-gradient(180deg, rgba(24,31,46,.985) 0%, rgba(21,27,40,.97) 100%);
+      --surface-card-border: rgba(84, 102, 132, .52);
+      --surface-card-border-strong: rgba(124, 163, 204, .54);
+      --surface-card-shadow-soft: 0 12px 28px rgba(0,0,0,.24), 0 2px 6px rgba(0,0,0,.16);
+      --surface-card-shadow-hover: 0 22px 46px rgba(0,0,0,.38), 0 6px 14px rgba(0,0,0,.22);
+      --surface-card-highlight: rgba(255,255,255,.03);
+      --surface-card-line: rgba(255,255,255,.03);
+      --surface-card-blue-wash: rgba(124,163,204,.045);
+      --surface-card-warm-wash: rgba(212,117,58,.025);
+      --page-top-halo: rgba(124,163,204,.12);
+      --enc: #8BAAE2;
+      --enc-soft: rgba(139, 170, 226, .12);
+      --con: #52B78A;
+      --con-soft: rgba(82, 183, 138, .1);
+      --txt: #C97240;
+      --txt-soft: rgba(201, 114, 64, .12);
+      --mrk: #A98CD4;
+      --mrk-soft: rgba(169, 140, 212, .12);
+      --clr: #4BA8C8;
+      --clr-soft: rgba(75, 168, 200, .1);
+      --oth: #9090A4;
+      --oth-soft: rgba(144, 144, 164, .1);
+    }
+
+    /* ── RESET ──────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-h) + 12px);
+    }
+
+    section[id] {
+      scroll-margin-top: calc(var(--nav-h) + 16px);
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 50% -8%, var(--page-top-halo), transparent 34%),
+        radial-gradient(circle at 14% 12%, rgba(255, 255, 255, .56), transparent 21%),
+        radial-gradient(circle at 88% 10%, rgba(91, 124, 178, .06), transparent 23%),
+        linear-gradient(180deg, #FEFDFC 0%, #F8F5EF 46%, #FAFAF8 100%);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15.5px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    [data-theme="dark"] body {
+      background:
+        radial-gradient(ellipse at 50% -10%, var(--page-top-halo), transparent 32%),
+        radial-gradient(circle at 14% 12%, rgba(44, 60, 90, .28), transparent 24%),
+        radial-gradient(circle at 88% 10%, rgba(58, 93, 140, .08), transparent 26%),
+        linear-gradient(180deg, #0E1117 0%, #101520 50%, #0E1117 100%);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      text-underline-offset: .15em;
+      text-decoration-thickness: 1px;
+      transition: color var(--dur-base) var(--ease-fluid);
+    }
+
+    a:hover {
+      color: var(--accent-deep);
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--focus-outline);
+      outline-offset: 2px;
+      border-radius: 3px;
+      box-shadow: 0 0 0 4px var(--focus-ring);
+    }
+
+    /* ── SKIP NAV ───────────────────────────────────────────── */
+    .skip-nav {
+      position: absolute;
+      left: -9999px;
+      top: .75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .5rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: .875rem;
+      font-weight: 500;
+      z-index: 9999;
+      transition: left .15s ease;
+    }
+
+    .skip-nav:focus {
+      left: 1rem;
+    }
+
+    .skip-nav:focus:not(:focus-visible) {
+      left: -9999px;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(180deg, rgba(253,252,250,.93) 0%, rgba(247,244,239,.80) 100%);
+      backdrop-filter: blur(28px) saturate(1.16) brightness(1.01);
+      -webkit-backdrop-filter: blur(28px) saturate(1.16) brightness(1.01);
+      border-bottom: 1px solid rgba(218,214,206,.58);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.88), 0 8px 24px rgba(29,40,62,.05);
+      transition: box-shadow var(--dur-base) var(--ease-fluid);
+    }
+
+    [data-theme="dark"] .top {
+      background: linear-gradient(180deg, rgba(14, 17, 23, .92) 0%, rgba(18, 24, 34, .84) 100%);
+      border-bottom-color: rgba(255, 255, 255, .06);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .04), 0 14px 32px rgba(0, 0, 0, .3);
+    }
+
+    .top.scrolled {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .78), 0 14px 32px rgba(29, 40, 62, .12);
+    }
+
+    [data-theme="dark"] .top.scrolled {
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .42);
+    }
+
+    .top__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: .75rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .top__title {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .top__title h1 {
+      font-family: var(--serif);
+      font-size: clamp(.76rem, 1.22vw, .86rem);
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -.015em;
+      line-height: 1.3;
+    }
+
+    .top__sub {
+      font-size: .72rem;
+      color: var(--text-light);
+      margin-top: .18rem;
+      line-height: 1.4;
+      letter-spacing: .01em;
+      max-width: 60ch;
+    }
+
+    .top__authors {
+      font-size: .72rem;
+      color: var(--text-muted);
+      margin-top: .28rem;
+      line-height: 1.5;
+    }
+
+    .top__authors strong {
+      color: var(--accent-deep);
+      font-weight: 600;
+    }
+
+    [data-theme="dark"] .top__authors strong {
+      color: var(--accent);
+    }
+
+    .top__authors em {
+      font-style: italic;
+    }
+
+    .top__year {
+      display: inline-block;
+      margin-left: .35rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .65rem;
+      font-weight: 600;
+      font-style: normal;
+      padding: .05rem .42rem;
+      border-radius: 4px;
+      border: 1px solid rgba(58, 93, 140, .14);
+      letter-spacing: .03em;
+    }
+
+    .top__nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .14rem;
+      margin-top: .52rem;
+    }
+
+    .top__nav a {
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .045em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: .25rem .6rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: color var(--dur-base) var(--ease-fluid), background var(--dur-base) var(--ease-fluid), border-color var(--dur-base) var(--ease-fluid);
+    }
+
+    .top__nav a:hover {
+      color: var(--accent);
+    }
+
+    .top__nav a.active {
+      color: var(--accent);
+      font-weight: 600;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .86) 0%, rgba(243, 247, 251, .58) 100%);
+      border-color: rgba(110, 136, 166, .14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 8px 18px rgba(63, 86, 116, .06);
+    }
+
+    [data-theme="dark"] .top__nav a.active {
+      background: rgba(91, 124, 178, .15);
+      border-color: rgba(91, 124, 178, .24);
+      box-shadow: none;
+    }
+
+    .top__actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .46rem;
+      flex-shrink: 0;
+      padding-top: .1rem;
+    }
+
+    .top__actions-row {
+      display: flex;
+      gap: .42rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .34rem;
+      padding: .34rem .82rem;
+      border-radius: 9px;
+      font-size: .74rem;
+      font-weight: 500;
+      line-height: 1.4;
+      min-height: 2.1rem;
+      letter-spacing: .015em;
+      white-space: nowrap;
+      user-select: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      backdrop-filter: blur(10px) saturate(1.08);
+      -webkit-backdrop-filter: blur(10px) saturate(1.08);
+      transition:
+        color var(--dur-base) var(--ease-fluid),
+        background var(--dur-base) var(--ease-fluid),
+        border-color var(--dur-base) var(--ease-fluid),
+        box-shadow var(--dur-base) var(--ease-fluid),
+        transform var(--dur-base) var(--ease-fluid);
+    }
+
+    .btn:active {
+      transform: scale(.988) translateY(0) !important;
+    }
+
+    .btn--primary {
+      background: linear-gradient(160deg, rgba(70, 102, 155, .92) 0%, rgba(50, 78, 122, .90) 100%);
+      color: rgba(255,255,255,.94);
+      border-color: rgba(35, 58, 100, .2);
+      box-shadow: 0 1px 2px rgba(35,58,100,.1), 0 4px 14px rgba(35,58,100,.15), inset 0 1px 0 rgba(255,255,255,.14);
+    }
+
+    .btn--primary:hover {
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 1px 2px rgba(35,58,100,.12), 0 6px 18px rgba(35,58,100,.18), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+
+    .btn--paper {
+      /* inline in title area */
+      display: inline-flex;
+      align-items: center;
+      gap: .28rem;
+      padding: .18rem .58rem;
+      border-radius: 6px;
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      background: rgba(58, 93, 140, .07);
+      color: var(--accent);
+      border: 1px solid rgba(58, 93, 140, .18);
+      box-shadow: none;
+      transition: background var(--dur-base), color var(--dur-base);
+    }
+
+    .btn--paper:hover {
+      background: rgba(58, 93, 140, .12);
+      color: var(--accent-deep);
+    }
+
+    .btn--outline {
+      background: linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(248,246,242,.72) 100%);
+      color: var(--text-muted);
+      border-color: rgba(200,212,228,.7);
+      box-shadow: 0 1px 2px rgba(29,40,62,.04), 0 3px 10px rgba(29,40,62,.06), inset 0 1px 0 rgba(255,255,255,.92);
+    }
+
+    [data-theme="dark"] .btn--outline {
+      background: linear-gradient(180deg, rgba(36,46,66,.88) 0%, rgba(28,38,56,.76) 100%);
+      border-color: rgba(80,100,135,.36);
+      box-shadow: 0 1px 2px rgba(0,0,0,.14), 0 3px 10px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .btn--outline:hover {
+      border-color: rgba(160,182,210,.72);
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(244,247,250,.82) 100%);
+      box-shadow: 0 1px 2px rgba(29,40,62,.05), 0 5px 14px rgba(29,40,62,.08), inset 0 1px 0 rgba(255,255,255,.96);
+      transform: translateY(-1px);
+    }
+
+    [data-theme="dark"] .btn--outline:hover {
+      border-color: rgba(100,126,168,.5);
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(42,56,78,.9) 0%, rgba(32,44,64,.8) 100%);
+    }
+
+    /* theme toggle */
+    .theme-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .32rem;
+      min-height: 2.0rem;
+      padding: .18rem .56rem .18rem .4rem;
+      border-radius: 9px;
+      border: 1px solid rgba(200,212,228,.7);
+      background: linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(248,246,242,.72) 100%);
+      color: var(--text-muted);
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(29,40,62,.04), 0 3px 10px rgba(29,40,62,.06), inset 0 1px 0 rgba(255,255,255,.92);
+      backdrop-filter: blur(16px) saturate(1.1);
+      -webkit-backdrop-filter: blur(16px) saturate(1.1);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: color var(--dur-base) var(--ease-fluid), background var(--dur-base) var(--ease-fluid), border-color var(--dur-base) var(--ease-fluid), box-shadow var(--dur-base) var(--ease-fluid), transform var(--dur-base) var(--ease-fluid);
+    }
+
+    [data-theme="dark"] .theme-btn {
+      background: linear-gradient(180deg, rgba(36,46,66,.88) 0%, rgba(28,38,56,.76) 100%);
+      border-color: rgba(80,100,135,.36);
+      box-shadow: 0 1px 2px rgba(0,0,0,.14), 0 3px 10px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .theme-btn:hover {
+      color: var(--text);
+      transform: translateY(-1px);
+      background: linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(244,247,250,.82) 100%);
+      border-color: rgba(160,182,210,.72);
+      box-shadow: 0 1px 2px rgba(29,40,62,.05), 0 5px 14px rgba(29,40,62,.08), inset 0 1px 0 rgba(255,255,255,.96);
+    }
+
+    [data-theme="dark"] .theme-btn:hover {
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(50,65,92,.96) 0%, rgba(38,52,76,.88) 100%);
+      border-color: rgba(100,126,168,.5);
+      box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 5px 14px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .theme-btn svg {
+      width: .9rem;
+      height: .9rem;
+      flex-shrink: 0;
+    }
+
+    /* ── LAYOUT ─────────────────────────────────────────────── */
+    .page {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 4.5rem 2rem;
+      border-top: 1px solid rgba(210, 206, 198, .38);
+      position: relative;
+    }
+
+    .section:first-child {
+      border-top: none;
+      padding-top: 3.5rem;
+    }
+
+    /* ── SECTION HEAD ─────────────────────────────────────────── */
+    .sec-eyebrow {
+      display: block;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .65rem;
+      opacity: .82;
+    }
+
+    .sec-title {
+      font-family: var(--serif);
+      font-size: clamp(1.55rem, 2.2vw, 1.95rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -.022em;
+      margin-bottom: .9rem;
+      text-wrap: balance;
+    }
+
+    .sec-desc {
+      font-size: .93rem;
+      color: var(--text-muted);
+      max-width: 66ch;
+      line-height: 1.78;
+      text-wrap: pretty;
+    }
+
+    .sec-head {
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── REVEAL ─────────────────────────────────────────────── */
+    .fu {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .58s var(--ease-fluid), transform .58s var(--ease-fluid);
+    }
+
+    .fu.d1 {
+      transition-delay: .06s;
+    }
+
+    .fu.d2 {
+      transition-delay: .12s;
+    }
+
+    .fu.d3 {
+      transition-delay: .18s;
+    }
+
+    .fu.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── OVERVIEW ─────────────────────────────────────────────── */
+    .contrib-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .88rem;
+      margin-top: 1.8rem;
+    }
+
+    .contrib-list li {
+      display: flex;
+      gap: .9rem;
+      align-items: flex-start;
+    }
+
+    .contrib-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: .52rem;
+    }
+
+    .contrib-content {
+      font-size: .905rem;
+      color: var(--text-muted);
+      line-height: 1.72;
+    }
+
+    .contrib-key {
+      font-weight: 600;
+      color: var(--text);
+      margin-right: .32rem;
+    }
+
+    /* stats strip */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: .75rem;
+      margin-top: 2.2rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(160deg, rgba(255,255,255,.82) 0%, rgba(248,246,242,.68) 100%);
+      border: 1px solid rgba(200,210,224,.52);
+      border-radius: var(--radius-lg);
+      padding: .92rem .85rem;
+      box-shadow: 0 2px 8px rgba(29,40,62,.04), 0 8px 28px rgba(29,40,62,.07), inset 0 1px 0 rgba(255,255,255,.98);
+      backdrop-filter: blur(14px) saturate(1.4);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+      text-align: center;
+      transition: transform var(--dur-slow) var(--ease-fluid), box-shadow var(--dur-base) var(--ease-fluid);
+    }
+    [data-theme="dark"] .stat-card {
+      background: linear-gradient(160deg, rgba(26,32,48,.72) 0%, rgba(20,26,40,.62) 100%);
+      border-color: rgba(80,100,130,.28);
+      box-shadow: 0 2px 8px rgba(0,0,0,.12), 0 8px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.06);
+      backdrop-filter: blur(18px) saturate(1.3);
+      -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(29,40,62,.04), 0 16px 40px rgba(29,40,62,.12), inset 0 1px 0 rgba(255,255,255,.98);
+    }
+    [data-theme="dark"] .stat-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,.14), 0 16px 40px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .stat-n {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+
+    .stat-l {
+      font-size: .74rem;
+      color: var(--text-muted);
+      margin-top: .32rem;
+      line-height: 1.4;
+    }
+
+    /* ── STUDY DESIGN ─────────────────────────────────────────── */
+    .study-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .study-card {
+      background: linear-gradient(160deg, rgba(255,255,255,.82) 0%, rgba(248,246,242,.68) 100%);
+      border: 1px solid rgba(200,210,224,.52);
+      border-radius: var(--radius-lg);
+      padding: 1.3rem 1.5rem;
+      box-shadow: 0 2px 8px rgba(29,40,62,.04), 0 8px 28px rgba(29,40,62,.07), inset 0 1px 0 rgba(255,255,255,.98);
+      backdrop-filter: blur(14px) saturate(1.4);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    }
+    [data-theme="dark"] .study-card {
+      background: linear-gradient(160deg, rgba(26,32,48,.72) 0%, rgba(20,26,40,.62) 100%);
+      border-color: rgba(80,100,130,.28);
+      box-shadow: 0 2px 8px rgba(0,0,0,.12), 0 8px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.06);
+      backdrop-filter: blur(18px) saturate(1.3);
+      -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    }
+
+    .study-card-head {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+      opacity: .82;
+    }
+
+    .study-card h3 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .75rem;
+      letter-spacing: -.012em;
+    }
+
+    .study-card p {
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 1.72;
+    }
+
+    .study-card p+p {
+      margin-top: .6rem;
+    }
+
+    .tasks-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .42rem;
+      margin-top: .7rem;
+    }
+
+    .tasks-list li {
+      display: flex;
+      align-items: baseline;
+      gap: .72rem;
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding: .48rem .62rem;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: background var(--dur-base) var(--ease-fluid), border-color var(--dur-base) var(--ease-fluid);
+    }
+
+    .tasks-list li:hover {
+      background: var(--surface-hover-bg);
+      border-color: rgba(123, 148, 182, .16);
+    }
+
+    .task-abbr {
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      background: var(--bg-alt);
+      color: var(--text-muted);
+      padding: .12rem .42rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .study-ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .62rem;
+      margin-top: .7rem;
+      counter-reset: steps;
+    }
+
+    .study-ol li {
+      display: flex;
+      gap: .8rem;
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.66;
+      counter-increment: steps;
+      align-items: flex-start;
+    }
+
+    .study-ol li::before {
+      content: counter(steps);
+      font-size: .66rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(58, 93, 140, .16);
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: .14rem;
+      letter-spacing: 0;
+    }
+
+    [data-theme="dark"] .study-card [style*="background:var(--accent-soft)"] {
+      background: rgba(91, 124, 178, .12) !important;
+      border-color: rgba(91, 124, 178, .22) !important;
+    }
+
+    .study-note {
+      margin-top: 1.1rem;
+      padding: .8rem .95rem;
+      background: linear-gradient(180deg, rgba(247,247,245,.9) 0%, rgba(244,242,238,.84) 100%);
+      border: 1px solid rgba(123, 148, 182, .18);
+      border-radius: 14px;
+      font-size: .84rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.78);
+    }
+
+    [data-theme="dark"] .study-note {
+      background: linear-gradient(180deg, rgba(28,36,50,.86) 0%, rgba(24,31,44,.8) 100%);
+      border-color: rgba(124, 163, 204, .22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    .study-note strong {
+      color: var(--accent-deep);
+      font-weight: 600;
+    }
+
+    [data-theme="dark"] .study-note strong {
+      color: var(--accent);
+    }
+
+    /* ── TAXONOMY ─────────────────────────────────────────────── */
+    .tax-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.6rem;
+    }
+
+    .tax-filter-lbl {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-right: .2rem;
+      flex-shrink: 0;
+    }
+
+    .tax-filter-btn {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: .28rem .7rem;
+      border-radius: 999px;
+      border: 1px solid var(--glass-stroke);
+      background: var(--glass-bg-strong);
+      color: var(--text-muted);
+      cursor: pointer;
+      box-shadow: var(--glass-shadow-soft), inset 0 1px 0 var(--glass-border);
+      transition: color var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast), box-shadow var(--dur-fast), transform var(--dur-fast);
+    }
+
+    .tax-filter-btn:hover {
+      color: var(--accent);
+      border-color: var(--steel-blue-edge);
+      transform: translateY(-.5px);
+    }
+
+    .tax-filter-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      border-color: rgba(58, 93, 140, .26);
+      box-shadow: 0 4px 12px rgba(58, 93, 140, .1), inset 0 1px 0 rgba(255, 255, 255, .9);
+    }
+
+    [data-theme="dark"] .tax-filter-btn.active {
+      background: rgba(91, 124, 178, .18);
+      color: var(--accent);
+      border-color: rgba(91, 124, 178, .3);
+      box-shadow: none;
+    }
+
+
+    .tax-status {
+      font-size: .76rem;
+      color: var(--text-light);
+      margin-left: auto;
+      padding-right: .2rem;
+      flex-shrink: 0;
+    }
+
+    .tax-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .tax-card {
+      background: linear-gradient(160deg, rgba(255,255,255,.80) 0%, rgba(248,246,242,.65) 60%, rgba(242,240,236,.58) 100%);
+      border: 1px solid rgba(200,210,224,.45);
+      border-radius: var(--radius-lg);
+      padding: 0;
+      box-shadow: 0 1px 3px rgba(29,40,62,.04), 0 6px 20px rgba(29,40,62,.07), 0 20px 48px rgba(29,40,62,.06), inset 0 1px 0 rgba(255,255,255,.98);
+      backdrop-filter: blur(16px) saturate(1.5) brightness(1.01);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5) brightness(1.01);
+      overflow: hidden;
+      transition:
+        transform var(--dur-slow) var(--ease-fluid),
+        box-shadow var(--dur-base) var(--ease-fluid),
+        opacity var(--dur-base) var(--ease-fluid),
+        border-color var(--dur-base) var(--ease-fluid);
+    }
+    [data-theme="dark"] .tax-card {
+      background: linear-gradient(160deg, rgba(30,38,56,.70) 0%, rgba(22,30,46,.60) 100%);
+      border-color: rgba(90,110,145,.25);
+      box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 6px 20px rgba(0,0,0,.22), 0 20px 48px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.07);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    }
+
+    .tax-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 1px 3px rgba(29,40,62,.04), 0 10px 28px rgba(29,40,62,.10), 0 28px 64px rgba(29,40,62,.10), inset 0 1px 0 rgba(255,255,255,.98);
+      border-color: rgba(175,192,214,.58);
+    }
+    [data-theme="dark"] .tax-card:hover {
+      box-shadow: 0 1px 3px rgba(0,0,0,.14), 0 10px 28px rgba(0,0,0,.30), 0 28px 64px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.09);
+      border-color: rgba(100,125,165,.38);
+    }
+
+    .tax-card.hidden {
+      opacity: .25;
+      pointer-events: none;
+      transform: none;
+    }
+
+    .tax-card-head {
+      padding: 1.1rem 1.4rem .9rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .9rem;
+      border-bottom: 1px solid rgba(210, 206, 198, .38);
+    }
+
+    [data-theme="dark"] .tax-card-head {
+      border-bottom-color: rgba(80, 90, 110, .28);
+    }
+
+    .tax-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+      border: 1px solid rgba(0, 0, 0, .06);
+    }
+
+    .tax-card-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .tax-card-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.25;
+      letter-spacing: -.01em;
+    }
+
+    .tax-card-count {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--text-light);
+      margin-top: .14rem;
+    }
+
+    .tax-card-count span {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .tax-card-body {
+      padding: .9rem 1.4rem 1.2rem;
+    }
+
+    .tax-card-desc {
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .tax-card-subtypes {
+      margin-top: .72rem;
+    }
+
+    .tax-card-subtypes-lbl {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: .38rem;
+    }
+
+    .subtypes-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .3rem;
+    }
+
+    .subtype-pill {
+      font-size: .69rem;
+      font-weight: 500;
+      padding: .16rem .5rem;
+      border-radius: 5px;
+      background: var(--bg-alt);
+      color: var(--text-muted);
+      border: 1px solid var(--border-light);
+    }
+
+    .tax-card-tasks {
+      margin-top: .82rem;
+    }
+
+    .tax-card-tasks-lbl {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: .4rem;
+    }
+
+    .task-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .28rem;
+    }
+
+    .task-pill {
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .035em;
+      padding: .14rem .44rem;
+      border-radius: 4px;
+      background: var(--bg-alt);
+      color: var(--text-muted);
+      border: 1px solid var(--border-light);
+    }
+
+    .task-pill.sec-marker {
+      opacity: .5;
+    }
+
+
+    /* usage bar */
+    .usage-bar-wrap {
+      margin-top: .72rem;
+    }
+
+    .usage-bar-lbl {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: .35rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .usage-bar-lbl span {
+      font-weight: 400;
+      color: var(--text-light);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .usage-bar-track {
+      height: 5px;
+      border-radius: 999px;
+      background: var(--border-light);
+      overflow: hidden;
+    }
+
+    .usage-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width .6s var(--ease-fluid);
+    }
+
+    /* accent bands per type */
+    .tax-card[data-type="enc"] {
+      border-top: 3px solid var(--enc);
+    }
+
+    .tax-card[data-type="con"] {
+      border-top: 3px solid var(--con);
+    }
+
+    .tax-card[data-type="txt"] {
+      border-top: 3px solid var(--txt);
+    }
+
+    .tax-card[data-type="mrk"] {
+      border-top: 3px solid var(--mrk);
+    }
+
+    .tax-card[data-type="clr"] {
+      border-top: 3px solid var(--clr);
+    }
+
+    .tax-card[data-type="oth"] {
+      border-top: 3px solid var(--oth);
+    }
+
+    /* ── ENSEMBLES ─────────────────────────────────────────────── */
+    .ens-intro {
+      margin-bottom: 2rem;
+    }
+
+    .ens-intro p {
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 1.76;
+      max-width: 70ch;
+    }
+
+    .ens-intro p+p {
+      margin-top: .62rem;
+    }
+
+    .ens-tabs {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 1.6rem;
+      flex-wrap: wrap;
+    }
+
+    .ens-tab {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      padding: .42rem .9rem;
+      border-radius: 999px;
+      border: 1px solid var(--glass-stroke);
+      background: var(--glass-bg-strong);
+      color: var(--text-muted);
+      cursor: pointer;
+      box-shadow: var(--glass-shadow-soft), inset 0 1px 0 var(--glass-border);
+      transition: color var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast);
+    }
+
+    .ens-tab:hover {
+      color: var(--accent);
+      transform: translateY(-.5px);
+    }
+
+    .ens-tab.active {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .92) 0%, rgba(243, 247, 251, .8) 100%);
+      color: var(--accent-deep);
+      border-color: rgba(58, 93, 140, .24);
+      box-shadow: 0 6px 16px rgba(58, 93, 140, .1), inset 0 1px 0 rgba(255, 255, 255, .9);
+    }
+
+    [data-theme="dark"] .ens-tab.active {
+      background: rgba(91, 124, 178, .18);
+      color: var(--accent);
+      border-color: rgba(91, 124, 178, .3);
+      box-shadow: none;
+    }
+
+    .ens-panel {
+      display: none;
+    }
+
+    .ens-panel.active {
+      display: block;
+    }
+
+    .ens-dep-note {
+      padding: .82rem 1.1rem;
+      border-radius: var(--radius);
+      background: var(--bg-alt);
+      border: 1px solid var(--border-light);
+      font-size: .855rem;
+      color: var(--text-muted);
+      line-height: 1.68;
+      margin-bottom: 1.4rem;
+    }
+
+    .ens-dep-note strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .ens-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .ens-row {
+      display: flex;
+      align-items: flex-start;
+      gap: .8rem;
+      padding: .9rem 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(200,210,224,.45);
+      background: linear-gradient(160deg, rgba(255,255,255,.80) 0%, rgba(248,246,242,.65) 100%);
+      box-shadow: 0 1px 3px rgba(29,40,62,.04), 0 6px 20px rgba(29,40,62,.07), inset 0 1px 0 rgba(255,255,255,.98);
+      backdrop-filter: blur(14px) saturate(1.4);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+      transition: transform var(--dur-slow) var(--ease-fluid), box-shadow var(--dur-base) var(--ease-fluid);
+    }
+    [data-theme="dark"] .ens-row {
+      background: linear-gradient(160deg, rgba(30,38,56,.70) 0%, rgba(22,30,46,.60) 100%);
+      border-color: rgba(90,110,145,.25);
+      box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 6px 20px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.07);
+      backdrop-filter: blur(18px) saturate(1.3);
+      -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    }
+
+    .ens-row:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 1px 3px rgba(29,40,62,.04), 0 12px 32px rgba(29,40,62,.10), inset 0 1px 0 rgba(255,255,255,.98);
+    }
+
+    .ens-badge {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      padding: .22rem .52rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: .12rem;
+    }
+
+    .ens-badge.one-way,
+    .ens-badge.two-way,
+    .ens-badge.common {
+      background: var(--bg-alt);
+      color: var(--text-muted);
+      border: 1px solid var(--border-light);
+    }
+
+    .ens-row-copy {}
+
+    .ens-name {
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: .28rem;
+    }
+
+    .ens-desc {
+      font-size: .83rem;
+      color: var(--text-muted);
+      line-height: 1.64;
+    }
+
+    .ens-tasks-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .26rem;
+      margin-top: .5rem;
+    }
+
+    .ens-task-pill {
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .035em;
+      padding: .1rem .36rem;
+      border-radius: 3px;
+      background: var(--bg-alt);
+      color: var(--text-muted);
+      border: 1px solid var(--border-light);
+    }
+
+    /* ── FINDINGS ─────────────────────────────────────────────── */
+    .findings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .finding-card {
+      padding: 1.2rem 1.4rem;
+      background: linear-gradient(160deg, rgba(255,255,255,.80) 0%, rgba(248,246,242,.65) 100%);
+      border: 1px solid rgba(200,210,224,.45);
+      border-left: 3px solid var(--accent-mid);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 1px 3px rgba(29,40,62,.04), 0 6px 20px rgba(29,40,62,.07), inset 0 1px 0 rgba(255,255,255,.98);
+      backdrop-filter: blur(14px) saturate(1.4);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+      transition: transform var(--dur-slow) var(--ease-fluid), box-shadow var(--dur-base) var(--ease-fluid);
+    }
+    [data-theme="dark"] .finding-card {
+      background: linear-gradient(160deg, rgba(30,38,56,.70) 0%, rgba(22,30,46,.60) 100%);
+      border-color: rgba(90,110,145,.25);
+      box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 6px 20px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.07);
+      backdrop-filter: blur(18px) saturate(1.3);
+      -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    }
+
+    .finding-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 1px 3px rgba(29,40,62,.04), 0 12px 32px rgba(29,40,62,.10), inset 0 1px 0 rgba(255,255,255,.98);
+    }
+    [data-theme="dark"] .finding-card:hover {
+      box-shadow: 0 1px 3px rgba(0,0,0,.14), 0 12px 32px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.09);
+    }
+
+    .finding-n {
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      margin-bottom: .55rem;
+    }
+
+    .finding-head {
+      font-family: var(--serif);
+      font-size: .97rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: .6rem;
+      letter-spacing: -.01em;
+    }
+
+    .finding-body {
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.72;
+    }
+
+    /* ── CARD LANGUAGE ─────────────────────────────────────────── */
+    .stat-card,
+    .study-card,
+    .anno-card,
+    .tax-card,
+    .ens-row,
+    .finding-card {
+      position: relative;
+      isolation: isolate;
+      background: var(--surface-card-bg);
+      border-color: var(--surface-card-border);
+      border-radius: 22px;
+      box-shadow: var(--surface-card-shadow-soft);
+      overflow: hidden;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transition:
+        transform var(--dur-slow) var(--ease-fluid),
+        box-shadow var(--dur-base) var(--ease-fluid),
+        border-color var(--dur-base) var(--ease-fluid),
+        background var(--dur-base) var(--ease-fluid);
+    }
+
+    .stat-card::before,
+    .study-card::before,
+    .anno-card::before,
+    .tax-card::before,
+    .ens-row::before,
+    .finding-card::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at top right, var(--surface-card-blue-wash), transparent 32%),
+        linear-gradient(180deg, var(--surface-card-highlight) 0%, rgba(255,255,255,0) 34%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .stat-card::after,
+    .study-card::after,
+    .anno-card::after,
+    .tax-card::after,
+    .ens-row::after,
+    .finding-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 14px;
+      right: 14px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--surface-card-line), transparent);
+      opacity: .45;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .stat-card > *,
+    .study-card > *,
+    .anno-card > *,
+    .tax-card > *,
+    .ens-row > *,
+    .finding-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-card:hover,
+    .study-card:hover,
+    .anno-card:hover,
+    .tax-card:hover,
+    .ens-row:hover,
+    .finding-card:hover {
+      transform: none;
+      border-color: var(--surface-card-border);
+      box-shadow: var(--surface-card-shadow-soft);
+    }
+
+    .anno-card:hover .anno-card-img-wrap img {
+      transform: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .stat-card:hover,
+      .study-card:hover,
+      .anno-card:hover,
+      .tax-card:hover,
+      .ens-row:hover,
+      .finding-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--surface-card-border-strong);
+        box-shadow: var(--surface-card-shadow-hover);
+      }
+
+      .anno-card:hover .anno-card-img-wrap img {
+        transform: scale(1.012);
+      }
+    }
+
+    .stat-card:focus-within,
+    .study-card:focus-within,
+    .anno-card:focus-within,
+    .tax-card:focus-within,
+    .ens-row:focus-within,
+    .finding-card:focus-within {
+      border-color: var(--surface-card-border-strong);
+      box-shadow: var(--surface-card-shadow-hover), 0 0 0 4px var(--focus-ring);
+    }
+
+    .stat-card {
+      min-height: 108px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: .35rem;
+    }
+
+    .study-card,
+    .anno-card,
+    .tax-card,
+    .ens-row,
+    .finding-card {
+      height: 100%;
+    }
+
+    .study-card {
+      padding: 1.42rem 1.55rem;
+    }
+
+    .study-card-head {
+      margin-bottom: 1rem;
+      color: var(--accent-deep);
+    }
+
+    .tax-card {
+      --tax-accent-soft: var(--accent-soft);
+    }
+
+    .tax-card-head {
+      padding: 1.18rem 1.45rem .98rem;
+      background: linear-gradient(180deg, rgba(255,255,255,.2) 0%, rgba(255,255,255,0) 100%);
+    }
+
+    [data-theme="dark"] .tax-card-head {
+      background: linear-gradient(180deg, rgba(255,255,255,.018) 0%, rgba(255,255,255,0) 100%);
+    }
+
+    .tax-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+    }
+
+    .tax-card-body {
+      padding: 1.02rem 1.45rem 1.28rem;
+    }
+
+    .tax-card[data-type="enc"] {
+      --tax-accent-soft: var(--enc-soft);
+      border-top-width: 3px;
+      border-top-color: var(--enc);
+    }
+
+    .tax-card[data-type="con"] {
+      --tax-accent-soft: var(--con-soft);
+      border-top-width: 3px;
+      border-top-color: var(--con);
+    }
+
+    .tax-card[data-type="txt"] {
+      --tax-accent-soft: var(--txt-soft);
+      border-top-width: 3px;
+      border-top-color: var(--txt);
+    }
+
+    .tax-card[data-type="mrk"] {
+      --tax-accent-soft: var(--mrk-soft);
+      border-top-width: 3px;
+      border-top-color: var(--mrk);
+    }
+
+    .tax-card[data-type="clr"] {
+      --tax-accent-soft: var(--clr-soft);
+      border-top-width: 3px;
+      border-top-color: var(--clr);
+    }
+
+    .tax-card[data-type="oth"] {
+      --tax-accent-soft: var(--oth-soft);
+      border-top-width: 3px;
+      border-top-color: var(--oth);
+    }
+
+    .tax-card.hidden {
+      opacity: .34;
+      filter: saturate(.76);
+    }
+
+    .subtype-pill,
+    .task-pill,
+    .ens-badge,
+    .ens-task-pill,
+    .anno-type-chip {
+      border-radius: 999px;
+    }
+
+    .ens-row {
+      padding: 1rem 1.08rem;
+    }
+
+    .finding-card {
+      padding: 1.28rem 1.45rem;
+      border-left-width: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .stat-card,
+      .study-card,
+      .anno-card,
+      .tax-card,
+      .ens-row,
+      .finding-card,
+      .anno-card-img-wrap img {
+        transition: none !important;
+      }
+
+      .stat-card:hover,
+      .study-card:hover,
+      .anno-card:hover,
+      .tax-card:hover,
+      .ens-row:hover,
+      .finding-card:hover,
+      .anno-card:hover .anno-card-img-wrap img {
+        transform: none !important;
+      }
+    }
+
+    /* ── CITATION ─────────────────────────────────────────────── */
+    .cite-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 800px;
+    }
+
+    .cite-block {
+      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+      font-size: .815rem;
+      line-height: 1.75;
+      background: var(--bg-alt);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem 1.7rem;
+      overflow-x: auto;
+      white-space: pre;
+      tab-size: 2;
+    }
+
+    .cite-copy {
+      align-self: flex-start;
+    }
+
+    [data-copy-bib].copied {
+      background: linear-gradient(160deg, rgba(240,249,244,.96) 0%, rgba(228,244,236,.82) 100%) !important;
+      border-color: rgba(46, 125, 94, .32) !important;
+      color: #2E7D5E !important;
+      box-shadow: 0 1px 2px rgba(46,125,94,.06), 0 4px 12px rgba(46,125,94,.10), inset 0 1px 0 rgba(255,255,255,.9) !important;
+    }
+
+    [data-theme="dark"] [data-copy-bib].copied {
+      background: linear-gradient(160deg, rgba(30,58,44,.88) 0%, rgba(22,46,34,.76) 100%) !important;
+      border-color: rgba(46, 125, 94, .4) !important;
+      color: rgba(140, 220, 175, .92) !important;
+      box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 4px 12px rgba(46,125,94,.16), inset 0 1px 0 rgba(255,255,255,.06) !important;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--divider-subtle);
+      padding: 1.8rem 2rem;
+      background: linear-gradient(180deg, rgba(249, 247, 243, .84) 0%, rgba(242, 239, 233, .9) 100%);
+      backdrop-filter: blur(12px) saturate(1.04);
+      -webkit-backdrop-filter: blur(12px) saturate(1.04);
+    }
+
+    [data-theme="dark"] .footer {
+      background: linear-gradient(180deg, rgba(14, 17, 23, .8) 0%, rgba(12, 15, 21, .9) 100%);
+    }
+
+    .footer__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      font-size: .79rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: .6rem 1.2rem;
+    }
+
+    .footer__inner a {
+      color: var(--text-light);
+      border-bottom: 1px solid rgba(92, 92, 116, .22);
+      transition: color var(--ease-fluid), border-color var(--ease-fluid);
+    }
+
+    .footer__inner a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .footer__right {
+      display: flex;
+      gap: .5rem 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer__right a {
+      white-space: nowrap;
+    }
+
+    /* ── BACK TO TOP ─────────────────────────────────────────── */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: linear-gradient(180deg, var(--glass-bg-strong) 0%, var(--glass-bg) 100%);
+      border: 1px solid var(--glass-stroke);
+      color: var(--text-muted);
+      cursor: pointer;
+      z-index: 90;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--glass-shadow-soft), inset 0 1px 0 var(--glass-border), 0 0 0 1px var(--glass-ring);
+      backdrop-filter: blur(16px) saturate(1.1);
+      -webkit-backdrop-filter: blur(16px) saturate(1.1);
+      opacity: 0;
+      transform: translateY(8px) scale(.9);
+      transition: opacity var(--dur-base) var(--ease-fluid), transform var(--dur-base) var(--ease-fluid), box-shadow var(--dur-base) var(--ease-fluid);
+      pointer-events: none;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-border), 0 0 0 1px var(--glass-ring);
+      color: var(--accent);
+    }
+
+    /* ── NAV DOTS ─────────────────────────────────────────────── */
+    .nav-dots {
+      position: fixed;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      z-index: 80;
+    }
+
+    .nav-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--border);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background var(--dur-base) var(--ease-fluid), transform var(--dur-base) var(--ease-fluid), box-shadow var(--dur-base) var(--ease-fluid);
+    }
+
+    .nav-dot:hover {
+      background: var(--accent-mid);
+      transform: scale(1.3);
+    }
+
+    .nav-dot.active {
+      background: var(--accent);
+      transform: scale(1.4);
+      box-shadow: 0 0 0 3px rgba(58, 93, 140, .18);
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .top__inner {
+        flex-direction: column;
+        gap: .8rem;
+      }
+
+      .top__actions {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .top__actions-row {
+        order: -1;
+      }
+
+      .study-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ens-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .findings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-dots {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .section {
+        padding: 3.2rem 1.25rem;
+      }
+
+      .top__inner {
+        padding: .65rem 1.25rem;
+      }
+
+      .top__nav {
+        gap: .1rem;
+      }
+
+      .top__nav a {
+        padding: .22rem .44rem;
+        font-size: .62rem;
+      }
+
+      .tax-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+      }
+
+      .footer__inner {
+        flex-direction: column;
+      }
+    }
+
+    /* ── GDPH TRIGGER ──────────────────────────────────────────── */
+    .gdph-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: .2em;
+      cursor: pointer;
+      color: var(--accent);
+      border-bottom: 1.5px dashed var(--accent);
+      padding-bottom: .04em;
+      font-weight: 600;
+      transition: color .18s, border-color .18s, opacity .18s;
+    }
+    .gdph-trigger:hover { opacity: .78; }
+    .gdph-trigger::after {
+      content: '';
+      display: inline-block;
+      width: .6em;
+      height: .6em;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A5D8C' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Cpath d='M3 9h18M9 21V9'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: .7;
+    }
+
+    /* ── GDPH BACKDROP + DRAWER ─────────────────────────────────── */
+    #gdph-backdrop {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.42);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .32s ease;
+    }
+    #gdph-backdrop.open { opacity: 1; pointer-events: all; }
+
+    #gdph-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 1001;
+      width: min(1100px, 96vw);
+      background: var(--bg-card);
+      box-shadow: -16px 0 48px rgba(0,0,0,.14), -2px 0 8px rgba(0,0,0,.07);
+      border-left: 1px solid var(--border-light);
+      transform: translateX(105%);
+      transition: transform .38s cubic-bezier(.32,.72,0,1);
+      overflow-y: auto;
+      display: flex; flex-direction: column;
+    }
+    #gdph-drawer.open { transform: translateX(0); }
+
+    .gdph-drawer-header {
+      position: sticky; top: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.2rem .9rem;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-light);
+      gap: .8rem;
+    }
+    .gdph-drawer-eyebrow {
+      font-size: .6rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent); opacity: .8;
+    }
+    .gdph-drawer-title {
+      font-family: var(--serif); font-size: 1.02rem; font-weight: 600;
+      color: var(--text); line-height: 1.25; margin-top: .18rem;
+    }
+    .gdph-close-btn {
+      flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 2rem; height: 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+    .gdph-close-btn:hover { background: var(--bg-alt); color: var(--text); }
+
+    .gdph-drawer-body { padding: 1.15rem 1.4rem 2rem; display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .gdph-image-wrap {
+      border-radius: 10px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+    }
+    .gdph-image-wrap img {
+      width: max(100%, 960px);
+      max-width: none;
+      height: auto;
+      display: block;
+    }
+
+    .gdph-fig-label {
+      font-size: .6rem; font-weight: 700; letter-spacing: .09em;
+      text-transform: uppercase; color: var(--accent); opacity: .75;
+      margin-bottom: .3rem;
+    }
+    .gdph-caption {
+      font-size: .82rem; color: var(--text-muted); line-height: 1.65;
+    }
+    .gdph-caption strong { color: var(--text); font-weight: 600; }
+
+    .gdph-context-box {
+      padding: .7rem .9rem;
+      border-radius: 9px;
+      background: var(--accent-warm-soft);
+      border-left: 3px solid var(--accent-warm);
+    }
+    .gdph-context-box p {
+      font-size: .8rem; color: var(--text-muted); line-height: 1.6; margin: 0;
+    }
+    .gdph-context-box p strong { color: var(--text); }
+    @media (max-width: 720px) {
+      #gdph-drawer { width: 100vw; }
+      .gdph-drawer-body { padding: 1rem 1rem 1.5rem; }
+    }
+
+    /* ── ANNOTATED EXAMPLES GALLERY ─────────────────────────────── */
+    .anno-section-head {
+      display: flex; align-items: baseline; gap: .7rem;
+      margin-bottom: 1.4rem; margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+    }
+    .anno-section-eyebrow {
+      font-size: .62rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent); opacity: .8;
+    }
+    .anno-section-title {
+      font-family: var(--serif); font-size: 1.08rem; font-weight: 600;
+      color: var(--text); line-height: 1.2;
+    }
+    .anno-section-desc {
+      font-size: .86rem; color: var(--text-muted); line-height: 1.6;
+      max-width: 58ch; margin-top: .45rem;
+    }
+
+    .anno-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+    @media (max-width: 820px) { .anno-gallery { grid-template-columns: 1fr; } }
+    @media (min-width: 821px) and (max-width: 1080px) { .anno-gallery { grid-template-columns: 1fr 1fr; } }
+
+    .anno-card {
+      display: flex; flex-direction: column;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: box-shadow .22s var(--ease-fluid), transform .22s var(--ease-fluid);
+    }
+    .anno-card-img-wrap {
+      position: relative;
+      padding: 0;
+      background: transparent;
+      border-bottom: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+    .anno-card-img-wrap img {
+      width: 100%; display: block;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      transition: transform .35s var(--ease-fluid), filter .35s var(--ease-fluid);
+    }
+    .anno-card:focus-within .anno-card-img-wrap img { transform: scale(1.012); }
+    .anno-card-body { padding: 1rem 1.08rem 1.12rem; display: flex; flex-direction: column; gap: .58rem; }
+    .anno-card-types {
+      display: flex; flex-wrap: wrap; gap: .3rem;
+    }
+    .anno-type-chip {
+      font-size: .58rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .14rem .42rem;
+      border-radius: 5px;
+      border: 1px solid transparent;
+    }
+    .anno-type-chip.enc { background: var(--enc-soft); color: var(--enc); border-color: rgba(75,110,200,.16); }
+    .anno-type-chip.con { background: var(--con-soft); color: var(--con); border-color: rgba(56,154,104,.14); }
+    .anno-type-chip.txt { background: var(--txt-soft); color: var(--txt); border-color: rgba(184,79,24,.14); }
+    .anno-type-chip.mrk { background: var(--mrk-soft); color: var(--mrk); border-color: rgba(143,92,195,.14); }
+    .anno-type-chip.clr { background: var(--clr-soft); color: var(--clr); border-color: rgba(26,107,138,.14); }
+    .anno-card-caption {
+      font-size: .81rem; color: var(--text-muted); line-height: 1.68;
+    }
+    .anno-card-caption strong { color: var(--text); font-weight: 600; }
+    .anno-fig-ref {
+      font-size: .64rem; color: var(--text-light); opacity: .82;
+      margin-top: .2rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-nav" href="#main-content">Skip to main content</a>
+
+  <!-- ── HEADER ──────────────────────────────────────────────── -->
+  <header class="top" id="site-header">
+    <div class="top__inner">
+      <div class="top__title">
+        <h1 style="margin-bottom:.32rem;">Exploring Annotation Taxonomy in Grouped Bar Charts: A Qualitative Classroom Study&thinsp;<a href="https://doi.org/10.1177/14738716241270247" target="_blank" rel="noopener" class="btn--paper" aria-label="Read the full paper" style="vertical-align:middle;white-space:nowrap;">Read Paper ↗</a></h1>
+        <div class="top__authors">
+          <strong>Md Dilshadur Rahman</strong>, Ghulam Jilani Quadri, Danielle Albers Szafir, Paul Rosen
+        </div>
+        <div class="top__sub"><em>Information Visualization</em> · 2025</div>
+        <nav class="top__nav" aria-label="Page sections">
+          <a href="#overview" class="active" onclick="smoothTo(event,'overview')">Overview</a>
+          <a href="#study-design" onclick="smoothTo(event,'study-design')">Study Design</a>
+          <a href="#taxonomy" onclick="smoothTo(event,'taxonomy')">Taxonomy</a>
+          <a href="#ensembles" onclick="smoothTo(event,'ensembles')">Ensembles</a>
+          <a href="#findings" onclick="smoothTo(event,'findings')">Findings</a>
+          <a href="#citation" onclick="smoothTo(event,'citation')">Citation</a>
+        </nav>
+      </div>
+      <div class="top__actions">
+        <div class="top__actions-row" style="display: flex; align-items: center; gap: 0.75rem;">
+          <a href="https://osf.io/vup8r/" target="_blank" rel="noopener" class="btn btn--outline">Supplemental ↗</a>
+          <button class="btn btn--outline" data-copy-bib onclick="copyBib(this)" aria-label="Copy BibTeX citation">Copy BibTeX</button>
+          <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark mode"
+            style="margin-left: 0;">
+            <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <span id="theme-lbl">Light</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page">
+
+      <!-- ── 01 OVERVIEW ──────────────────────────────────────── -->
+      <section class="section" id="overview" aria-labelledby="h-overview">
+        <div class="sec-head fu">
+          <span class="sec-eyebrow">01 · Overview</span>
+          <h2 class="sec-title" id="h-overview">Research Overview</h2>
+          <p class="sec-desc">This study evaluates how visualization students annotate grouped bar charts when answering
+            high-level analytical questions. Through qualitative coding, we identify a taxonomy of annotation types and
+            characterize how different types support specific low-level analytic tasks.</p>
+        </div>
+
+        <div class="fu d1">
+          <ul class="contrib-list" aria-label="Key contributions">
+            <li>
+              <span class="contrib-dot" style="background:var(--enc)"></span>
+              <div class="contrib-content">
+                <span class="contrib-key">Taxonomy.</span>
+                We coded annotations from 20 student submissions and identified five primary annotation types:
+                enclosure, connector, text, mark, and color, plus a residual category for special symbols.
+                Each type is mapped to the low-level analytic tasks it was used to support.
+              </div>
+            </li>
+            <li>
+              <span class="contrib-dot" style="background:var(--con)"></span>
+              <div class="contrib-content">
+                <span class="contrib-key">Ensemble Annotations.</span>
+                We found that participants frequently combined types into <em>ensembles</em>, including 2-, 3-, and
+                4-annotation combinations for a single task. We characterize one-way and two-way dependency
+                relationships between the constituent types.
+              </div>
+            </li>
+            <li>
+              <span class="contrib-dot" style="background:var(--txt)"></span>
+              <div class="contrib-content">
+                <span class="contrib-key">Design Space Observations.</span>
+                We report cross-cutting patterns: within-subject consistency in type selection, task-driven
+                ensemble use (sort always required ensembles), and annotation strategies specific to
+                non-chronological data ordering.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ── 02 STUDY DESIGN ───────────────────────────────────── -->
+      <section class="section" id="study-design" aria-labelledby="h-study">
+        <div class="sec-head fu">
+          <span class="sec-eyebrow">02 · Study Design</span>
+          <h2 class="sec-title" id="h-study">Methodology</h2>
+          <p class="sec-desc">We used a course assignment in a mixed undergraduate/graduate data visualization course at the University of South Florida (Spring 2022). Students annotated three grouped bar charts based on the Georgia Department of Public Health (<span class="gdph-trigger" role="button" tabindex="0" aria-haspopup="dialog" onclick="openGdph()" onkeydown="if(event.key==='Enter'||event.key===' ')openGdph()">GDPH</span>) COVID-19 visualization to support answering 12 high-level questions.</p>
+        </div>
+
+        <div class="stats-grid fu d1" aria-label="Study statistics" style="margin-bottom:2rem;">
+          <div class="stat-card"><div class="stat-n">39</div><div class="stat-l">Enrolled students</div></div>
+          <div class="stat-card"><div class="stat-n">38</div><div class="stat-l">Completed</div></div>
+          <div class="stat-card"><div class="stat-n">20</div><div class="stat-l">Submissions analyzed</div></div>
+          <div class="stat-card"><div class="stat-n">3</div><div class="stat-l">Charts per submission</div></div>
+          <div class="stat-card"><div class="stat-n">12</div><div class="stat-l">Total questions</div></div>
+          <div class="stat-card"><div class="stat-n">5</div><div class="stat-l">Annotation types</div></div>
+          <div class="stat-card"><div class="stat-n">~45</div><div class="stat-l">Avg. annotations / student</div></div>
+        </div>
+
+        <div class="study-grid fu d2">
+          <div class="study-card">
+            <div class="study-card-head">Participants &amp; Assignment</div>
+            <p>We recruited students from an Interactive Data Visualization elective at the University of South Florida (USF), with 21 undergraduate and 18 graduate students (39 total). The assignment was given halfway through the semester, before any lecture on bar charts or annotations.</p>
+            <p>Each student received three grouped bar charts with four high-level questions each (12 total). They were asked to annotate each chart to make the questions easy to answer without writing the answer directly. Any tool was permitted; work was done individually outside class.</p>
+            <div class="study-note">
+              <strong>Inclusion:</strong> Of 38 completed submissions, 13 had no annotations and 5 had minimal unrelated marks. We analyzed the remaining <strong>20 submissions</strong>.
+            </div>
+          </div>
+
+          <div class="study-card">
+            <div class="study-card-head">Low-Level Analytic Tasks</div>
+            <p>Students also identified which low-level tasks each question required. These tasks form the axis of the taxonomy: each annotation type is characterized by the tasks it supports.</p>
+            <ul class="tasks-list" aria-label="Analytic tasks">
+              <li><span class="task-abbr rv">RV</span> <span><strong>Retrieve Value:</strong> look up a specific data value.</span></li>
+              <li><span class="task-abbr flt">Filter</span> <span><strong>Filter:</strong> identify a subset satisfying a condition.</span></li>
+              <li><span class="task-abbr cdv">CDV</span> <span><strong>Compute Derived Value:</strong> calculate a value from multiple points.</span></li>
+              <li><span class="task-abbr fe">FE</span> <span><strong>Find Extremum:</strong> identify the max or min in a set.</span></li>
+              <li><span class="task-abbr srt">Sort</span> <span><strong>Sort:</strong> rank data items by value.</span></li>
+            </ul>
+          </div>
+
+          <div class="study-card">
+            <div class="study-card-head">Data Coding</div>
+            <p>Two coders independently labeled each annotation, starting from a prior five-type taxonomy and refining iteratively.</p>
+            <div style="margin-top:.82rem;display:flex;flex-direction:column;gap:.5rem;">
+              <div style="padding:.55rem .75rem;border-radius:9px;background:var(--accent-soft);border:1px solid rgba(58,93,140,.13);">
+                <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:.22rem;">Step 1 · Labeling</div>
+                <div style="font-size:.86rem;color:var(--text-muted);line-height:1.6;">Each annotation received a <strong style="color:var(--text);font-weight:600;">type label</strong> and a <strong style="color:var(--text);font-weight:600;">task label</strong>.</div>
+              </div>
+              <div style="padding:.55rem .75rem;border-radius:9px;background:var(--accent-soft);border:1px solid rgba(58,93,140,.13);">
+                <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:.22rem;">Step 2 · Ensembles</div>
+                <div style="font-size:.86rem;color:var(--text-muted);line-height:1.6;">Co-occurring annotations for one task were coded as <strong style="color:var(--text);font-weight:600;">ensembles</strong>, with constituent count (2, 3, or 4) and dependency type (one-way or two-way) recorded.</div>
+              </div>
+              <div style="padding:.55rem .75rem;border-radius:9px;background:var(--accent-soft);border:1px solid rgba(58,93,140,.13);">
+                <div style="font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:.22rem;">Step 3 · Resolution</div>
+                <div style="font-size:.86rem;color:var(--text-muted);line-height:1.6;">Coder disagreements were resolved through discussion after each round.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="study-card">
+            <div class="study-card-head">Chart Conditions</div>
+            <p>We used two bar ordering conditions to investigate how chart structure affects annotation strategy.</p>
+            <ul class="tasks-list" style="margin-top:.5rem">
+              <li><span class="task-abbr">Chrono</span>
+                <span>Bars ordered <strong>chronologically</strong> by date.</span></li>
+              <li><span class="task-abbr">Non-C</span>
+                <span>Bars ordered <strong>highest to lowest</strong>, replicating the original <span class="gdph-trigger" role="button" tabindex="0" aria-haspopup="dialog" onclick="openGdph()" onkeydown="if(event.key==='Enter'||event.key===' ')openGdph()">GDPH</span> chart.</span></li>
+            </ul>
+            <p style="margin-top:.6rem">This produced 31 chronological and 29 non-chronological charts across the 20 analyzed submissions.</p>
+          </div>
+        </div>
+
+        <!-- ── ANNOTATED EXAMPLES ────────────────────────────── -->
+        <div class="fu d3">
+          <div class="anno-section-head">
+            <div>
+              <div class="anno-section-eyebrow">Figure 2 · From the Paper</div>
+              <div class="anno-section-title">Student-Annotated Bar Charts</div>
+              <p class="anno-section-desc">Three representative submissions showing how differently students annotated the same kind of grouped bar chart. The notes below point to the exact boxes, arrows, labels, and highlights visible in each figure.</p>
+            </div>
+          </div>
+
+          <div class="anno-gallery">
+
+            <div class="anno-card">
+              <div class="anno-card-img-wrap">
+                <img src="assets/example1.png" alt="Student annotation example (a): freehand rectangles, arrows, and text annotations on the GDPH COVID-19 grouped bar chart" loading="lazy" />
+              </div>
+              <div class="anno-card-body">
+                <div class="anno-card-types">
+                  <span class="anno-type-chip enc">Enclosure</span>
+                  <span class="anno-type-chip con">Connector</span>
+                  <span class="anno-type-chip txt">Text</span>
+                </div>
+                <p class="anno-card-caption">Large blue brackets, arrows, and handwritten notes are drawn directly on the chart. The long bracket under Apr 30-May 2 and the smaller boxes around May 3 and May 8 show which dates to focus on, while the arrows and notes like <strong>#</strong>, <strong>sort</strong>, and <strong>last</strong> explain what to compare or retrieve.</p>
+                <div class="anno-fig-ref">Fig. 2(a) · Rahman et al. 2025</div>
+              </div>
+            </div>
+
+            <div class="anno-card">
+              <div class="anno-card-img-wrap">
+                <img src="assets/ensemble4.png" alt="Student annotation example (b): ellipses, rectangles, reference lines, and text annotations" loading="lazy" />
+              </div>
+              <div class="anno-card-body">
+                <div class="anno-card-types">
+                  <span class="anno-type-chip enc">Enclosure</span>
+                  <span class="anno-type-chip mrk">Mark</span>
+                  <span class="anno-type-chip txt">Text</span>
+                </div>
+                <p class="anno-card-caption">This example combines circles, guide lines, and handwritten questions. The red and green circles under the x-axis pick out specific dates, the horizontal lines around 40 and 48 mark thresholds to check against, and the box around May 8 isolates the bar group the student wants to sort.</p>
+                <div class="anno-fig-ref">Fig. 2(b) · Rahman et al. 2025</div>
+              </div>
+            </div>
+
+            <div class="anno-card">
+              <div class="anno-card-img-wrap">
+                <img src="assets/example6.png" alt="Student annotation example (c): colored rectangular enclosures, data value labels, and a text legend" loading="lazy" />
+              </div>
+              <div class="anno-card-body">
+                <div class="anno-card-types">
+                  <span class="anno-type-chip enc">Enclosure</span>
+                  <span class="anno-type-chip clr">Color</span>
+                  <span class="anno-type-chip txt">Text</span>
+                  <span class="anno-type-chip mrk">Mark</span>
+                </div>
+                <p class="anno-card-caption">This student uses clean color-coded boxes instead of freehand marks. Matching boxes at the top and bottom highlight Apr 30-May 2, May 3, and May 5, the numbers above selected bars give exact values, and the note at May 9 states the main takeaway.</p>
+                <div class="anno-fig-ref">Fig. 2(c) · Rahman et al. 2025</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 03 TAXONOMY ──────────────────────────────────────── -->
+      <section class="section" id="taxonomy" aria-labelledby="h-taxonomy">
+        <div class="sec-head fu">
+          <span class="sec-eyebrow">03 · Taxonomy</span>
+          <h2 class="sec-title" id="h-taxonomy">Five Annotation Categories</h2>
+          <p class="sec-desc">Five annotation types were identified. Usage counts reflect instances observed across all
+            20 analyzed submissions. Primary tasks are those most frequently associated with each type; secondary tasks
+            were observed less often.</p>
+        </div>
+
+        <div class="fu d1">
+          <div class="tax-filter-bar" role="toolbar" aria-label="Filter annotation types by analytic task">
+            <span class="tax-filter-lbl">Filter by task:</span>
+            <button class="tax-filter-btn active" data-task="all" onclick="filterTax(this,'all')">All</button>
+            <button class="tax-filter-btn rv" data-task="rv" onclick="filterTax(this,'rv')">RV</button>
+            <button class="tax-filter-btn flt" data-task="flt" onclick="filterTax(this,'flt')">Filter</button>
+            <button class="tax-filter-btn cdv" data-task="cdv" onclick="filterTax(this,'cdv')">CDV</button>
+            <button class="tax-filter-btn fe" data-task="fe" onclick="filterTax(this,'fe')">FE</button>
+            <button class="tax-filter-btn srt" data-task="srt" onclick="filterTax(this,'srt')">Sort</button>
+            <span class="tax-status" id="tax-status" aria-live="polite"></span>
+          </div>
+
+          <div class="tax-grid" id="tax-grid" role="list">
+
+            <!-- ENCLOSURE -->
+            <article class="tax-card" data-type="enc" data-tasks="rv,flt,cdv,fe" role="listitem">
+              <div class="tax-card-head">
+                <div class="tax-card-icon" style="background:var(--enc-soft);border-color:rgba(75,110,200,.16);"
+                  aria-hidden="true">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--enc)" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Two chart bars sitting on a floor -->
+                    <rect x="6" y="12" width="4" height="8" rx="0.5" fill="var(--enc)" opacity=".2" stroke="none"/>
+                    <rect x="14" y="8" width="4" height="12" rx="0.5" fill="var(--enc)" opacity=".2" stroke="none"/>
+                    <!-- Dashed enclosure rectangle drawn around both bars -->
+                    <rect x="3" y="5" width="18" height="16" rx="2" stroke-dasharray="4 2.5"/>
+                  </svg>
+                </div>
+                <div class="tax-card-meta">
+                  <div class="tax-card-name">Enclosure</div>
+                  <div class="tax-card-count">144 instances &nbsp;<span>across all submissions</span></div>
+                </div>
+              </div>
+              <div class="tax-card-body">
+                <p class="tax-card-desc">Shapes surrounding one or more data elements. Ellipses and rectangles were most common; brackets marked axis-aligned ranges. We found enclosures to be self-sufficient: a rectangle around a bar can communicate a filter or RV task without requiring a second type.</p>
+                <div class="tax-card-subtypes">
+                  <div class="tax-card-subtypes-lbl">Subtypes</div>
+                  <div class="subtypes-pills">
+                    <span class="subtype-pill">Ellipse</span>
+                    <span class="subtype-pill">Rectangle</span>
+                    <span class="subtype-pill">Half-box</span>
+                    <span class="subtype-pill">Bracket</span>
+                  </div>
+                </div>
+                <div class="tax-card-tasks">
+                  <div class="tax-card-tasks-lbl">Tasks supported</div>
+                  <div class="task-pills">
+                    <span class="task-pill rv">RV</span>
+                    <span class="task-pill flt">Filter</span>
+                    <span class="task-pill cdv sec-marker">CDV ›</span>
+                    <span class="task-pill fe sec-marker">FE ›</span>
+                  </div>
+                </div>
+                <div class="usage-bar-wrap">
+                  <div class="usage-bar-lbl">Relative usage <span>201 = max</span></div>
+                  <div class="usage-bar-track">
+                    <div class="usage-bar-fill" style="width:72%;background:var(--enc)"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- CONNECTOR -->
+            <article class="tax-card" data-type="con" data-tasks="rv,flt,fe,srt" role="listitem">
+              <div class="tax-card-head">
+                <div class="tax-card-icon" style="background:var(--con-soft);border-color:rgba(46,125,94,.16);"
+                  aria-hidden="true">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--con)" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Clean diagonal arrow: the canonical connector/arrow symbol -->
+                    <line x1="5" y1="19" x2="18" y2="6"/>
+                    <!-- Arrowhead -->
+                    <polyline points="13 5.5 18 6 17.5 11"/>
+                    <!-- Source dot -->
+                    <circle cx="5" cy="19" r="1.8" fill="var(--con)" stroke="none"/>
+                  </svg>
+                </div>
+                <div class="tax-card-meta">
+                  <div class="tax-card-name">Connector</div>
+                  <div class="tax-card-count">201 instances &nbsp;<span>most frequently used type</span></div>
+                </div>
+              </div>
+              <div class="tax-card-body">
+                <p class="tax-card-desc">Lines and arrows. Lines marked bar heights or trends; arrows pointed from text or enclosures to specific bars. We found that connectors <em>almost never appeared alone</em>; without an anchoring type, a connector has no referent and cannot communicate a task.</p>
+                <div class="tax-card-subtypes">
+                  <div class="tax-card-subtypes-lbl">Subtypes</div>
+                  <div class="subtypes-pills">
+                    <span class="subtype-pill">Line (undirected)</span>
+                    <span class="subtype-pill">Arrow (directional)</span>
+                  </div>
+                </div>
+                <div class="tax-card-tasks">
+                  <div class="tax-card-tasks-lbl">Tasks supported</div>
+                  <div class="task-pills">
+                    <span class="task-pill rv">RV</span>
+                    <span class="task-pill flt">Filter</span>
+                    <span class="task-pill fe sec-marker">FE ›</span>
+                    <span class="task-pill srt sec-marker">Sort ›</span>
+                  </div>
+                </div>
+                <div class="usage-bar-wrap">
+                  <div class="usage-bar-lbl">Relative usage <span>201 = max</span></div>
+                  <div class="usage-bar-track">
+                    <div class="usage-bar-fill" style="width:100%;background:var(--con)"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- TEXT -->
+            <article class="tax-card" data-type="txt" data-tasks="rv,flt,cdv,fe,srt" role="listitem">
+              <div class="tax-card-head">
+                <div class="tax-card-icon" style="background:var(--txt-soft);border-color:rgba(184,79,24,.16);"
+                  aria-hidden="true">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--txt)" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Three horizontal lines: universal "text/document" symbol -->
+                    <line x1="4" y1="7" x2="20" y2="7"/>
+                    <line x1="4" y1="12" x2="16" y2="12"/>
+                    <line x1="4" y1="17" x2="18" y2="17"/>
+                  </svg>
+                </div>
+                <div class="tax-card-meta">
+                  <div class="tax-card-name">Text</div>
+                  <div class="tax-card-count">156 instances &nbsp;<span>across all submissions</span></div>
+                </div>
+              </div>
+              <div class="tax-card-body">
+                <p class="tax-card-desc">Words, phrases, and sentences. We identified three subtypes: <em>description</em> (explanatory prose about a task or derivation), <em>value</em> (a specific numeric label), and <em>legend</em> (a label for annotation-based groupings, often paired with color). Text was the only type we observed across all five tasks.</p>
+                <div class="tax-card-subtypes">
+                  <div class="tax-card-subtypes-lbl">Subtypes</div>
+                  <div class="subtypes-pills">
+                    <span class="subtype-pill">Description</span>
+                    <span class="subtype-pill">Value</span>
+                    <span class="subtype-pill">Legend</span>
+                  </div>
+                </div>
+                <div class="tax-card-tasks">
+                  <div class="tax-card-tasks-lbl">Tasks supported</div>
+                  <div class="task-pills">
+                    <span class="task-pill rv">RV</span>
+                    <span class="task-pill flt">Filter</span>
+                    <span class="task-pill cdv">CDV</span>
+                    <span class="task-pill fe">FE</span>
+                    <span class="task-pill srt">Sort</span>
+                  </div>
+                </div>
+                <div class="usage-bar-wrap">
+                  <div class="usage-bar-lbl">Relative usage <span>201 = max</span></div>
+                  <div class="usage-bar-track">
+                    <div class="usage-bar-fill" style="width:78%;background:var(--txt)"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- MARK -->
+            <article class="tax-card" data-type="mrk" data-tasks="rv,flt,cdv" role="listitem">
+              <div class="tax-card-head">
+                <div class="tax-card-icon" style="background:var(--mrk-soft);border-color:rgba(119,84,179,.16);"
+                  aria-hidden="true">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--mrk)" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Checkmark: the most common mark symbol observed in the study -->
+                    <polyline points="4 13 9 18 20 7"/>
+                  </svg>
+                </div>
+                <div class="tax-card-meta">
+                  <div class="tax-card-name">Mark</div>
+                  <div class="tax-card-count">33 instances &nbsp;<span>least frequent primary type</span></div>
+                </div>
+              </div>
+              <div class="tax-card-body">
+                <p class="tax-card-desc">Small, non-enclosing symbols placed on or near data elements to indicate them without surrounding them. We observed checkmarks, circles, underlines, T-shapes, and Roman numerals. Marks were the least-used type despite functional overlap with enclosures for RV and filter tasks.</p>
+                <div class="tax-card-subtypes">
+                  <div class="tax-card-subtypes-lbl">Subtypes</div>
+                  <div class="subtypes-pills">
+                    <span class="subtype-pill">Checkmark</span>
+                    <span class="subtype-pill">Small circle</span>
+                    <span class="subtype-pill">Underline</span>
+                    <span class="subtype-pill">T-shape</span>
+                    <span class="subtype-pill">Roman numeral / letter</span>
+                  </div>
+                </div>
+                <div class="tax-card-tasks">
+                  <div class="tax-card-tasks-lbl">Tasks supported</div>
+                  <div class="task-pills">
+                    <span class="task-pill rv">RV</span>
+                    <span class="task-pill flt">Filter</span>
+                    <span class="task-pill cdv sec-marker">CDV ›</span>
+                  </div>
+                </div>
+                <div class="usage-bar-wrap">
+                  <div class="usage-bar-lbl">Relative usage <span>201 = max</span></div>
+                  <div class="usage-bar-track">
+                    <div class="usage-bar-fill" style="width:16%;background:var(--mrk)"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- COLOR -->
+            <article class="tax-card" data-type="clr" data-tasks="rv,flt,cdv,fe" role="listitem">
+              <div class="tax-card-head">
+                <div class="tax-card-icon" style="background:var(--clr-soft);border-color:rgba(26,107,138,.16);"
+                  aria-hidden="true">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--clr)" stroke-width="1.65"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Painter's palette body -->
+                    <path d="M12 2C6.48 2 2 6.48 2 12c0 3.87 3.13 7 7 7h.5c.69 0 1.25-.56 1.25-1.25v-.5c0-.69.56-1.25 1.25-1.25H14c3.31 0 6-2.69 6-6 0-5.52-3.58-8-8-8z"/>
+                    <!-- Paint dots on palette -->
+                    <circle cx="6.5"  cy="11.5" r="1" fill="var(--clr)" stroke="none"/>
+                    <circle cx="9"    cy="7.5"  r="1" fill="var(--clr)" stroke="none"/>
+                    <circle cx="13"   cy="6.5"  r="1" fill="var(--clr)" stroke="none"/>
+                    <circle cx="16.5" cy="9"    r="1" fill="var(--clr)" stroke="none"/>
+                  </svg>
+                </div>
+                <div class="tax-card-meta">
+                  <div class="tax-card-name">Color</div>
+                  <div class="tax-card-count">194 instances &nbsp;<span>second most frequent type</span></div>
+                </div>
+              </div>
+              <div class="tax-card-body">
+                <p class="tax-card-desc">Color modifications applied to annotations or chart elements. We found two subtypes: <em>highlight</em> (translucent overlay, filter tasks only) and <em>hue variation</em> (distinct color to differentiate groups or questions). We did not observe color used for Sort tasks.</p>
+                <div class="tax-card-subtypes">
+                  <div class="tax-card-subtypes-lbl">Subtypes</div>
+                  <div class="subtypes-pills">
+                    <span class="subtype-pill">Highlight (overlay)</span>
+                    <span class="subtype-pill">Hue variation</span>
+                  </div>
+                </div>
+                <div class="tax-card-tasks">
+                  <div class="tax-card-tasks-lbl">Tasks supported</div>
+                  <div class="task-pills">
+                    <span class="task-pill rv">RV</span>
+                    <span class="task-pill flt">Filter</span>
+                    <span class="task-pill cdv">CDV</span>
+                    <span class="task-pill fe">FE</span>
+                  </div>
+                </div>
+                <div class="usage-bar-wrap">
+                  <div class="usage-bar-lbl">Relative usage <span>201 = max</span></div>
+                  <div class="usage-bar-track">
+                    <div class="usage-bar-fill" style="width:97%;background:var(--clr)"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+          </div><!-- /tax-grid -->
+        </div>
+
+        <p class="fu d2" style="margin-top:1.2rem;font-size:.82rem;color:var(--text-light);">
+          ›&thinsp;Faded cards contain no examples of the selected task. Primary tasks are shown in full color;
+          secondary tasks (less frequent) are marked with ›.
+        </p>
+      </section>
+
+      <!-- ── 04 ENSEMBLES ──────────────────────────────────────── -->
+      <section class="section" id="ensembles" aria-labelledby="h-ensembles">
+        <div class="sec-head fu">
+          <span class="sec-eyebrow">04 · Ensembles</span>
+          <h2 class="sec-title" id="h-ensembles">Ensemble Annotations</h2>
+          <p class="sec-desc">An ensemble is two or more annotation types used together for a single task instance.
+            Ensembles arose when individual annotations were insufficient, either because the task was complex (e.g.,
+            sort) or because visual clutter required spatial separation between an annotation and its referent.</p>
+        </div>
+
+        <div class="fu d1">
+          <div class="ens-intro">
+            <p>Ensembles were divided into three categories by the number of constituent annotation types: 2-annotation,
+              3-annotation, and 4-annotation. Within 2-annotation ensembles, we further distinguish
+              <strong>one-way</strong> dependency (one type can stand alone; the other cannot) from
+              <strong>two-way</strong> dependency (neither type is meaningful without the other for that task).</p>
+          </div>
+
+          <div class="ens-tabs" role="tablist" aria-label="Ensemble categories">
+            <button class="ens-tab active" role="tab" aria-selected="true" aria-controls="ens-2"
+              onclick="switchEns(this,'ens-2')">2-Annotation Ensembles</button>
+            <button class="ens-tab" role="tab" aria-selected="false" aria-controls="ens-3"
+              onclick="switchEns(this,'ens-3')">3-Annotation Ensembles</button>
+            <button class="ens-tab" role="tab" aria-selected="false" aria-controls="ens-4"
+              onclick="switchEns(this,'ens-4')">4-Annotation Ensembles</button>
+          </div>
+
+          <!-- 2-annotation -->
+          <div id="ens-2" class="ens-panel active" role="tabpanel">
+            <div class="ens-dep-note">
+              <strong>One-way:</strong> One annotation type can independently convey the task; the second type
+              complements it for clarity (e.g., a half-box can filter on its own, but adding text makes the intent
+              explicit). &nbsp;·&nbsp;
+              <strong>Two-way:</strong> Neither type alone is sufficient; both are required (e.g., arrow + text for a
+              sort task: without the arrow, the text has no directional reference; without the text, the arrow has no
+              label).
+            </div>
+            <div class="ens-grid">
+              <div class="ens-row">
+                <div class="ens-badge common">Most common</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Connector + Color</div>
+                  <div class="ens-desc">Colored lines or arrows used to filter or point to bars of interest. A common
+                    pattern: colored connectors filtered data before a CDV computation was performed on the selected
+                    subset.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill rv">RV</span>
+                    <span class="ens-task-pill flt">Filter</span>
+                    <span class="ens-task-pill cdv">CDV</span>
+                    <span class="ens-task-pill fe">FE</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ens-row">
+                <div class="ens-badge two-way">Two-way</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Connector + Text</div>
+                  <div class="ens-desc">An arrow or line paired with explanatory text. Neither type alone conveys the
+                    full task: the connector provides directionality, the text provides the label or instruction.
+                    Frequent for RV and filter tasks.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill rv">RV</span>
+                    <span class="ens-task-pill flt">Filter</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ens-row">
+                <div class="ens-badge one-way">One-way</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Enclosure + Text</div>
+                  <div class="ens-desc">A shape (e.g., half-box) marking a region of interest, paired with text that
+                    clarifies the task intent. The enclosure is independent; the text provides supplemental specificity.
+                    Used heavily for CDV and filter tasks.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill flt">Filter</span>
+                    <span class="ens-task-pill cdv">CDV</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ens-row">
+                <div class="ens-badge one-way">One-way</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Enclosure + Other</div>
+                  <div class="ens-desc">A bracket or half-box accompanied by a special symbol (e.g., # to signal
+                    computation). The enclosure marks the range; the symbol indicates that a calculation must be
+                    performed on the enclosed data. Used for CDV tasks.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill cdv">CDV</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-annotation -->
+          <div id="ens-3" class="ens-panel" role="tabpanel">
+            <div class="ens-dep-note">
+              3-annotation ensembles were used for compound tasks requiring multiple layers of communication, typically
+              identifying a data region, pointing to it, and labeling or explaining it simultaneously.
+            </div>
+            <div class="ens-grid">
+              <div class="ens-row">
+                <div class="ens-badge common">Most common</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Enclosure + Connector + Text</div>
+                  <div class="ens-desc">The most frequently observed 3-annotation ensemble. A shape marks a region, a
+                    connector (often an arrow) links it to another element or provides directionality, and text labels
+                    or explains the intent.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill rv">RV</span>
+                    <span class="ens-task-pill flt">Filter</span>
+                    <span class="ens-task-pill fe">FE</span>
+                    <span class="ens-task-pill srt">Sort</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ens-row">
+                <div class="ens-badge one-way">Observed</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Connector + Text + Color</div>
+                  <div class="ens-desc">A colored connector with accompanying text. Color disambiguates which connector
+                    belongs to which task or question when multiple connectors are present on the same chart.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill rv">RV</span>
+                    <span class="ens-task-pill fe">FE</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ens-row">
+                <div class="ens-badge one-way">Observed</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Text + Mark + Color</div>
+                  <div class="ens-desc">A colored mark (e.g., colored Roman numeral) paired with text. Color encodes
+                    question identity; mark and text together describe what computation to perform and on which data
+                    item.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill cdv">CDV</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ens-row">
+                <div class="ens-badge one-way">Observed</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Text + Color + Mark</div>
+                  <div class="ens-desc">A variant of the above, used primarily for filter tasks. Color groups items;
+                    mark and text together identify and label the filtered subset.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill flt">Filter</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4-annotation -->
+          <div id="ens-4" class="ens-panel" role="tabpanel">
+            <div class="ens-dep-note">
+              4-annotation ensembles were rare and arose in particularly complex task situations, typically when a task
+              involved multiple data regions, required both grouping and retrieval, and needed a legend to disambiguate
+              the different annotation roles.
+            </div>
+            <div class="ens-grid">
+              <div class="ens-row" style="grid-column:1/-1">
+                <div class="ens-badge common">Example</div>
+                <div class="ens-row-copy">
+                  <div class="ens-name">Enclosure + Connector + Text + Color</div>
+                  <div class="ens-desc">Four annotation types operating on the same task instance. A colored enclosure
+                    groups a data region; a connector links it spatially; text labels the task or result; color
+                    differentiates multiple co-occurring instances (e.g., separate question groups on the same chart).
+                    This combination was observed for filter and CDV tasks involving multiple date ranges or groups that
+                    required visual separation to remain legible.</div>
+                  <div class="ens-tasks-row">
+                    <span class="ens-task-pill flt">Filter</span>
+                    <span class="ens-task-pill cdv">CDV</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 05 FINDINGS ───────────────────────────────────────── -->
+      <section class="section" id="findings" aria-labelledby="h-findings">
+        <div class="sec-head fu">
+          <span class="sec-eyebrow">05 · Findings</span>
+          <h2 class="sec-title" id="h-findings">Key Findings</h2>
+          <p class="sec-desc">Patterns observed across the 20 coded submissions, organized by annotation usage, ensemble
+            behavior, and task-specific constraints.</p>
+        </div>
+
+        <div class="findings-grid fu d1">
+
+          <div class="finding-card">
+
+            <div class="finding-head">Usage was balanced across four types</div>
+            <div class="finding-body">We observed high usage of enclosure (144), connector (201), text (156), and color (194). Mark was the outlier at 33 instances. The near-parity across four types suggests participants selected among multiple viable options based on personal preference rather than any dominant convention.</div>
+          </div>
+
+          <div class="finding-card" style="border-left-color:var(--con)">
+
+            <div class="finding-head">Connectors almost never appeared alone</div>
+            <div class="finding-body">Connectors were the most-used type overall, yet rarely appeared independently. Without an anchoring type (text, enclosure, or color), a connector cannot communicate which element is referenced or what task is intended. The high connector count reflects ensemble prevalence, not standalone use.</div>
+          </div>
+
+          <div class="finding-card" style="border-left-color:var(--txt)">
+
+            <div class="finding-head">Sort always required ensembles</div>
+            <div class="finding-body">We found no standalone annotation sufficient for sort tasks. Every sort-task instance in our data was an ensemble. Arrow + text (two-way dependent) was the dominant pattern: the arrow conveys direction; the text identifies the items being ranked.</div>
+          </div>
+
+          <div class="finding-card" style="border-left-color:var(--mrk)">
+
+            <div class="finding-head">Color was absent from sort tasks</div>
+            <div class="finding-body">We observed color across RV, filter, CDV, and FE tasks, but not Sort. Color encodes grouping or identity, not order or direction, so it cannot satisfy the directional cues that sort tasks require.</div>
+          </div>
+
+          <div class="finding-card" style="border-left-color:var(--clr)">
+
+            <div class="finding-head">Participants used a stable personal type subset</div>
+            <div class="finding-body">We observed within-subject consistency: most participants reused the same limited set of annotation types across all three charts. One used only rectangle, text, and color; another used only rectangle, text, and mark. Type selection appeared to be driven by individual vocabulary rather than task-specific optimization.</div>
+          </div>
+
+          <div class="finding-card" style="border-left-color:var(--oth)">
+
+            <div class="finding-head">Non-chronological ordering required workarounds</div>
+            <div class="finding-body">Date-range questions were harder on non-chronological charts because relevant dates were not adjacent. We observed: no annotation (7 cases), separate enclosures per date (8), individual marks per date (8), and ensembles (2). On chronological charts, a single spanning enclosure was sufficient.</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 06 CITATION ───────────────────────────────────────── -->
+      <section class="section" id="citation" aria-labelledby="h-cite">
+        <div class="sec-head fu">
+          <span class="sec-eyebrow">06 · Citation</span>
+          <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem;">
+            <h2 class="sec-title" id="h-cite" style="margin-bottom:0;">Cite This Work</h2>
+            <button class="btn btn--outline cite-copy" data-copy-bib onclick="copyBib(this)" aria-label="Copy BibTeX to clipboard" style="flex-shrink:0;">Copy BibTeX</button>
+          </div>
+        </div>
+        <div class="cite-wrap fu d1">
+          <pre class="cite-block" id="bib-text" aria-label="BibTeX citation">@article{rahman2025annotationtaxonomy,
+  title   = {Exploring annotation taxonomy in grouped bar charts:
+             {A} qualitative classroom study},
+  author  = {Rahman, Md Dilshadur and Quadri, Ghulam Jilani
+             and Szafir, Danielle Albers and Rosen, Paul},
+  journal = {Information Visualization},
+  volume  = {24},
+  number  = {1},
+  pages   = {79--94},
+  year    = {2025},
+  publisher = {SAGE},
+  doi     = {10.1177/14738716241270247}
+}</pre>
+        </div>
+      </section>
+
+    </div><!-- /page -->
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p>© 2025 Md Dilshadur Rahman, Ghulam Jilani Quadri, Danielle Albers Szafir, Paul Rosen</p>
+      <div class="footer__right">
+        <a href="https://doi.org/10.1177/14738716241270247" target="_blank"
+          rel="noopener">DOI&thinsp;10.1177/14738716241270247</a>
+        <a href="https://osf.io/vup8r/" target="_blank" rel="noopener">Supplemental Materials</a>
+        <a href="https://journals.sagepub.com/home/ivi" target="_blank" rel="noopener">Information Visualization</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── GDPH DRAWER ────────────────────────────────────────── -->
+  <div id="gdph-backdrop" aria-hidden="true" onclick="closeGdph()"></div>
+  <aside id="gdph-drawer" role="dialog" aria-modal="true" aria-labelledby="gdph-drawer-title" aria-hidden="true">
+    <div class="gdph-drawer-header">
+      <div>
+        <div class="gdph-drawer-eyebrow">Figure 1 · Motivating Example</div>
+        <div class="gdph-drawer-title" id="gdph-drawer-title">GDPH COVID-19 Visualization</div>
+      </div>
+      <button class="gdph-close-btn" onclick="closeGdph()" aria-label="Close panel">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="gdph-drawer-body">
+      <div>
+        <div class="gdph-fig-label">Original (left) &nbsp;·&nbsp; Corrected (right)</div>
+        <div class="gdph-image-wrap">
+          <img src="assets/gdph%20visualization.png" alt="GDPH COVID-19 grouped bar chart: viral version with highest-to-lowest bar ordering (left) and the corrected chronological version (right)" />
+        </div>
+      </div>
+      <div>
+        <div class="gdph-fig-label">Figure 1 Caption</div>
+        <p class="gdph-caption">The <strong>viral visualization</strong> (left) and the <strong>corrected version</strong> (right) created by the Georgia Department of Public Health (GDPH). The viral visualization was widely criticized for its unorthodox <em>highest-to-lowest</em> ordering of bars, whereas the corrected one uses chronological arrangement.</p>
+      </div>
+      <div class="gdph-context-box">
+        <p>This 2020 incident motivated our study: better use of <strong>annotations</strong> could have drawn viewers' attention to the unorthodox bar ordering, or at least mitigated the misunderstanding. It underscores why understanding how people annotate visualizations matters.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    aria-label="Back to top" title="Back to top">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </button>
+
+  <!-- Nav dots -->
+  <nav class="nav-dots" aria-label="Section navigation">
+    <button class="nav-dot active" data-sec="overview" title="Overview" onclick="scrollToSec('overview')"></button>
+    <button class="nav-dot" data-sec="study-design" title="Study Design" onclick="scrollToSec('study-design')"></button>
+    <button class="nav-dot" data-sec="taxonomy" title="Taxonomy" onclick="scrollToSec('taxonomy')"></button>
+    <button class="nav-dot" data-sec="ensembles" title="Ensembles" onclick="scrollToSec('ensembles')"></button>
+    <button class="nav-dot" data-sec="findings" title="Findings" onclick="scrollToSec('findings')"></button>
+    <button class="nav-dot" data-sec="citation" title="Citation" onclick="scrollToSec('citation')"></button>
+  </nav>
+
+  <script>
+    /* ── THEME ──────────────────────────────────────────────── */
+    const html = document.documentElement;
+    const icon = document.getElementById('theme-icon');
+    const lbl = document.getElementById('theme-lbl');
+    const meta = document.getElementById('theme-color-meta');
+
+    function applyTheme(t) {
+      html.dataset.theme = t;
+      html.style.colorScheme = t;
+      if (meta) meta.setAttribute('content', t === 'dark' ? '#0b1117' : '#FAFAF8');
+      if (lbl) lbl.textContent = t === 'dark' ? 'Light' : 'Dark';
+      if (icon) {
+        if (t === 'dark') {
+          /* in dark mode → show SUN so user knows clicking goes to light */
+          icon.innerHTML = '<circle cx="12" cy="12" r="4.5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>';
+        } else {
+          /* in light mode → show MOON so user knows clicking goes to dark */
+          icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+        }
+      }
+    }
+
+    function toggleTheme() {
+      const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('theme', next); } catch (e) { }
+      applyTheme(next);
+    }
+
+    // init label/icon on load
+    applyTheme(html.dataset.theme || 'light');
+
+    /* ── SMOOTH SCROLL ──────────────────────────────────────── */
+    function smoothTo(e, id) {
+      e.preventDefault();
+      scrollToSec(id);
+    }
+    function scrollToSec(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ── INTERSECTION / SCROLL ──────────────────────────────── */
+    const header = document.getElementById('site-header');
+    const btt = document.getElementById('back-to-top');
+    const navLinks = document.querySelectorAll('.top__nav a');
+    const navDots = document.querySelectorAll('.nav-dot');
+    const sections = ['overview', 'study-design', 'taxonomy', 'ensembles', 'findings', 'citation'];
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const id = e.target.id;
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+          navDots.forEach(d => d.classList.toggle('active', d.dataset.sec === id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+
+    // scroll progress + header scroll class + back to top
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      header.classList.toggle('scrolled', y > 10);
+      btt.classList.toggle('visible', y > 400);
+    }, { passive: true });
+
+    /* ── REVEAL ─────────────────────────────────────────────── */
+    const rio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          rio.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.04 });
+
+    document.querySelectorAll('.fu').forEach(el => rio.observe(el));
+
+    /* ── TAXONOMY FILTER ────────────────────────────────────── */
+    function filterTax(btn, task) {
+      document.querySelectorAll('.tax-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cards = document.querySelectorAll('.tax-card');
+      let shown = 0;
+      cards.forEach(c => {
+        const tasks = (c.dataset.tasks || '').split(',');
+        const match = task === 'all' || tasks.includes(task);
+        c.classList.toggle('hidden', !match);
+        if (match) shown++;
+      });
+      const status = document.getElementById('tax-status');
+      if (status) status.textContent = task === 'all' ? '' : shown + ' type' + (shown !== 1 ? 's' : '') + ' support ' + btn.textContent;
+    }
+
+    /* ── ENSEMBLE TABS ──────────────────────────────────────── */
+    function switchEns(btn, panelId) {
+      document.querySelectorAll('.ens-tab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+      document.querySelectorAll('.ens-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      const p = document.getElementById(panelId);
+      if (p) p.classList.add('active');
+    }
+
+    /* ── GDPH DRAWER ─────────────────────────────────────────── */
+    const gdphDrawer = document.getElementById('gdph-drawer');
+    const gdphBackdrop = document.getElementById('gdph-backdrop');
+    let gdphPrevFocus = null;
+
+    function openGdph() {
+      gdphPrevFocus = document.activeElement;
+      gdphDrawer.classList.add('open');
+      gdphBackdrop.classList.add('open');
+      gdphDrawer.removeAttribute('aria-hidden');
+      gdphBackdrop.setAttribute('aria-hidden', 'false');
+      gdphDrawer.querySelector('.gdph-close-btn').focus();
+    }
+
+    function closeGdph() {
+      gdphDrawer.classList.remove('open');
+      gdphBackdrop.classList.remove('open');
+      gdphDrawer.setAttribute('aria-hidden', 'true');
+      gdphBackdrop.setAttribute('aria-hidden', 'true');
+      if (gdphPrevFocus) gdphPrevFocus.focus();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && gdphDrawer.classList.contains('open')) closeGdph();
+    });
+
+    /* ── COPY BIBTEX ─────────────────────────────────────────── */
+    function copyBib(btn) {
+      const bib = document.getElementById('bib-text');
+      const text = bib ? bib.textContent : '';
+
+      function flash() {
+        document.querySelectorAll('[data-copy-bib]').forEach(b => {
+          const orig = b.dataset.origLabel || b.textContent.trim();
+          b.dataset.origLabel = orig;
+          b.classList.add('copied');
+          b.textContent = 'BibTeX Copied';
+          clearTimeout(b._copyTimer);
+          b._copyTimer = setTimeout(() => {
+            b.classList.remove('copied');
+            b.textContent = orig;
+          }, 2200);
+        });
+      }
+
+      function legacyCopy() {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;top:0;left:0;width:2em;height:2em;padding:0;border:none;outline:none;background:transparent;opacity:0;';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); } catch(e) {}
+        document.body.removeChild(ta);
+        flash();
+      }
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(flash).catch(legacyCopy);
+      } else {
+        legacyCopy();
+      }
+    }
+  </script>
+</body>
+
+</html>

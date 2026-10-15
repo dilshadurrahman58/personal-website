@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" id="theme-color-meta" content="#fdfcfa">
+  <link rel="icon" type="image/svg+xml" href="cv-favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <meta name="description"
+    content="Curriculum vitae of Md Dilshadur Rahman, postdoctoral researcher in visualization and human-computer interaction at the HIDIVE Lab, Harvard Medical School.">
+  <title>Md Dilshadur Rahman</title>
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        var themeColorMeta = document.getElementById('theme-color-meta');
+        if (themeColorMeta) {
+          themeColorMeta.setAttribute('content', theme === 'dark' ? '#141517' : '#fdfcfa');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Reading Progress Bar -->
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" aria-label="Scroll to top">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="11" stroke-opacity="0.18" />
+      <path d="M8 13l4-4 4 4" />
+      <path d="M12 17V9" />
+    </svg>
+  </button>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="theme-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ── MOBILE NAV ───────────────────────────────── -->
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-top">
+      <div class="mobile-nav-brand">
+        <div class="mobile-nav-name">Md Dilshadur Rahman</div>
+      </div>
+      <div class="mobile-nav-tools">
+        <button type="button" class="theme-toggle theme-toggle-mobile" data-theme-toggle
+          aria-label="Switch to dark mode" aria-pressed="false">
+          <svg class="theme-toggle-icon icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg class="theme-toggle-icon icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <span class="theme-toggle-text">Dark Mode</span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav-links" aria-label="Mobile section navigation">
+      <a href="#positions">Positions</a>
+      <a href="#education">Education</a>
+      <a href="#publications">Publications</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#honors">Awards</a>
+      <a href="#service">Service</a>
+      <a href="#talks">Talks</a>
+    </nav>
+  </div>
+
+  <!-- ── SIDEBAR ───────────────────────────────────── -->
+  <aside class="sidebar" aria-label="Profile and navigation sidebar">
+    <div class="sidebar-profile">
+      <div class="sidebar-name">Md Dilshadur<br>Rahman</div>
+      <div class="sidebar-role">Postdoctoral Researcher, Harvard Medical School</div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-nav-label">Navigation</div>
+    <nav class="sidebar-nav" aria-label="Section navigation">
+      <a class="nav-item active" href="#positions"><span class="nav-dot"></span>Positions</a>
+      <a class="nav-item" href="#education"><span class="nav-dot"></span>Education</a>
+      <a class="nav-item" href="#publications"><span class="nav-dot"></span>Publications</a>
+      <a class="nav-item" href="#teaching"><span class="nav-dot"></span>Teaching</a>
+      <a class="nav-item" href="#honors"><span class="nav-dot"></span>Honors & Awards</a>
+      <a class="nav-item" href="#service"><span class="nav-dot"></span>Academic Service</a>
+      <a class="nav-item" href="#talks"><span class="nav-dot"></span>Talks</a>
+    </nav>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-about">
+
+      <div class="sidebar-focus">
+        <div class="interests-label">Research Interests</div>
+        <div class="interests-list">
+          <span class="interest-tag">Data Visualization & Visual Computing</span>
+          <span class="interest-tag">Human-Computer Interaction</span>
+          <span class="interest-tag">Human-AI Interaction in Visualization</span>
+          <span class="interest-tag">Computing Education</span>
+        </div>
+      </div>
+
+      <div class="interests-label sidebar-contact-label">Contact</div>
+      <div class="sidebar-contact">
+        <a href="mailto:dilshadur@sci.utah.edu" class="contact-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <polyline points="2,4 12,13 22,4" />
+          </svg>
+          dilshadur@sci.utah.edu
+        </a>
+        <a href="tel:+15204488557" class="contact-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 12.79a19.79 19.79 0 01-3.07-8.67A2 2 0 011.93 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+          </svg>
+          +1 (520) 448-8557
+        </a>
+      </div>
+      <div class="sidebar-contact-social">
+        <a href="https://www.linkedin.com/in/md-dilshadur-rahman-a74427104/" target="_blank" rel="noopener noreferrer"
+          class="contact-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
+            <rect x="2" y="9" width="4" height="12" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+          LinkedIn
+        </a>
+        <a href="https://dilshadur.com/" target="_blank" rel="noopener noreferrer" class="contact-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+          </svg>
+          Website
+        </a>
+        <a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"
+          class="contact-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12,2 22,7 12,12 2,7" />
+            <path d="M6 10v5c0 2.5 2.7 4 6 4s6-1.5 6-4v-5" />
+            <line x1="22" y1="7" x2="22" y2="13" />
+          </svg>
+          Google Scholar
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button type="button" class="theme-toggle theme-toggle-desktop" data-theme-toggle aria-label="Switch to dark mode"
+        aria-pressed="false">
+        <svg class="theme-toggle-icon icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="theme-toggle-icon icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <span class="theme-toggle-text">Dark Mode</span>
+      </button>
+      <a href="dilshadur-cv.pdf" download class="sidebar-download">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <path d="M12 16v-6" />
+          <path d="M9 13l3 3 3-3" />
+          <path d="M8 6h8" />
+        </svg>
+        <span class="sidebar-download-label">Download CV</span>
+        <span class="sidebar-download-meta" aria-hidden="true">PDF</span>
+      </a>
+      <div class="sidebar-updated">Last updated: October 2026</div>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN ──────────────────────────────────────── -->
+  <main class="main" id="main-content" tabindex="-1">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-topline">
+        <div class="header-kicker">Curriculum Vitae</div>
+        <div class="header-actions">
+          <button type="button" class="theme-toggle header-theme-toggle" data-theme-toggle
+            aria-label="Switch to dark mode" aria-pressed="false">
+            <svg class="theme-toggle-icon icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <svg class="theme-toggle-icon icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <span class="sr-only theme-toggle-text">Dark Mode</span>
+          </button>
+          <a href="dilshadur-cv.pdf" download class="header-download">
+            <span>Download CV</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M12 5v9" />
+              <path d="M8.5 11.5 12 15l3.5-3.5" />
+              <path d="M7 19h10" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <h1 class="header-name">Md <em>Dilshadur</em><br>Rahman</h1>
+      <div class="header-rule"></div>
+      <div class="header-links">
+        <a href="mailto:dilshadur@sci.utah.edu" class="header-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <polyline points="2,4 12,13 22,4" />
+          </svg>
+          dilshadur@sci.utah.edu
+        </a>
+        <a href="https://dilshadur.com/" target="_blank" rel="noopener noreferrer" class="header-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M2 12h20" />
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+          </svg>
+          Website
+        </a>
+        <a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"
+          class="header-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12,2 22,7 12,12 2,7" />
+            <path d="M6 10v5c0 2.5 2.7 4 6 4s6-1.5 6-4v-5" />
+            <line x1="22" y1="7" x2="22" y2="13" />
+          </svg>
+          Google Scholar
+        </a>
+      </div>
+    </div>
+
+    <!-- Research Appointment -->
+    <section id="positions" aria-labelledby="positions-title">
+      <div class="section-header">
+        <h2 class="section-title" id="positions-title">Research Appointment</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="edu-list">
+        <div class="edu-item">
+          <div class="edu-degree">Postdoctoral Researcher</div>
+          <div class="edu-period">Oct 2026 – Present</div>
+          <div class="edu-dept">HIDIVE Lab, Harvard Medical School</div>
+          <div class="edu-advisor">Supervisor: <span><a href="https://hidivelab.org/team/members/nils-gehlenborg/" target="_blank"
+                rel="noopener noreferrer">Dr. Nils Gehlenborg</a></span></div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Research Assistant</div>
+          <div class="edu-period">Aug 2022 – Sep 2026</div>
+          <div class="edu-dept">Scientific Computing and Imaging Institute, University of Utah</div>
+          <div class="edu-advisor">Supervisor: <span><a href="https://cspaul.com/" target="_blank"
+                rel="noopener noreferrer">Dr. Paul Rosen</a></span></div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Research Assistant</div>
+          <div class="edu-period">Aug 2021 – Aug 2022</div>
+          <div class="edu-dept">Department of Computer Science &amp; Engineering, University of South Florida</div>
+          <div class="edu-advisor">Supervisor: <span><a href="https://cspaul.com/" target="_blank"
+                rel="noopener noreferrer">Dr. Paul Rosen</a></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" aria-labelledby="education-title">
+      <div class="section-header">
+        <h2 class="section-title" id="education-title">Education</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="edu-list">
+        <div class="edu-item">
+          <div class="edu-degree">Doctor of Philosophy in Computer Science</div>
+          <div class="edu-period">Aug 2022 – Sep 2026</div>
+          <div class="edu-dept">Kahlert School of Computing & Scientific Computing and Imaging (SCI)
+            Institute, University of Utah</div>
+          <div class="edu-advisor">Dissertation: <span>Design Space and Tooling for Annotations in Visualizations</span></div>
+          <div class="edu-advisor">Advisor: <span><a href="https://cspaul.com/" target="_blank"
+                rel="noopener noreferrer">Dr. Paul Rosen</a></span></div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Master of Science in Computer Science</div>
+          <div class="edu-period">Aug 2022</div>
+          <div class="edu-dept">Department of Computer Science and Engineering, University of South Florida</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Bachelor of Science in Computer Science and Engineering</div>
+          <div class="edu-period">Mar 2017</div>
+          <div class="edu-dept">Department of Computer Science and Engineering, Khulna University of Engineering and
+            Technology (KUET)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications" aria-labelledby="publications-title" aria-describedby="publications-note">
+      <div class="section-header">
+        <h2 class="section-title" id="publications-title">Publications</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="pub-context-note" id="publications-note" role="note">
+        <svg class="pub-context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <span><strong>Note:</strong> <strong>IEEE TVCG</strong> is a leading journal in visualization research, and <strong>IEEE VIS</strong> and <strong>EuroVis</strong> are premier
+          conferences for visualization research</span>
+      </div>
+
+      <div class="pub-toolbar">
+        <div class="pub-filters" role="toolbar" aria-label="Filter publications by type">
+          <button class="pub-filter active" data-filter="all" aria-pressed="true" aria-controls="publications-list">All
+            <span class="pub-count" id="count-all">24</span></button>
+          <button class="pub-filter" data-filter="journal" aria-pressed="false" aria-controls="publications-list"><span
+              class="filter-dot" style="background: var(--tag-journal-color);"></span>Journals <span class="pub-count"
+              id="count-journal">5</span></button>
+          <button class="pub-filter" data-filter="conference" aria-pressed="false"
+            aria-controls="publications-list"><span class="filter-dot"
+              style="background: var(--tag-conf-color);"></span>Conferences & Workshops <span class="pub-count"
+              id="count-conference">12</span></button>
+          <button class="pub-filter" data-filter="poster" aria-pressed="false" aria-controls="publications-list"><span
+              class="filter-dot" style="background: var(--tag-poster-color);"></span>Posters <span class="pub-count"
+              id="count-poster">3</span></button>
+          <button class="pub-filter" data-filter="review" aria-pressed="false" aria-controls="publications-list"><span
+              class="filter-dot" style="background: var(--tag-review-color);"></span>Under Review <span
+              class="pub-count" id="count-review">4</span></button>
+        </div>
+        <div class="pub-toolbar-meta">
+          <div class="pub-summary" id="pub-summary" aria-live="polite" aria-atomic="true">
+            Showing all publications · grouped by type · newest first
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-status sr-only" id="pub-status" aria-live="polite" aria-atomic="true"></div>
+      <div class="pub-list" id="publications-list"></div>
+    </section>
+
+    <!-- Teaching -->
+    <section id="teaching" aria-labelledby="teaching-title">
+      <div class="section-header">
+        <h2 class="section-title" id="teaching-title">Teaching Experience</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="teach-block">
+        <div class="teach-block-title" role="heading" aria-level="3">Direct Classroom Teaching</div>
+        <div class="teach-list">
+          <div class="teach-item">
+            <div class="teach-marker"></div>
+            <div>
+              <div class="teach-role">Graduate Instructor</div>
+              <div class="teach-inst">University of South Florida, Computer Science & Engineering</div>
+              <div class="teach-courses">IT Computer Networking Lab (Fall 2021) · Computer Architecture Lab (Spring
+                2022)</div>
+            </div>
+            <div class="teach-period">Aug 2021 – May 2022</div>
+          </div>
+          <div class="teach-item">
+            <div class="teach-marker"></div>
+            <div>
+              <div class="teach-role">Instructor of Record</div>
+              <div class="teach-inst">University of Arizona, Computer Science</div>
+              <div class="teach-courses">Introduction to Computer Programming II (Summer 2020)</div>
+            </div>
+            <div class="teach-period">May 2020 – Aug 2020</div>
+          </div>
+          <div class="teach-item">
+            <div class="teach-marker"></div>
+            <div>
+              <div class="teach-role">Lecturer</div>
+              <div class="teach-inst">Daffodil International University, Computer Science & Engineering</div>
+              <div class="teach-courses">Discrete Mathematics · Data Structures · Programming and Problem Solving ·
+                Systems Analysis and Design · Operating Systems · Data Communications</div>
+            </div>
+            <div class="teach-period">Sept 2017 – Aug 2019</div>
+          </div>
+          <div class="teach-item">
+            <div class="teach-marker"></div>
+            <div>
+              <div class="teach-role">Lecturer</div>
+              <div class="teach-inst">University of Information Technology and Sciences, Computer Science & Engineering
+              </div>
+              <div class="teach-courses">Microprocessors · Computer Architecture · Database System Management</div>
+            </div>
+            <div class="teach-period">May 2017 – Sept 2017</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="teach-block">
+        <div class="teach-block-title" role="heading" aria-level="3">Teaching Support Roles</div>
+        <div class="teach-list">
+          <div class="teach-item">
+            <div class="teach-marker" style="background: var(--accent);"></div>
+            <div>
+              <div class="teach-role">Graduate Teaching Assistant</div>
+              <div class="teach-inst">University of Utah, Kahlert School of Computing</div>
+              <div class="teach-courses">Visualization for Data Science (Fall 2024)</div>
+            </div>
+            <div class="teach-period">Aug 2024 – Dec 2024</div>
+          </div>
+          <div class="teach-item">
+            <div class="teach-marker" style="background: var(--accent);"></div>
+            <div>
+              <div class="teach-role">Teaching Mentee</div>
+              <div class="teach-inst">University of Utah, Kahlert School of Computing</div>
+              <div class="teach-courses">Computational Geometry (Spring 2023)</div>
+            </div>
+            <div class="teach-period">Jan 2023 – May 2023</div>
+          </div>
+          <div class="teach-item">
+            <div class="teach-marker" style="background: var(--accent);"></div>
+            <div>
+              <div class="teach-role">Graduate Teaching Assistant</div>
+              <div class="teach-inst">University of South Florida, Computer Science & Engineering</div>
+              <div class="teach-courses">Interactive Data Visualization (Spring 2022) · IT Security Systems (Fall 2021)
+              </div>
+            </div>
+            <div class="teach-period">Aug 2021 – May 2022</div>
+          </div>
+          <div class="teach-item">
+            <div class="teach-marker" style="background: var(--accent);"></div>
+            <div>
+              <div class="teach-role">Graduate Teaching Assistant</div>
+              <div class="teach-inst">University of Arizona, Computer Science</div>
+              <div class="teach-courses">Data Visualization (Spring 2021) · Introduction to Computer Programming II
+                (Summer 2021)</div>
+            </div>
+            <div class="teach-period">Jan 2021 – Aug 2021</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Honors -->
+    <section id="honors" aria-labelledby="honors-title">
+      <div class="section-header">
+        <h2 class="section-title" id="honors-title">Honors & Awards</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="honors-list">
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">Selected as a Future Leader of AI, ACM AI Leadership Summit, with NSF travel support</div>
+          <div class="honor-year">2026</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">Kahlert Impact Prize for Research & Academic Service Excellence, Kahlert School of Computing, University of Utah</div>
+          <div class="honor-year">2026</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">Special recognition for outstanding reviews (Posters), ACM CHI</div>
+          <div class="honor-year">2026</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">Special recognition for outstanding reviews (Late Breaking Works), ACM CHI</div>
+          <div class="honor-year">2025</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">Doctoral Colloquium Fellowship, IEEE VIS</div>
+          <div class="honor-year">2023</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L2 9l10 13 10-13L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">~$4,000 in NSF travel funding — Doctoral Colloquium at IEEE VIS</div>
+          <div class="honor-year">2023</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L2 9l10 13 10-13L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">~$500 travel award from Associated Students of the University of Utah — IEEE VIS</div>
+          <div class="honor-year">2022</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L2 9l10 13 10-13L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">~$1,500 in NSF travel funding — Topological Data Visualization Workshop, University of
+            Iowa</div>
+          <div class="honor-year">2021</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">University Dean's Award, Khulna University of Engineering and Technology</div>
+          <div class="honor-year">2016–17</div>
+        </div>
+        <div class="honor-item">
+          <div class="honor-star">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <div class="honor-text">University Dean's Award, Khulna University of Engineering and Technology</div>
+          <div class="honor-year">2015–16</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service -->
+    <section id="service" aria-labelledby="service-title">
+      <div class="section-header">
+        <h2 class="section-title" id="service-title">Academic Service & Leadership</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="service-block">
+        <div class="service-block-title" role="heading" aria-level="3">Conference & Workshop Organization</div>
+        <div class="service-list">
+          <div class="service-item">
+            <div class="service-role"><em>Technical Program Committee Member</em>IEEE Global Engineering Education
+              Conference (IEEE EDUCON)</div>
+            <div class="service-year">2026, 2025</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Program Committee Member (Short Papers)</em>IEEE Visualization and Visual
+              Analytics (IEEE VIS)</div>
+            <div class="service-year">2026, 2025</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Co-Organizer</em>IEEE VIS Workshop on Visualization for Communication
+              (VisComm), IEEE VIS</div>
+            <div class="service-year">2025</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Committee Member</em>Talk Submissions, Outlier Conference</div>
+            <div class="service-year">2025</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Committee Member (Judge)</em>Visual Data Storytelling Contest, IEEE PacificVis
+            </div>
+            <div class="service-year">2025</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Co-Organizer</em>IEEE VIS Workshop on Visualization Education, Literacy, and
+              Activities (EduVis)</div>
+            <div class="service-year">2024</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Student Volunteer</em>IEEE VIS</div>
+            <div class="service-year">2024</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Student Volunteer</em>International Conference of Electrical, Information, and
+              Communication Technology, KUET</div>
+            <div class="service-year">2013</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-block">
+        <div class="service-block-title" role="heading" aria-level="3">Peer Review</div>
+        <div class="reviewer-grid">
+          <div class="reviewer-item">ACM CHI <span class="reviewer-year">2026, 2025</span></div>
+          <div class="reviewer-item">ACM IUI (Posters) <span class="reviewer-year">2026</span></div>
+          <div class="reviewer-item">IEEE VIS <span class="reviewer-year">2026, 2025</span></div>
+          <div class="reviewer-item">ACM DIS <span class="reviewer-year">2025</span></div>
+          <div class="reviewer-item">IEEE/EuroGraphics EuroVis <span class="reviewer-year">2025</span></div>
+          <div class="reviewer-item">Int'l Journal of Human-Computer Interaction <span class="reviewer-year">2025</span>
+          </div>
+          <div class="reviewer-item">Int'l Journal of Human-Computer Studies <span class="reviewer-year">2026</span></div>
+          <div class="reviewer-item">IEEE PacificVis <span class="reviewer-year">2025</span></div>
+          <div class="reviewer-item">ACM CUI <span class="reviewer-year">2025</span></div>
+          <div class="reviewer-item">IEEE EDUCON <span class="reviewer-year">2026, 2025</span></div>
+          <div class="reviewer-item">OzCHI <span class="reviewer-year">2025, 2024</span></div>
+          <div class="reviewer-item">IEEE TVCG <span class="reviewer-year">2026, 2024</span></div>
+          <div class="reviewer-item">ACM CSCW <span class="reviewer-year">2024</span></div>
+          <div class="reviewer-item">IEEE EduVis <span class="reviewer-year">2024</span></div>
+          <div class="reviewer-item">IEEE ECCE <span class="reviewer-year">2024</span></div>
+        </div>
+      </div>
+
+      <div class="service-block">
+        <div class="service-block-title" role="heading" aria-level="3">Other Volunteering</div>
+        <div class="service-list">
+          <div class="service-item">
+            <div class="service-role"><em>Student Volunteer</em>Prospective CS Graduate Student Visit, University of
+              Utah</div>
+            <div class="service-year">2024, 2023</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Student Volunteer</em>Hack Arizona</div>
+            <div class="service-year">2020</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Student Volunteer</em>Prospective CS Graduate Student Visit, University of
+              Arizona</div>
+            <div class="service-year">2020</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Student Coordinator</em>National High School Programming Contest — led the
+              student volunteer team</div>
+            <div class="service-year">2014–2016</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Organizing Committee Member</em>Intra-Department Idea Contest, KUET</div>
+            <div class="service-year">2016</div>
+          </div>
+          <div class="service-item">
+            <div class="service-role"><em>Organizing Committee Member</em>Intra-Department Programming Contest, KUET
+            </div>
+            <div class="service-year">2016, 2015</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Talks -->
+    <section id="talks" aria-labelledby="talks-title">
+      <div class="section-header">
+        <h2 class="section-title" id="talks-title">Talks</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="talks-list">
+        <div class="talk-item">
+          <div class="talk-year">2026</div>
+          <div>
+            <div class="talk-title">Towards AI-enabled Visualization Authoring and Communication</div>
+            <div class="talk-meta"><span class="talk-type invited">Summit Talk</span>ACM AI Leadership Summit, Atlanta,
+              Georgia, USA</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2026</div>
+          <div>
+            <div class="talk-title">Designing Annotations in Visualization: Considerations from Visualization
+              Practitioners and Educators</div>
+            <div class="talk-meta"><span class="talk-type">Conference Talk</span>EuroVis, Nottingham, UK</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2026</div>
+          <div>
+            <div class="talk-title">Design Space and Tooling for Annotations in Visualizations</div>
+            <div class="talk-meta"><span class="talk-type invited">Invited Talk</span>Harvard Medical School, Boston,
+              Massachusetts, USA</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2026</div>
+          <div>
+            <div class="talk-title">Design Space and Tooling for Annotations in Visualizations</div>
+            <div class="talk-meta"><span class="talk-type invited">Invited Talk</span>Oak Ridge National Laboratory,
+              Tennessee, USA</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2024</div>
+          <div>
+            <div class="talk-title">A Qualitative Analysis of Common Practices in Annotations: A Taxonomy and Design
+              Space</div>
+            <div class="talk-meta"><span class="talk-type">Conference Talk</span>IEEE VIS, Virtual</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2024</div>
+          <div>
+            <div class="talk-title">A Qualitative Analysis of Common Practices in Annotations: A Taxonomy and Design
+              Space</div>
+            <div class="talk-meta"><span class="talk-type seminar">Seminar Talk</span>Visualization Seminar, SCI
+              Institute, University of Utah, USA</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2023</div>
+          <div>
+            <div class="talk-title">Understanding the Design Space of Annotations in Visualizations</div>
+            <div class="talk-meta"><span class="talk-type invited">Invited Talk</span>Doctoral Colloquium, IEEE VIS,
+              Melbourne, Australia</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2023</div>
+          <div>
+            <div class="talk-title">How Do People Comprehend Annotations in Visualizations?</div>
+            <div class="talk-meta"><span class="talk-type">Conference Talk</span>Vis X Vision Workshop, IEEE VIS,
+              Melbourne, Australia</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2023</div>
+          <div>
+            <div class="talk-title">Exploring Annotation Strategies in Professional Visualizations: Insights from
+              Prominent US News Portals</div>
+            <div class="talk-meta"><span class="talk-type">Conference Talk</span>VisComm Workshop, IEEE VIS, Melbourne,
+              Australia</div>
+          </div>
+        </div>
+        <div class="talk-item">
+          <div class="talk-year">2022</div>
+          <div>
+            <div class="talk-title">A Qualitative Evaluation and Taxonomy of Student Annotations on Bar Charts</div>
+            <div class="talk-meta"><span class="talk-type">Conference Talk</span>VisComm Workshop, IEEE VIS, Oklahoma
+              City, USA</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="main.js" defer></script>
+</body>
+
+</html>
