@@ -2040,6 +2040,54 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   background: var(--warm);
 }
 
+/* the label takes its own line, so the six links never leave one orphaned on a second row */
+@media (min-width: 761px) {
+  .family {
+    align-items: end;
+  }
+
+  .family__label {
+    flex-basis: 100%;
+    text-align: right;
+  }
+}
+
+/* the way home, the brand, the theme toggle, and the footer links reach a 40px+
+   touch target without moving */
+@media (pointer: coarse) {
+  .home,
+  .mark,
+  .family__home,
+  .theme-toggle,
+  .family__set a,
+  .foot__inner a {
+    position: relative;
+  }
+
+  .home::after,
+  .mark::after,
+  .family__home::after,
+  .theme-toggle::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 999px;
+  }
+
+  .family__set a::after,
+  .foot__inner a::after {
+    content: "";
+    position: absolute;
+    inset: -11px -4px;
+  }
+}
+
+@media (pointer: coarse) and (max-width: 760px) {
+  .family .family__set {
+    row-gap: 20px;
+  }
+}
+
 @media (max-width: 760px) {
   .family {
     grid-template-columns: 1fr;
@@ -2107,10 +2155,6 @@ html[data-theme="dark"] .cited__thumb img {
 }
 
 @media (pointer: coarse) {
-  .home::after,
-  .theme-toggle::after,
-  .mark::after,
-  .family__home::after,
   .detail__full::after {
     content: "";
     position: absolute;
@@ -2125,24 +2169,6 @@ html[data-theme="dark"] .cited__thumb img {
   .icon-btn {
     width: 40px;
     height: 40px;
-  }
-
-  .family__set a,
-  .family__set [aria-current],
-  .foot__inner a {
-    display: inline-flex;
-    align-items: center;
-    padding: 11px 0;
-  }
-
-  .family__set {
-    row-gap: 0;
-    align-items: center;
-  }
-
-  .family__set a.u,
-  .foot__inner a.u {
-    background-position: 0 calc(100% - 9px);
   }
 }
 
@@ -2160,9 +2186,11 @@ html[data-theme="dark"] .cited__thumb img {
   }
 }
 
-/* phones: the chart sets the sheet's height, so the mat stays even on wide charts */
-@media (max-width: 700px) {
+/* stacked detail: the chart sets the sheet's height, so the mat stays even
+   and neither a wide nor a tall chart spills out of it */
+@media (max-width: 820px) {
   .detail__zoom {
+    height: auto;
     aspect-ratio: auto;
     max-height: none;
   }

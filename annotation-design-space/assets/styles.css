@@ -4058,16 +4058,21 @@ html[data-theme="dark"] .zoom__stage img {
   }
 }
 
-/* the way home, the theme toggle, and the sibling links reach a 40px+
+/* the way home, the brand, the theme toggle, and the footer links reach a 40px+
    touch target without moving */
 @media (pointer: coarse) {
   .home,
+  .mark,
+  .family__home,
   .theme-toggle,
-  .family__set a {
+  .family__set a,
+  .foot__inner a {
     position: relative;
   }
 
   .home::after,
+  .mark::after,
+  .family__home::after,
   .theme-toggle::after {
     content: "";
     position: absolute;
@@ -4075,7 +4080,8 @@ html[data-theme="dark"] .zoom__stage img {
     border-radius: 999px;
   }
 
-  .family__set a::after {
+  .family__set a::after,
+  .foot__inner a::after {
     content: "";
     position: absolute;
     inset: -11px -4px;
