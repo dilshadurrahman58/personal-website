@@ -3936,6 +3936,182 @@
         transform: none !important;
       }
     }
+    /* ===================== RESPONSIVE REFINEMENTS ===================== */
+
+    /* Grid and flex children may shrink below their content, so nothing
+       can push the page wider than the screen. */
+    #hero > *,
+    .hero-body > *,
+    .pub-body,
+    .talk-body {
+      min-width: 0;
+    }
+
+    /* Long names, venues and links wrap instead of overflowing. */
+    .hero-bio,
+    .update-text,
+    .pub-title,
+    .pub-authors,
+    .pub-venue,
+    .talk-title,
+    .talk-venue,
+    .contact-value {
+      overflow-wrap: break-word;
+    }
+
+    .bv {
+      max-width: 100%;
+      white-space: normal;
+    }
+
+    .pub-links {
+      min-width: 0;
+    }
+
+    /* VIS invitation card on narrow phones */
+    @media (max-width: 420px) {
+      .hero-event {
+        display: flex;
+        width: 100%;
+      }
+
+      .hero-event-when {
+        flex-wrap: wrap;
+        white-space: normal;
+        row-gap: 0.15rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero-event-papers {
+        display: none;
+      }
+    }
+
+    /* Readable minimum type sizes on small phones */
+    @media (max-width: 400px) {
+      .nav-links a {
+        font-size: 0.68rem;
+        letter-spacing: 0.03em;
+      }
+
+      .theme-toggle-label {
+        font-size: 0.64rem;
+      }
+
+      .update-date,
+      .hero-updates-list .update-date {
+        font-size: 0.7rem;
+      }
+    }
+
+    /* Comfortable touch targets on phones and tablets */
+    @media (pointer: coarse) {
+      .nav-links a {
+        min-height: 2.5rem;
+      }
+
+      .theme-toggle,
+      .filter-btn {
+        min-height: 2.5rem;
+      }
+
+      .pl {
+        min-height: 2.15rem;
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+      }
+
+      .pub-links {
+        row-gap: 0.5rem;
+      }
+
+      .footer-links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.5rem;
+      }
+    }
+    /* One-row menu on tablets and phones held sideways (was 3 x 2) */
+    @media (min-width: 700px) and (max-width: 1040px),
+      (orientation: landscape) and (max-height: 500px) and (min-width: 560px) {
+      .nav-links {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+
+      .nav-links a {
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+        letter-spacing: 0.03em;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      .nav-inner {
+        padding-top: 0.45rem;
+        padding-bottom: 0.5rem;
+        row-gap: 0.4rem;
+      }
+    }
+
+    /* Menu slides away while reading and returns on any upward scroll
+       (only where it takes real screen space: tablets, phones, short screens) */
+    #nav {
+      transition: box-shadow 0.25s ease, translate 0.45s var(--ease-fluid);
+    }
+
+    #nav.nav-away {
+      translate: 0 calc(-100% - 6px);
+    }
+
+    /* Publication filter strip: fade the edge that has more to scroll to */
+    .pub-filter-row.can-scroll-right {
+      -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 44px), transparent);
+      mask-image: linear-gradient(90deg, #000 calc(100% - 44px), transparent);
+    }
+
+    .pub-filter-row.can-scroll-left {
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 44px);
+      mask-image: linear-gradient(90deg, transparent, #000 44px);
+    }
+
+    .pub-filter-row.can-scroll-left.can-scroll-right {
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 44px, #000 calc(100% - 44px), transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 44px, #000 calc(100% - 44px), transparent);
+    }
+
+    .pub-filter-row .filter-btn {
+      scroll-snap-align: start;
+    }
+
+    /* Large monitors: scale type and layout up a little so text isn't tiny */
+    @media (min-width: 1680px) {
+      html {
+        font-size: 106.25%;
+      }
+
+      body {
+        font-size: 16.5px;
+      }
+
+      :root {
+        --max-w: 1360px;
+      }
+    }
+
+    @media (min-width: 2200px) {
+      html {
+        font-size: 112.5%;
+      }
+
+      body {
+        font-size: 17.5px;
+      }
+
+      :root {
+        --max-w: 1460px;
+      }
+    }
   </style>
   <script>
     // Motion is opt-in: only when the visitor has not asked for reduced motion.
@@ -5777,6 +5953,52 @@
           py = e.clientY;
           if (!pending) pending = requestAnimationFrame(paint);
         }, { passive: true });
+      }
+    })();
+  </script>
+  <script>
+    // Layout helpers that apply on every device (independent of motion settings).
+    (() => {
+      /* Menu slides away on scroll down, returns on scroll up */
+      const nav = document.getElementById('nav');
+      const compact = window.matchMedia('(max-width: 1040px), (max-height: 500px)');
+      let lastY = window.scrollY;
+      let ticking = false;
+      const armedAt = performance.now() + 900; // keep the menu visible after a direct #section link
+      const update = () => {
+        ticking = false;
+        const y = window.scrollY;
+        if (performance.now() < armedAt) { lastY = y; return; }
+        const delta = y - lastY;
+        const menuOpen = document.getElementById('nav-links')?.classList.contains('open');
+        const focusInNav = nav.contains(document.activeElement) && document.activeElement !== document.body;
+        if (!compact.matches || y < nav.offsetHeight + 40 || menuOpen || focusInNav) {
+          nav.classList.remove('nav-away');
+        } else if (delta > 6) {
+          nav.classList.add('nav-away');
+        } else if (delta < -6) {
+          nav.classList.remove('nav-away');
+        }
+        if (Math.abs(delta) > 6) lastY = y;
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      nav.addEventListener('focusin', () => nav.classList.remove('nav-away'));
+      compact.addEventListener?.('change', update);
+
+      /* Filter strip edge fades */
+      const row = document.querySelector('.pub-filter-row');
+      if (row) {
+        const edges = () => {
+          const max = row.scrollWidth - row.clientWidth;
+          row.classList.toggle('can-scroll-left', max > 2 && row.scrollLeft > 2);
+          row.classList.toggle('can-scroll-right', max > 2 && row.scrollLeft < max - 2);
+        };
+        row.addEventListener('scroll', edges, { passive: true });
+        window.addEventListener('resize', edges);
+        if ('ResizeObserver' in window) new ResizeObserver(edges).observe(row);
+        edges();
       }
     })();
   </script>
