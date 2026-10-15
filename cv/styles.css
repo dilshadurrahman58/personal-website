@@ -669,20 +669,22 @@ p.what em {
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 22px;
+  gap: 6px 22px;
   margin: 0 0 30px var(--gutter-w);
-  padding-bottom: 12px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--rule);
 }
 
+/* each label carries its own underline, a few pixels under the word */
 .filter {
   position: relative;
-  padding: 6px 0;
+  padding: 4px 0 7px;
   border: 0;
   background: none;
   color: var(--ink-3);
   font-size: 13px;
   font-weight: 500;
+  line-height: 1.2;
   cursor: pointer;
   transition: color 0.2s;
 }
@@ -692,16 +694,22 @@ p.what em {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -13px;
+  bottom: 0;
   height: 1px;
-  background: var(--ink);
+  background: currentColor;
+  opacity: 0;
   transform: scaleX(0);
   transform-origin: 0 50%;
-  transition: transform 0.35s var(--ease-out);
+  transition: transform 0.35s var(--ease-out), opacity 0.2s ease;
 }
 
 .filter:hover {
-  color: var(--ink);
+  color: var(--ink-2);
+}
+
+.filter:hover::after {
+  opacity: 0.55;
+  transform: none;
 }
 
 .filter[aria-pressed="true"] {
@@ -709,6 +717,7 @@ p.what em {
 }
 
 .filter[aria-pressed="true"]::after {
+  opacity: 1;
   transform: none;
 }
 
