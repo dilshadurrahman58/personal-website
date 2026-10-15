@@ -974,91 +974,80 @@ p.what em {
   }
 }
 
-/* ── Print: the page becomes the paper it imitates ────────────── */
+/* ── Print: the page becomes the paper it imitates ──────────────
+   The downloadable PDF is printed from this page (tools/build-pdf.mjs),
+   so this block is the PDF's design: US Letter, a calm text block,
+   dates in the margin, a running foot with the page number. */
+.print-only {
+  display: none;
+}
+
 @media print {
   @page {
-    margin: 16mm 16mm 18mm;
+    size: letter;
+    margin: 0.85in 0.8in 0.9in;
+
+    @bottom-left {
+      content: "Md Dilshadur Rahman · Curriculum Vitae";
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 7.5pt;
+      letter-spacing: 0.02em;
+      color: #77787C;
+      vertical-align: top;
+      padding-top: 0.28in;
+    }
+
+    @bottom-right {
+      content: counter(page) " of " counter(pages);
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 7.5pt;
+      font-variant-numeric: tabular-nums;
+      color: #77787C;
+      vertical-align: top;
+      padding-top: 0.28in;
+    }
+  }
+
+  /* the first page carries the masthead instead of a running foot */
+  @page :first {
+    @bottom-left {
+      content: none;
+    }
+
+    @bottom-right {
+      content: none;
+    }
   }
 
   :root,
   html[data-theme="dark"] {
     --paper: #FFFFFF;
     --desk: #FFFFFF;
-    --ink: #000000;
-    --ink-2: #2B2B2B;
-    --ink-3: #555555;
-    --rule: #D6D6D6;
-    --rule-strong: #BDBDBD;
-    --accent: #1F3A5C;
+    --ink: #17181B;
+    --ink-2: #3A3C41;
+    --ink-3: #6B6D72;
+    --rule: #DEDBD3;
+    --rule-strong: #C9C5BB;
+    --accent: #24466F;
     --link-line: transparent;
-    --gutter-w: 1.42in;
+    --gutter-w: 1.3in;
     --pad-x: 0px;
+  }
+
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   body {
     font-size: 10pt;
-    line-height: 1.45;
+    line-height: 1.48;
     background: #FFFFFF;
   }
 
-  .when {
-    font-size: 8pt;
-  }
-
-  .masthead {
-    padding-bottom: 14pt;
-  }
-
-  .masthead__name {
-    font-size: 26pt;
-  }
-
-  .masthead__role,
-  .title,
-  .pub__title {
-    font-size: 11pt;
-  }
-
-  .masthead__contact,
-  .masthead__interests,
-  .detail,
-  .pub__authors,
-  .pub__venue,
-  .reviews li {
-    font-size: 9.5pt;
-  }
-
-  .pub__meta {
-    font-size: 8pt;
-    margin-top: 2pt;
-  }
-
-  .entries {
-    gap: 8pt;
-  }
-
-  .entries--tight {
-    gap: 4pt;
-  }
-
-  .part__title {
-    margin-bottom: 10pt;
-    font-size: 8pt;
-  }
-
-  .part__sub,
-  .pub-group__title {
-    margin: 12pt 0 6pt var(--gutter-w);
-    font-size: 10.5pt;
-  }
-
-  .pub-group + .pub-group {
-    margin-top: 12pt;
-  }
-
-  .colophon {
-    margin-top: 24pt;
-    font-size: 8pt;
+  p {
+    orphans: 3;
+    widows: 3;
   }
 
   .reader,
@@ -1066,8 +1055,13 @@ p.what em {
   .filters,
   .part__note,
   .desk__foot,
-  .skip-link {
+  .skip-link,
+  .pub__ext {
     display: none !important;
+  }
+
+  .print-only {
+    display: inline;
   }
 
   .desk {
@@ -1077,14 +1071,162 @@ p.what em {
   .sheet {
     max-width: none;
     padding: 0;
+    border-radius: 0;
     box-shadow: none;
     animation: none !important;
   }
 
-  .part {
-    padding-top: 18pt;
+  /* links stay live in the PDF: navy, without underlines */
+  .sheet a {
+    color: var(--accent);
+    text-decoration: none;
   }
 
+  .sheet .title a,
+  .detail a {
+    color: inherit;
+  }
+
+  /* masthead */
+  .masthead {
+    padding-bottom: 16pt;
+  }
+
+  .masthead__kicker {
+    margin-bottom: 10pt;
+    font-size: 7.5pt;
+    letter-spacing: 0.18em;
+  }
+
+  .masthead__name {
+    font-size: 27pt;
+    letter-spacing: -0.012em;
+  }
+
+  .masthead__role {
+    margin-top: 5pt;
+    font-size: 11.5pt;
+  }
+
+  .masthead__contact {
+    margin-top: 11pt;
+    font-size: 8.5pt;
+  }
+
+  .masthead__contact li:not(:last-child)::after {
+    margin: 0 7pt;
+  }
+
+  .masthead__interests {
+    max-width: none;
+    margin-top: 9pt;
+    font-size: 9.5pt;
+  }
+
+  .smallcaps {
+    font-size: 7pt;
+  }
+
+  /* parts */
+  .part {
+    padding-top: 20pt;
+  }
+
+  .part__title {
+    gap: 12pt;
+    margin-bottom: 11pt;
+    font-size: 7.5pt;
+    letter-spacing: 0.18em;
+  }
+
+  .part__sub {
+    margin: 13pt 0 7pt;
+    font-size: 10.5pt;
+  }
+
+  .pub-group__title {
+    margin: 13pt 0 7pt var(--gutter-w);
+    font-size: 10.5pt;
+  }
+
+  .part__title + .part__sub {
+    margin-top: 0;
+  }
+
+  .pub-group + .pub-group {
+    margin-top: 14pt;
+  }
+
+  .entries {
+    gap: 9pt;
+  }
+
+  .entries--tight {
+    gap: 4.5pt;
+  }
+
+  .when {
+    padding-right: 12pt;
+    font-size: 7.75pt;
+    line-height: 1.75;
+  }
+
+  .title,
+  .pub__title {
+    font-size: 10.75pt;
+    line-height: 1.35;
+  }
+
+  .where,
+  .detail,
+  .pub__authors,
+  .pub__venue,
+  p.what,
+  .reviews li {
+    font-size: 9.5pt;
+    line-height: 1.45;
+  }
+
+  .where {
+    margin-top: 1pt;
+  }
+
+  .detail {
+    margin-top: 1.5pt;
+  }
+
+  .pub__meta {
+    margin-top: 2.5pt;
+    font-size: 7.75pt;
+  }
+
+  .pub__meta > :not(:last-child)::after {
+    margin: 0 6pt;
+  }
+
+  .kind {
+    font-size: 7pt;
+  }
+
+  .reviews {
+    column-gap: 24pt;
+  }
+
+  .reviews li {
+    padding: 1.5pt 0;
+  }
+
+  .reviews span {
+    font-size: 7.75pt;
+  }
+
+  .colophon {
+    margin-top: 26pt;
+    padding-top: 9pt;
+    font-size: 7.5pt;
+  }
+
+  /* keep things whole across pages */
   .part__title,
   .part__sub,
   .pub-group__title {
@@ -1092,7 +1234,6 @@ p.what em {
     break-inside: avoid;
   }
 
-  /* a heading never ends a page alone: it travels with its first entry */
   .pub-group__title + .entries > :first-child,
   .part__sub + .entries > :first-child,
   .part__title + .entries > :first-child {
@@ -1100,11 +1241,19 @@ p.what em {
   }
 
   .entry,
-  .pub {
+  .pub,
+  .masthead,
+  .colophon,
+  .reviews {
     break-inside: avoid;
   }
 
-  .pub__ext {
+  /* the running foot already names the document */
+  .colophon > span:first-child {
     display: none;
+  }
+
+  .colophon {
+    justify-content: flex-end;
   }
 }

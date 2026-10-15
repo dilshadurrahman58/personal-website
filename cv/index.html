@@ -29,9 +29,13 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
+  <link id="webfonts"
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
+  <script>
+    // the PDF build (tools/build-pdf.mjs) prints with static faces, which embed crisply
+    if (/[?&]pdf(&|$)/.test(location.search)) document.getElementById('webfonts').href = 'fonts/print-fonts.css';
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -111,7 +115,7 @@
         <ul class="masthead__contact">
           <li><a href="mailto:dilshadur@sci.utah.edu">dilshadur@sci.utah.edu</a></li>
           <li><a href="tel:+15204488557">+1 (520) 448-8557</a></li>
-          <li><a href="/">dilshadur.com</a></li>
+          <li><a href="https://dilshadur.com/">dilshadur.com</a></li>
           <li><a href="https://scholar.google.com/citations?user=B2SW3msAAAAJ&amp;hl=en" target="_blank"
               rel="noopener">Google Scholar</a></li>
           <li><a href="https://www.linkedin.com/in/md-dilshadur-rahman-a74427104/" target="_blank"
@@ -511,7 +515,8 @@
 
       <footer class="colophon">
         <span>Md Dilshadur Rahman · Curriculum Vitae</span>
-        <span>Last updated October 2026</span>
+        <span>Last updated October 2026<span class="print-only"> · The latest version is at
+            <a href="https://dilshadur.com/cv/">dilshadur.com/cv</a></span></span>
       </footer>
     </article>
 

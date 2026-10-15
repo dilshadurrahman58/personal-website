@@ -130,9 +130,10 @@ const yearOf = (pub) => {
 };
 
 const linkHtml = (l) => {
-  // pages on dilshadur.com open in place; everything else opens a new tab
+  // pages on dilshadur.com open in place; everything else opens a new tab.
+  // Links stay absolute so they also work inside the printed PDF.
   if (l.url.startsWith("https://dilshadur.com/")) {
-    return `<a href="${l.url.slice("https://dilshadur.com".length)}">${escapeHtml(l.label)}</a>`;
+    return `<a href="${l.url}">${escapeHtml(l.label)}</a>`;
   }
   return `<a href="${l.url}" target="_blank" rel="noopener">${escapeHtml(l.label)}<span class="pub__ext" aria-hidden="true">↗</span></a>`;
 };

@@ -1,0 +1,67 @@
+/* Static Lora and Inter (SIL Open Font License), used only when the
+   downloadable PDF is printed (tools/build-pdf.mjs). Static faces embed
+   as real outline fonts, so the PDF stays crisp in every viewer. */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("inter-400.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url("inter-500.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url("inter-600.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: block;
+  src: url("lora-400-italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 500;
+  font-display: block;
+  src: url("lora-500-italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("lora-400.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url("lora-500.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url("lora-600.woff") format("woff");
+}

@@ -1,0 +1,15 @@
+{
+  "name": "cv-pdf",
+  "private": true,
+  "description": "Prints dilshadur.com/cv to cv/dilshadur-cv.pdf",
+  "type": "module",
+  "scripts": {
+    "build": "node build-pdf.mjs"
+  },
+  "dependencies": {
+    "pdf-lib": "1.17.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

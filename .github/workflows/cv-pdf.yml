@@ -1,0 +1,50 @@
+# Rebuilds cv/dilshadur-cv.pdf from the CV page whenever the CV changes,
+# so the downloadable PDF always matches dilshadur.com/cv.
+name: CV PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cv/**"
+      - "!cv/dilshadur-cv.pdf"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cv-pdf
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: cv/tools/package-lock.json
+
+      - name: Install
+        working-directory: cv/tools
+        run: npm ci
+
+      - name: Print the CV to PDF
+        working-directory: cv/tools
+        run: npm run build
+
+      - name: Commit the PDF if it changed
+        run: |
+          if git diff --quiet -- cv/dilshadur-cv.pdf; then
+            echo "The PDF is already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cv/dilshadur-cv.pdf
+          git commit -m "Rebuild the CV PDF from dilshadur.com/cv"
+          git push
