@@ -62,10 +62,10 @@
           </button>
           <nav class="contents__panel" id="contents-panel" aria-label="Contents" hidden>
             <ol>
-              <li><a href="#positions">Research Appointments</a></li>
               <li><a href="#education">Education</a></li>
+              <li><a href="#positions">Research Appointments</a></li>
+              <li><a href="#teaching">Teaching Appointments</a></li>
               <li><a href="#publications">Publications</a></li>
-              <li><a href="#teaching">Teaching</a></li>
               <li><a href="#honors">Honors &amp; Awards</a></li>
               <li><a href="#service">Academic Service</a></li>
               <li><a href="#talks">Talks</a></li>
@@ -95,10 +95,10 @@
   <!-- On wide screens the contents sit in the left margin, like a book's -->
   <nav class="margin-toc" aria-label="Sections">
     <ol>
-      <li><a href="#positions">Appointments</a></li>
       <li><a href="#education">Education</a></li>
-      <li><a href="#publications">Publications</a></li>
+      <li><a href="#positions">Research</a></li>
       <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#publications">Publications</a></li>
       <li><a href="#honors">Honors &amp; Awards</a></li>
       <li><a href="#service">Service</a></li>
       <li><a href="#talks">Talks</a></li>
@@ -124,6 +124,39 @@
           Visual Computing · Human-Computer Interaction · Human-AI Interaction in Visualization · Computing
           Education</p>
       </header>
+
+      <!-- Education -->
+      <section class="part" id="education" aria-labelledby="education-title">
+        <h2 class="part__title" id="education-title">Education</h2>
+        <ol class="entries">
+          <li class="entry">
+            <span class="when">Aug 2022 – Sep 2026</span>
+            <div class="what">
+              <h3 class="title">Doctor of Philosophy in Computer Science</h3>
+              <p class="where">Kahlert School of Computing &amp; Scientific Computing and Imaging (SCI) Institute,
+                University of Utah</p>
+              <p class="detail">Dissertation: <cite>Design Space and Tooling for Annotations in Visualizations</cite></p>
+              <p class="detail">Advisor: <a href="https://cspaul.com/" target="_blank" rel="noopener">Dr. Paul
+                  Rosen</a></p>
+            </div>
+          </li>
+          <li class="entry">
+            <span class="when">Aug 2022</span>
+            <div class="what">
+              <h3 class="title">Master of Science in Computer Science</h3>
+              <p class="where">Department of Computer Science and Engineering, University of South Florida</p>
+            </div>
+          </li>
+          <li class="entry">
+            <span class="when">Mar 2017</span>
+            <div class="what">
+              <h3 class="title">Bachelor of Science in Computer Science and Engineering</h3>
+              <p class="where">Department of Computer Science and Engineering, Khulna University of Engineering and
+                Technology (KUET)</p>
+            </div>
+          </li>
+        </ol>
+      </section>
 
       <!-- Research Appointments -->
       <section class="part" id="positions" aria-labelledby="positions-title">
@@ -159,69 +192,9 @@
         </ol>
       </section>
 
-      <!-- Education -->
-      <section class="part" id="education" aria-labelledby="education-title">
-        <h2 class="part__title" id="education-title">Education</h2>
-        <ol class="entries">
-          <li class="entry">
-            <span class="when">Aug 2022 – Sep 2026</span>
-            <div class="what">
-              <h3 class="title">Doctor of Philosophy in Computer Science</h3>
-              <p class="where">Kahlert School of Computing &amp; Scientific Computing and Imaging (SCI) Institute,
-                University of Utah</p>
-              <p class="detail">Dissertation: <cite>Design Space and Tooling for Annotations in Visualizations</cite></p>
-              <p class="detail">Advisor: <a href="https://cspaul.com/" target="_blank" rel="noopener">Dr. Paul
-                  Rosen</a></p>
-            </div>
-          </li>
-          <li class="entry">
-            <span class="when">Aug 2022</span>
-            <div class="what">
-              <h3 class="title">Master of Science in Computer Science</h3>
-              <p class="where">Department of Computer Science and Engineering, University of South Florida</p>
-            </div>
-          </li>
-          <li class="entry">
-            <span class="when">Mar 2017</span>
-            <div class="what">
-              <h3 class="title">Bachelor of Science in Computer Science and Engineering</h3>
-              <p class="where">Department of Computer Science and Engineering, Khulna University of Engineering and
-                Technology (KUET)</p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
-      <!-- Publications -->
-      <section class="part" id="publications" aria-labelledby="publications-title">
-        <h2 class="part__title" id="publications-title">Publications</h2>
-        <p class="part__note">IEEE TVCG is a leading journal in visualization research, and IEEE VIS and EuroVis are
-          premier conferences for visualization research. Project sites are interactive companions to the papers.</p>
-
-        <div class="filters" role="toolbar" aria-label="Show publications by type">
-          <button class="filter" type="button" data-filter="all" aria-pressed="true">All <span class="count"
-              id="count-all"></span></button>
-          <button class="filter" type="button" data-filter="journal" aria-pressed="false">Journal articles <span
-              class="count" id="count-journal"></span></button>
-          <button class="filter" type="button" data-filter="conference" aria-pressed="false">Conferences &amp;
-            workshops <span class="count" id="count-conference"></span></button>
-          <button class="filter" type="button" data-filter="poster" aria-pressed="false">Posters <span class="count"
-              id="count-poster"></span></button>
-          <button class="filter" type="button" data-filter="review" aria-pressed="false">In progress <span
-              class="count" id="count-review"></span></button>
-        </div>
-        <p class="sr-only" id="pub-status" aria-live="polite"></p>
-        <div class="pubs" id="publications-list" aria-busy="true">
-          <noscript>
-            <p class="detail">The publication list needs JavaScript. The <a href="dilshadur-cv.pdf">PDF</a> has the full
-              list.</p>
-          </noscript>
-        </div>
-      </section>
-
-      <!-- Teaching -->
+      <!-- Teaching Appointments -->
       <section class="part" id="teaching" aria-labelledby="teaching-title">
-        <h2 class="part__title" id="teaching-title">Teaching Experience</h2>
+        <h2 class="part__title" id="teaching-title">Teaching Appointments</h2>
 
         <h3 class="part__sub">Direct Classroom Teaching</h3>
         <ol class="entries">
@@ -296,6 +269,33 @@
             </div>
           </li>
         </ol>
+      </section>
+
+      <!-- Publications -->
+      <section class="part" id="publications" aria-labelledby="publications-title">
+        <h2 class="part__title" id="publications-title">Publications</h2>
+        <p class="part__note">IEEE TVCG is a leading journal in visualization research, and IEEE VIS and EuroVis are
+          premier conferences for visualization research. Project sites are interactive companions to the papers.</p>
+
+        <div class="filters" role="toolbar" aria-label="Show publications by type">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">All <span class="count"
+              id="count-all"></span></button>
+          <button class="filter" type="button" data-filter="journal" aria-pressed="false">Journal articles <span
+              class="count" id="count-journal"></span></button>
+          <button class="filter" type="button" data-filter="conference" aria-pressed="false">Conferences &amp;
+            workshops <span class="count" id="count-conference"></span></button>
+          <button class="filter" type="button" data-filter="poster" aria-pressed="false">Posters <span class="count"
+              id="count-poster"></span></button>
+          <button class="filter" type="button" data-filter="review" aria-pressed="false">In progress <span
+              class="count" id="count-review"></span></button>
+        </div>
+        <p class="sr-only" id="pub-status" aria-live="polite"></p>
+        <div class="pubs" id="publications-list" aria-busy="true">
+          <noscript>
+            <p class="detail">The publication list needs JavaScript. The <a href="dilshadur-cv.pdf">PDF</a> has the full
+              list.</p>
+          </noscript>
+        </div>
       </section>
 
       <!-- Honors -->
