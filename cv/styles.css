@@ -417,6 +417,30 @@ html[data-theme="dark"] .tool--round .i-moon {
   animation: settle 0.8s var(--ease-out) both;
 }
 
+/* a whisper of paper: fine grain under the ink, never on top of it */
+.sheet {
+  position: relative;
+  isolation: isolate;
+}
+
+.sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.37  0 0 0 0 0.30  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  background-size: 180px 180px;
+  opacity: 0.055;
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .sheet::before {
+  opacity: 0.03;
+  mix-blend-mode: screen;
+  filter: invert(1);
+}
+
 @keyframes settle {
   from {
     opacity: 0;
@@ -596,7 +620,8 @@ html[data-theme="dark"] .tool--round .i-moon {
   min-width: 0;
 }
 
-.title {
+.title,
+h4.title {
   font-family: var(--serif);
   font-size: 17.5px;
   font-weight: 500;
@@ -669,7 +694,7 @@ p.what em {
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 22px;
+  gap: 6px 14px;
   margin: 0 0 30px var(--gutter-w);
   padding-bottom: 16px;
   border-bottom: 1px solid var(--rule);
@@ -970,6 +995,26 @@ p.what em {
   }
 }
 
+@media (pointer: coarse) {
+  .tool {
+    height: 40px;
+    min-width: 40px;
+  }
+
+  .home {
+    width: 40px;
+    height: 40px;
+  }
+
+  .filter {
+    padding-top: 12px;
+  }
+
+  .contents__panel a {
+    padding: 12px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1083,6 +1128,10 @@ p.what em {
     border-radius: 0;
     box-shadow: none;
     animation: none !important;
+  }
+
+  .sheet::before {
+    content: none;
   }
 
   /* links stay live in the PDF: navy, without underlines */

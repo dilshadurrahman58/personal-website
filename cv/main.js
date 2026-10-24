@@ -61,6 +61,10 @@ contentsPanel?.addEventListener("click", (e) => {
   if (e.target.closest("a")) setContents(false);
 });
 
+document.querySelector(".contents")?.addEventListener("focusout", (e) => {
+  if (!e.currentTarget.contains(e.relatedTarget)) setContents(false);
+});
+
 document.addEventListener("click", (e) => {
   if (contentsPanel?.hidden) return;
   if (!e.target.closest(".contents")) setContents(false);
@@ -123,7 +127,12 @@ const SUMMARY = {
 const escapeHtml = (s) =>
   s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const strong = (s) => escapeHtml(s).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-const italic = (s) => escapeHtml(s).replace(/\*\*(.*?)\*\*/g, "<i>$1</i>");
+const italic = (s) =>
+  escapeHtml(s)
+    .replace(/\*\*(.*?)\*\*/g, "<i>$1</i>")
+    .replace(/, ((?:19|20)\d{2})\b/g, ",\u00a0$1")
+    // short abbreviations such as (IEEE TVCG) never split across lines
+    .replace(/\(([^()]{1,16})\)/g, (m) => m.replace(/ /g, "\u00a0"));
 const yearOf = (pub) => {
   const years = (pub.venue.match(/\b(?:19|20)\d{2}\b/g) || []).map(Number);
   return years.length ? Math.max(...years) : 0;
@@ -157,6 +166,22 @@ const pubHtml = (pub, number) => {
 const pubList = document.getElementById("publications-list");
 const pubStatus = document.getElementById("pub-status");
 const filterButtons = Array.from(document.querySelectorAll(".filter"));
+const filtersRow = document.querySelector(".filters");
+
+const keepFiltersInView = () => {
+  if (!filtersRow) return;
+  const bar = document.getElementById("reader")?.offsetHeight || 0;
+  const top = filtersRow.getBoundingClientRect().top;
+  if (top < bar || top > window.innerHeight * 0.6) {
+    window.scrollTo({ top: window.scrollY + top - bar - 24, behavior: reduceMotion ? "instant" : "smooth" });
+  }
+};
+
+// noticed so a late re-anchor never fights a reader who has already moved
+let readerMoved = false;
+["wheel", "touchmove", "keydown"].forEach((type) =>
+  window.addEventListener(type, () => (readerMoved = true), { once: true, passive: true }),
+);
 let publications = [];
 let currentFilter = "all";
 
@@ -197,14 +222,22 @@ fetch("data.json")
     });
     render("all");
 
+    // a link straight to a part (#talks) lands on it once the list has pushed things down
+    const target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target && !readerMoved) target.scrollIntoView({ behavior: "instant", block: "start" });
+
     filterButtons.forEach((btn) =>
       btn.addEventListener("click", () => {
         const next = btn.dataset.filter;
         if (next === currentFilter) return;
-        if (reduceMotion) return render(next);
+        const swapList = () => {
+          render(next);
+          keepFiltersInView();
+        };
+        if (reduceMotion) return swapList();
         pubList.classList.add("is-switching");
         setTimeout(() => {
-          render(next);
+          swapList();
           requestAnimationFrame(() => pubList.classList.remove("is-switching"));
         }, 180);
       }),
