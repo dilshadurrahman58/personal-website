@@ -418,13 +418,21 @@ html[data-theme="dark"] .btn--solid:hover {
   transform: rotate(-20deg);
 }
 
-.theme-toggle .i-moon,
-html[data-theme="dark"] .theme-toggle .i-sun {
+/* the icon names the theme a press brings: a moon by day, a sun by night */
+.theme-toggle .i-sun,
+html[data-theme="dark"] .theme-toggle .i-moon {
   display: none;
 }
 
-html[data-theme="dark"] .theme-toggle .i-moon {
+html[data-theme="dark"] .theme-toggle .i-sun {
   display: block;
+}
+
+@media (pointer: coarse) {
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* ── Masthead ─────────────────────────────────────────────────── */

@@ -1118,6 +1118,15 @@
   );
 
   // ── Theme ────────────────────────────────────────────────────
+  // the switch is named for where a press leads, as its icon shows
+  const nameThemeToggle = () => {
+    const label = root.dataset.theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
+    $("#theme-toggle").setAttribute("aria-label", label);
+    $("#theme-toggle").title = label;
+  };
+  nameThemeToggle();
+  new MutationObserver(nameThemeToggle).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+
   $("#theme-toggle").addEventListener("click", (e) => {
     const next = root.dataset.theme === "dark" ? "light" : "dark";
     const apply = () => {

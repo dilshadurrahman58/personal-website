@@ -12,7 +12,17 @@ const applyTheme = (theme) => {
   if (themeMeta) themeMeta.setAttribute("content", theme === "dark" ? "#0B0C0E" : "#EEECE6");
 };
 
-document.getElementById("theme-toggle")?.addEventListener("click", () => {
+// the switch is named for where a press leads, as its icon shows
+const themeToggle = document.getElementById("theme-toggle");
+const nameThemeToggle = () => {
+  const label = root.getAttribute("data-theme") === "dark" ? "Switch to light theme" : "Switch to dark theme";
+  themeToggle?.setAttribute("aria-label", label);
+  if (themeToggle) themeToggle.title = label;
+};
+nameThemeToggle();
+new MutationObserver(nameThemeToggle).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+
+themeToggle?.addEventListener("click", () => {
   const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
   try {
     localStorage.setItem("theme", next);

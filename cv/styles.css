@@ -246,7 +246,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  height: 34px;
+  height: 36px;
   padding: 0 12px;
   border: 1px solid transparent;
   border-radius: 999px;
@@ -263,7 +263,7 @@ a {
   height: 16px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -275,7 +275,7 @@ a {
 }
 
 .tool--round {
-  width: 34px;
+  width: 36px;
   padding: 0;
   justify-content: center;
   border-color: var(--rule-strong);
@@ -285,12 +285,13 @@ a {
   transform: rotate(-20deg);
 }
 
-.tool--round .i-moon,
-html[data-theme="dark"] .tool--round .i-sun {
+/* the icon names the theme a press brings: a moon by day, a sun by night */
+.tool--round .i-sun,
+html[data-theme="dark"] .tool--round .i-moon {
   display: none;
 }
 
-html[data-theme="dark"] .tool--round .i-moon {
+html[data-theme="dark"] .tool--round .i-sun {
   display: block;
 }
 
@@ -988,7 +989,7 @@ p.what em {
   }
 
   .tool {
-    width: 34px;
+    width: 36px;
     padding: 0;
     justify-content: center;
     border-color: var(--rule-strong);

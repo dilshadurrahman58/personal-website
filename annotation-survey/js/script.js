@@ -1256,6 +1256,15 @@
   });
 
   // ── Theme ─────────────────────────────────────────────────────
+  // the switch is named for where a press leads, as its icon shows
+  const nameThemeToggle = () => {
+    const label = document.documentElement.dataset.theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
+    $("#theme-toggle").setAttribute("aria-label", label);
+    $("#theme-toggle").title = label;
+  };
+  nameThemeToggle();
+  new MutationObserver(nameThemeToggle).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
   $("#theme-toggle").addEventListener("click", (e) => {
     const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     const apply = () => {
