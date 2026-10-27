@@ -2612,27 +2612,68 @@ html[data-theme="dark"] .theme-toggle .i-moon {
   min-width: 0;
 }
 
+/* the way home: a labeled pill, so it reads as "back to dilshadur.com" */
 .home {
-  display: grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   flex: none;
-  width: 30px;
-  height: 30px;
+  height: 34px;
+  padding: 0 13px 0 7px;
+  border: 1px solid var(--line);
   border-radius: 999px;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  white-space: nowrap;
   outline-offset: 3px;
-  transition: transform 0.4s var(--ease-out), box-shadow 0.2s;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.home__back {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.35s var(--ease-out);
 }
 
 .home img {
   display: block;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border-radius: 999px;
 }
 
 .home:hover {
+  color: var(--ink);
+  border-color: var(--ink-3);
+  background: var(--accent-soft);
+}
+
+.home:hover .home__back {
   transform: translateX(-2px);
-  box-shadow: 0 0 0 1px var(--line);
+}
+
+@media (pointer: coarse) {
+  .home {
+    height: 40px;
+  }
+}
+
+/* phones: the pill keeps its label; the page title below names the project */
+@media (max-width: 560px) {
+  .bar__start .mark span {
+    display: none;
+  }
 }
 
 .bar__div {
