@@ -99,7 +99,7 @@ if (pdf.getPageCount() < 3) {
 
 pdf.setTitle("Md Dilshadur Rahman, Curriculum Vitae", { showInWindowTitleBar: true });
 pdf.setAuthor("Md Dilshadur Rahman");
-pdf.setSubject("Curriculum vitae of Md Dilshadur Rahman, postdoctoral researcher in visualization and human-computer interaction");
+pdf.setSubject("Curriculum vitae of Md Dilshadur Rahman, postdoctoral research fellow in visualization and human-computer interaction");
 pdf.setKeywords(["visualization", "human-computer interaction", "annotation", "curriculum vitae"]);
 pdf.setCreator("dilshadur.com/cv");
 pdf.setProducer("dilshadur.com/cv");
